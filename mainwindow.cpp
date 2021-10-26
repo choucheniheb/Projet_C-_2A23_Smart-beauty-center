@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QPixmap pix("C:/Users/HP/Desktop/image/makeup.jpg");
      QPixmap pix1("C:/Users/HP/Desktop/image/cosmetics.jpg");
-       QPixmap pix2("C:/Users/HP/Desktop/image/k.jpg");
+       QPixmap pix2("C:/Users/HP/Desktop/image/bc.jpg");
        QPixmap pix3("C:/Users/HP/Desktop/image/k.jpg");
        QPixmap pix4("C:/Users/HP/Desktop/image/parfums.jpg");
     // background1
@@ -44,8 +44,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
 
-
-}
