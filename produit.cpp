@@ -54,7 +54,7 @@ void produit::setdate_expiration(QString date_expiration){this -> date_expiratio
 //fonction ajouter
 
 bool produit::ajouter()
-{ bool test=false;
+{
     QSqlQuery query;
     QString res = QString::number(code_a_barre);
 
@@ -64,8 +64,8 @@ bool produit::ajouter()
     query.bindValue(":prix_promo",prix_promo);
     query.bindValue(":date_expiration",date_expiration);
     query.bindValue(":nbre_produit",nbre_produit);
-    query.exec();
-return test;
+    return query.exec();
+
 }
 //fonction afficher
 QSqlQueryModel * produit::afficher()
@@ -90,13 +90,12 @@ bool produit::supprimer(int code_a_barre)
     return  query.exec();
 }
 //fonction modifier
-bool produit::modifier(float prix_uni)
+bool produit::modifier(int code_a_barre)
 {
     QSqlQuery query;
-    QString res = QString::number(prix_uni);
+    QString res = QString::number(code_a_barre);
     query.prepare("UPDATE caise SET num_produit= :num_produit,code_a_barre= :code_a_barre,nom_produit= :nom_produit,prix_uni= :prix_uni,prix_promo= :prix_promo, date_expiration= :date_expiration,nbre_produit= :nbre_produit WHERE num_facture = :num_f");
     query.bindValue(":code_a_barre",res);
-    query.bindValue(":code_a_barre",code_a_barre);
     query.bindValue(":nom_produit",nom_produit);
     query.bindValue(":prix_uni",prix_uni);
     query.bindValue(":prix_promo",prix_promo);

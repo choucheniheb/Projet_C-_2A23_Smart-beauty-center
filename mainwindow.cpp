@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "produit.h"
 #include<QPixmap>
+#include<QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
        QPixmap pix4("C:/Users/HP/Desktop/image/parfums.jpg");
        QPixmap pix5("C:/Users/HP/Desktop/image/aa1.png");
        QPixmap pix6("C:/Users/HP/Desktop/image/ma.jpg");
+       //QPixmap pix7("C:/Users/HP/Desktop/image/ma.jpg");
     // background1
        int w = ui->label_bc->width();
     int h = ui->label_bc->height();
@@ -35,7 +38,9 @@ MainWindow::MainWindow(QWidget *parent) :
  //
  int w6 = ui->label_mq1->width();
 int h6 = ui->label_mq1->height();
-
+//
+//int w7 = ui->label_mq1->width();
+//int h7 = ui->label_mq1->height();
     //cos
     ui->label_cos->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
     //mq
@@ -50,72 +55,14 @@ int h6 = ui->label_mq1->height();
     ui->label_aa->setPixmap(pix5.scaled(w5,h5,Qt::KeepAspectRatio));
     //
      ui->label_mq1->setPixmap(pix6.scaled(w6,h6,Qt::KeepAspectRatio));
+     //
+    // ui->label_10->setPixmap(pix7.scaled(w7,h7,Qt::KeepAspectRatio));
 }
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-/*
-void MainWindow::on_pushButtonAjouter_clicked()
-{
-    //recuperation
-    int num_f=ui->lineEdit_num_fact->text().toInt();
-    //QDate date=ui->dateEdit_date;
-    QDate date;
-    float prix_u=ui->lineEdit_prix_unitare->text().toFloat();
-    int quntiter=ui->lineEdit_quantite->text().toUInt();
-    float prix_t=ui->lineEdit_prix_totale->text().toFloat();
-    caise c(num_f,date,prix_u,quntiter,prix_t);//instancer
-    bool test=c.ajouter();
 
-    if(test)
-    {
-        //Refresh affichage
-        ui->tableViewAficherFacture->setModel(c.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
-    }else
-    {
-        QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
-    }
-}
-void MainWindow::on_pushButtonSupprimer_clicked()
-{
-    int num_fact=ui->lineEdit_num_fact_sup->text().toUInt();
-    bool test1=c.supprimer(num_fact);
-    if(test1)
-    {
-        //Refresh affichage
-        ui->tableViewAficherFacture->setModel(c.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
-    }else
-    {
-        QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("supprimer non effectuer"),QObject::tr("click cancel to exit"));
-    }
-}
-void MainWindow::on_pushButtonModifier_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(1);
-}
-void MainWindow::on_pushButtonModifier2_clicked()
-{
-    //modifier les valeur de class
-    //c.setdate(ui->dateTimeEdit_modifier->text().to)
-    c.setprix_unitair(ui->lineEdit_prix_u_modifier->text().toFloat());
-    c.setquntiter(ui->lineEdit_quntiter_modifier->text().toUInt());
-    c.setprix_totale(ui->lineEdit_prix_t_modifier->text().toFloat());
-
-    //modifier requete************
-    int num_fact=ui->lineEdit_num_fact_modifier->text().toUInt();
-    bool test2=c.modifier(num_fact);
-    if(test2)
-    {
-        //Refresh affichage
-        ui->tableViewAficherFacture->setModel(c.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
-    }else
-    {
-
-*/
 
 void MainWindow::on_aj_button_clicked()
 {
@@ -130,10 +77,70 @@ void MainWindow::on_aj_button_clicked()
    QString categorie=ui->categorie_edit->text();
    QString date_expiration=ui->date_edit->text();
    int nbre_produit=ui-> nbreEdit->text().toInt();
+//
+   if (prix_uni < prix_promo)
+   {
+       QMessageBox::information(this,"ajouter produit","ajouter non effectuer");
+   }
+   else
+   {
+        QMessageBox::information(this,"ajouter produit","ajouter effectuer");
+   }
 
-/*produit p();
-produit p (code_a_barre,nom_produit,prix_uni ,prix_promo,categorie, date_expiration, nbre_produit);
-bool test=p.ajouter();*/
-if (prix)
+   //
+
+produit (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expiration, nbre_produit);
+bool test=p.ajouter();
+ if(test)
+{
+    //Refresh affichage
+    ui->tableViewproduit->setModel(p.afficher());
+    QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
+}else
+{
+    QMessageBox::critical(nullptr,QObject::tr(" non ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
+}
+}
+void MainWindow::on_pushButtonSupprimer_clicked()
+{
+int code_a_barre=ui->lineEditcodeabarresupprimer->text().toUInt();
+bool test1=p.supprimer(code_a_barre);
+if(test1)
+{
+    //Refresh affichage
+    ui->tableViewproduit->setModel(p.afficher());
+    QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
+}else
+{
+    QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("supprimer non effectuer"),QObject::tr("click cancel to exit"));
+}
+}
+void MainWindow::on_pushButtonModifier_clicked()
+{
+ui->stackedWidget->setCurrentIndex(1);
+}
+void MainWindow::on_pushButtonModifier2_clicked()
+{
+//modifier les valeur de class
+//c.setdate(ui->dateTimeEdit_modifier->text().to)
+p.setprix_uni(ui->prixu_edit_1->text().toFloat());
+p.setprix_promo(ui->prixp_edit_1->text().toFloat());
+p.setcategorie(ui->categorie_edit_1->text());
+p.setdate_expiration(ui->date_edit_1->text());
+p.setnbre_produit(ui->nbreEdit_1->text().toInt());
+
+
+//modifier requete************
+int code_a_barre=ui->codeabarrem->text().toInt();
+bool test2=p.modifier(code_a_barre);
+if(test2)
+{
+    //Refresh affichage
+    ui->tableViewproduit->setModel(p.afficher());
+    QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
+}else
+{
+    QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("modifier non effectuer"),QObject::tr("click cancel to exit"));
+        }
 
 }
