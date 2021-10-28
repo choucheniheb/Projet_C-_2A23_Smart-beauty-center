@@ -24,6 +24,13 @@ void on_pushButtonSupprimer_clicked();
 
 void on_pushButtonModifier_clicked();
 void on_pushButtonModifier2_clicked();
+
+void on_makeup_bottom_clicked();
+
+void on_cosmetiques_bottom_clicked();
+
+void on_parfums_bottom_clicked();
+
 private:
     Ui::MainWindow *ui;
 produit p;

@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
        QPixmap pix3("C:/Users/HP/Desktop/image/k.jpg");
        QPixmap pix4("C:/Users/HP/Desktop/image/parfums.jpg");
        QPixmap pix5("C:/Users/HP/Desktop/image/aa1.png");
-       QPixmap pix6("C:/Users/HP/Desktop/image/ma.jpg");
+       QPixmap pix6("C:/Users/HP/Desktop/image/mqqq.png");
        //QPixmap pix7("C:/Users/HP/Desktop/image/ma.jpg");
     // background1
        int w = ui->label_bc->width();
@@ -143,4 +143,16 @@ if(test2)
     QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("modifier non effectuer"),QObject::tr("click cancel to exit"));
         }
 
+}
+void MainWindow::on_makeup_bottom_clicked()
+{
+    ui->stackedWidget2->setCurrentIndex(1);
+}
+void MainWindow::on_cosmetiques_bottom_clicked()
+{
+    ui->stackedWidget2->setCurrentIndex(2);
+}
+void MainWindow::on_parfums_bottom_clicked()
+{
+    ui->stackedWidget2->setCurrentIndex(3);
 }
