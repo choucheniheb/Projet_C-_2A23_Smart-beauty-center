@@ -78,13 +78,14 @@ void MainWindow::on_aj_button_clicked()
    QString date_expiration=ui->date_edit->text();
    int nbre_produit=ui-> nbreEdit->text().toInt();
 //
-   if (prix_uni < prix_promo)
+   if ((prix_uni > prix_promo) && (categorie == "makeup" || categorie == "cosmetiques" || categorie == "parfums") && (nbre_produit != 0 || prix_uni != 0 ||  prix_promo != 0 || categorie != "" || code_a_barre != 0 || nom_produit != "" || date_expiration != ""))
    {
-       QMessageBox::information(this,"ajouter produit","ajouter non effectuer");
+       QMessageBox::information(this,"ajouter produit","ajouter effectuer");
    }
    else
+
    {
-        QMessageBox::information(this,"ajouter produit","ajouter effectuer");
+        QMessageBox::critical(this,"ajouter produit","ajouter non effectuer");
    }
 
    //
