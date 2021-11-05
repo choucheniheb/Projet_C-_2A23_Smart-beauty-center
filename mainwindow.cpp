@@ -49,7 +49,7 @@ void MainWindow::on_pushButtonAjouter_clicked()
     if(test)
     {
         //Refresh affichage
-        ui->tableViewAficherEmployers->setModel(e.afficher());
+        //ui->tableViewAficherEmployers->setModel(e.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajout effectue\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -63,14 +63,14 @@ void MainWindow::on_pushButtonSupprimer_clicked()
     if(test1)
     {
         //Refresh affichage
-        ui->tableViewAficherEmployers->setModel(e.afficher());
+        //ui->tableViewAficherEmployers->setModel(e.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("supprimer non effectuer"),QObject::tr("click cancel to exit"));
     }
 }
-/*void MainWindow::on_pushButtonModifier_clicked()
+void MainWindow::on_pushButtonModifier_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -78,20 +78,24 @@ void MainWindow::on_pushButtonModifier2_clicked()
 {
     //modifier les valeur de class
     //c.setdate(ui->dateTimeEdit_modifier->text().to)
-    c.setprix_unitair(ui->lineEdit_prix_u_modifier->text().toFloat());
-    c.setquntiter(ui->lineEdit_quntiter_modifier->text().toUInt());
-    c.setprix_totale(ui->lineEdit_prix_t_modifier->text().toFloat());
+    e.setnom(ui->lineEdit_nom_e_modifier->text());
+    e.setprenom(ui->lineEdit_prenom_e_modifier->text());
+    e.setdate_naissance(ui->lineEdit_date_naissance_e_modifier->date());
+    e.setadresse(ui->lineEdit_adresse_e_modifier->text());
+    e.settelephone(ui->lineEdit_telephone_e_modifier->text().toInt());
+    e.settype(ui->lineEdit_type_modifier->text());
+    e.setspecialite(ui->lineEdit_specialite_modifier->text());
 
     //modifier requete************
-    int num_fact=ui->lineEdit_num_fact_modifier->text().toUInt();
-    bool test2=c.modifier(num_fact);
+    int id_e=ui->lineEdit_id_e_modifier->text().toUInt();
+    bool test2=e.modifier(id_e);
     if(test2)
     {
         //Refresh affichage
-        ui->tableViewAficherFacture->setModel(c.afficher());
+        ui->tableViewAficherEmployers->setModel(e.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("modifier non effectuer"),QObject::tr("click cancel to exit"));
     }
-}*/
+}

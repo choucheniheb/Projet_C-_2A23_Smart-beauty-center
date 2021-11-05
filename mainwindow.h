@@ -17,6 +17,9 @@ public:
 private slots:
     void on_pushButtonAjouter_clicked();
     void on_pushButtonSupprimer_clicked();
+    void on_pushButtonModifier_clicked();
+    void on_pushButtonModifier2_clicked();
+
 private:
     Ui::MainWindow *ui;
     Employers e;

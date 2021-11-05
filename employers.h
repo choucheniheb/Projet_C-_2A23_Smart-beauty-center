@@ -52,6 +52,7 @@ public:
     void setid(int i){id=i;}
     void setnom(QString n){nom=n;}
     void setprenom(QString p){prenom=p;}
+    void setdate_naissance(QDate d){date_naissance =d;}
     void setadresse(QString a){adresse=a;}
     void settelephone(int t){telephone=t;}
     void settype(QString y){type=y;}

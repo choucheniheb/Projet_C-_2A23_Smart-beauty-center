@@ -20,14 +20,16 @@ bool Employers::ajouter()
 {
     QSqlQuery query;
     QString res = QString::number(id);
+    QString res1 = QString::number(telephone);
+    //QString res2 = QString::number(date);
 
-    query.prepare("insert into employes(id,nom,prenom, date_naissance, adresse,telephone,type,specialite) values(:id,:nom,:prenom, :date_naissance, :adresse,:telephone,:type,:specialite)");
-    query.bindValue(":id",res);
+    query.prepare("insert into EMPLOYERS(id_e,nom_e,prenom_e, date_naissance_e, adresse_e,telephone_e,type,specialite)"" values(:id_e,:nom,:prenom, :date_naissance, :adresse,:telephone,:type,:specialite)");
+    query.bindValue(":id_e",res);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
     query.bindValue(":date_naissance",date_naissance);
     query.bindValue(":adresse",adresse);
-    query.bindValue(":telephone",telephone);
+    query.bindValue(":telephone",res1);
     query.bindValue(":type",type);
     query.bindValue(":specialite",specialite);
     return query.exec();
@@ -43,12 +45,13 @@ QSqlQueryModel * Employers::afficher()
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
     model->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
     model->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
+    return model;
 }
-bool Employers::supprimer(int)
+bool Employers::supprimer(int id)
 {
     QSqlQuery query;
     QString res = QString::number(id);
-    query.prepare("delete from employes where id= :id");
+    query.prepare("delete from EMPLOYERS where ID_E= :id");
     query.bindValue(":id",res);
     return  query.exec();
 }
@@ -57,13 +60,15 @@ bool Employers::modifier(int id)
 {
     QSqlQuery query;
     QString res = QString::number(id);
-    query.prepare("UPDATE employes SET nom= :nom, prenom= :prenom,date_naissance= :date_naissance,adresse= :adresse,telephone= :telephone, type= :type, specialite= :specialite WHERE id = :id");
+    QString res1 = QString::number(telephone);
+    //QString res2 = QString::number(date);
+    query.prepare("UPDATE EMPLOYERS SET nom_e= :nom, prenom_e= :prenom,date_naissance_e= :date_naissance_e,adresse_e= :adresse,telephone_e= :telephone_e, type= :type, specialite= :specialite WHERE id_e = :id");
     query.bindValue(":id",res);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
     query.bindValue(":date_naissance",date_naissance);
     query.bindValue(":adresse",adresse);
-    query.bindValue(":telephone",telephone);
+    query.bindValue(":telephone",res1);
     query.bindValue(":type",type);
     query.bindValue(":specialite",specialite);
     return query.exec();

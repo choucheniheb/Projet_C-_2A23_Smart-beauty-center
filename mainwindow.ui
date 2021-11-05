@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_16">
      <attribute name="title">
@@ -359,7 +359,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QStackedWidget" name="stackedWidget_7">
+     <widget class="QStackedWidget" name="stackedWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -369,7 +369,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_16">
        <widget class="QLabel" name="label_84">
@@ -385,7 +385,7 @@
          <string>ID</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_61">
+       <widget class="QLineEdit" name="lineEdit_id_e_modifier">
         <property name="geometry">
          <rect>
           <x>250</x>
@@ -408,7 +408,7 @@
          <string>Retour</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_38">
+       <widget class="QPushButton" name="pushButtonModifier">
         <property name="geometry">
          <rect>
           <x>420</x>
@@ -449,7 +449,7 @@
          <string>Téléphone</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_62">
+       <widget class="QLineEdit" name="lineEdit_adresse_e_modifier">
         <property name="geometry">
          <rect>
           <x>390</x>
@@ -459,7 +459,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_63">
+       <widget class="QLineEdit" name="lineEdit_nom_e_modifier">
         <property name="geometry">
          <rect>
           <x>160</x>
@@ -482,7 +482,7 @@
          <string>Spécialité</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_64">
+       <widget class="QLineEdit" name="lineEdit_prenom_e_modifier">
         <property name="geometry">
          <rect>
           <x>160</x>
@@ -505,7 +505,7 @@
          <string>Prenom</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_65">
+       <widget class="QLineEdit" name="lineEdit_telephone_e_modifier">
         <property name="geometry">
          <rect>
           <x>390</x>
@@ -528,7 +528,7 @@
          <string>Adresse</string>
         </property>
        </widget>
-       <widget class="QDateEdit" name="dateEdit_8">
+       <widget class="QDateEdit" name="lineEdit_date_naissance_e_modifier">
         <property name="geometry">
          <rect>
           <x>160</x>
@@ -564,7 +564,7 @@
          <string>Date_naissance</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonModifier">
+       <widget class="QPushButton" name="pushButtonModifier2">
         <property name="geometry">
          <rect>
           <x>410</x>
@@ -590,23 +590,23 @@
          <string>Retour</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox_7">
-        <property name="geometry">
-         <rect>
-          <x>270</x>
-          <y>230</y>
-          <width>131</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_8">
+       <widget class="QLineEdit" name="lineEdit_type_modifier">
         <property name="geometry">
          <rect>
           <x>390</x>
           <y>170</y>
-          <width>111</width>
-          <height>22</height>
+          <width>113</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_specialite_modifier">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>230</y>
+          <width>113</width>
+          <height>20</height>
          </rect>
         </property>
        </widget>
