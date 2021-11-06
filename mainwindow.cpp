@@ -77,20 +77,8 @@ void MainWindow::on_aj_button_clicked()
    QString categorie=ui->categorie_edit->text();
    QString date_expiration=ui->date_edit->text();
    int nbre_produit=ui-> nbreEdit->text().toInt();
-//
-   if ((prix_uni > prix_promo) && (categorie == "makeup" || categorie == "cosmetiques" || categorie == "parfums") && (nbre_produit != 0 || prix_uni != 0 ||  prix_promo != 0 || categorie != "" || code_a_barre != 0 || nom_produit != "" || date_expiration != ""))
-   {
-       QMessageBox::information(this,"ajouter produit","ajouter effectuer");
-   }
-   else
 
-   {
-        QMessageBox::critical(this,"ajouter produit","ajouter non effectuer");
-   }
-
-   //
-
-produit (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expiration, nbre_produit);
+produit p (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expiration, nbre_produit);
 bool test=p.ajouter();
  if(test)
 {
@@ -104,7 +92,7 @@ bool test=p.ajouter();
 }
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-int code_a_barre=ui->lineEditcodeabarresupprimer->text().toUInt();
+int code_a_barre=ui->lineEditcodeabarresupprimer->text().toInt();
 bool test1=p.supprimer(code_a_barre);
 if(test1)
 {
@@ -126,9 +114,7 @@ void MainWindow::on_pushButtonModifier2_clicked()
 //c.setdate(ui->dateTimeEdit_modifier->text().to)
 p.setprix_uni(ui->prixu_edit_1->text().toFloat());
 p.setprix_promo(ui->prixp_edit_1->text().toFloat());
-p.setcategorie(ui->categorie_edit_1->text());
-p.setdate_expiration(ui->date_edit_1->text());
-p.setnbre_produit(ui->nbreEdit_1->text().toInt());
+p.setquantite_produit(ui->nbreEdit_1->text().toInt());
 
 
 //modifier requete************

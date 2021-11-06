@@ -12,26 +12,26 @@ class produit
 
 public:
     produit();
-    produit (int code_a_barre, QString nom_produit,float prix_uni ,float prix_promo,QString categorie,QString date_expiration,int nbre_produit);
+    produit (int code_a_barre, QString nom_p,float prix_uni ,float prix_promo,QString categorie,QString date_expiration,int quantite_produit);
 // get
 
-    int getnbre_produit();
+    int getquantite_produit();
     float getprix_uni();
     float getprix_promo();
     QString getcategorie();
     int getcode_a_barre();
-    QString getnom_produit();
+    QString getnom_p();
     QString getdate_expiration();
     // bool getstock();
 
     // set
 
-void setnbre_produit(int);
+void setquantite_produit(int);
 void setprix_uni(float);
 void setprix_promo(float);
 void setcategorie(QString);
 void setcode_a_barre(int);
-void setnom_produit(QString);
+void setnom_p(QString);
 void setdate_expiration(QString);
 //void setstock(bool);
 
@@ -43,11 +43,11 @@ void setdate_expiration(QString);
 
 private:
 
-    int nbre_produit;
+    int quantite_produit;
     float prix_uni , prix_promo;
     QString categorie;
     int code_a_barre;
-    QString nom_produit;
+    QString nom_p;
     QString date_expiration;
 
 };
