@@ -19,6 +19,7 @@ this->specialite=specialite;
 bool Employers::ajouter()
 {
    //ariiiiiiiiiiiiiij
+    //linndaaa
     QSqlQuery query;
     QString res = QString::number(id);
     QString res1 = QString::number(telephone);
