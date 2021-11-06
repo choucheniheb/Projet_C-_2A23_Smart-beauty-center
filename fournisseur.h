@@ -27,7 +27,7 @@ public:
     // cRuds
     bool ajouter();
     QSqlQueryModel    *   afficher();
-    bool modifier(float);
+    bool modifier(int);
     bool supprimer(int);
 
 

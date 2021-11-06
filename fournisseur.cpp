@@ -31,12 +31,14 @@ void fournisseur::setproduit_vendu(QString produit_vendu){this->produit_vendu=pr
 bool fournisseur::ajouter()
 {
     QSqlQuery query;
-    QString res = QString::number(num_f);
+    QString res = QString::number(code_f);
+    QString res2 = QString::number(num_f);
+    QString res3 = QString::number(prix_gros);
 
-    query.prepare("insert into caise(int num_f,int code_f,float prix_gros,QString nom_f,QString produit_vendu) values(:num_f,:code_f,:prix_gros,:nom_f,:produit_vendu)");
-    query.bindValue(":num_f",res);
-    query.bindValue(":code_f",code_f);
-    query.bindValue(":prix_gros",prix_gros);
+    query.prepare("insert into fournisseur( numero_f, code_f, prix_gros, nom_f,produit_vendu) values(:num_f,:code_f,:prix_gros,:nom_f,:produit_vendu)");
+    query.bindValue(":code_f",res);
+    query.bindValue(":num_f",res2);
+    query.bindValue(":prix_gros",res3);
     query.bindValue(":nom_f",nom_f);
     query.bindValue(":produit_vendu",produit_vendu);
     return query.exec();
@@ -51,26 +53,29 @@ QSqlQueryModel * fournisseur::afficher()
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_gros"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("nom_f"));
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("produit_vendu"));
+    return model;
 }
 //fonction supprimer
-bool fournisseur::supprimer(int num_f)
+bool fournisseur::supprimer(int code_f)
 {
     QSqlQuery query;
-    QString res = QString::number(num_f);
-    query.prepare("delete from caise where id= :id");
-    query.bindValue(":id",res);
+    QString res = QString::number(code_f);
+    query.prepare("delete from fournisseur where code_f= :code_f");
+    query.bindValue(":code_f",res);
     return  query.exec();
 }
 //fonction modifier
-bool fournisseur::modifier(float prix_gros)
+bool fournisseur::modifier(int code_f)
 {
     QSqlQuery query;
-    QString res = QString::number(num_f);
-    query.prepare("UPDATE caise SET num_fournisseur= :num_f,code_f= :code_f,prix_gros= :prix_gros, nom_f= :nom_f,produit_vendu= :produit_vendu WHERE num_f = :num_f");
-    query.bindValue(":id",res);
-    query.bindValue(":code_f",code_f);
-    query.bindValue(":prix_gros",prix_gros);
-    query.bindValue(":nom_f",nom_f);
+    QString res = QString::number(code_f);
+    QString res2 = QString::number(num_f);
+    QString res3 = QString::number(prix_gros);
+    query.prepare("UPDATE fournisseur SET numero_f= :num_f,prix_gros= :prix_gros,produit_vendu= :produit_vendu WHERE code_f = :code_f");
+    query.bindValue(":code_f",res);
+    query.bindValue(":num_f",res2);
+    query.bindValue(":prix_gros",res3);
+
     query.bindValue(":produit_vendu",produit_vendu);
     return query.exec();
 }

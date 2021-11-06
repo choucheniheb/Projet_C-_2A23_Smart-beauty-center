@@ -73,7 +73,7 @@ void MainWindow::on_pushButton_ajouter_clicked()
 }
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-    int num_f=ui->lineEdit_num_f_sup->text().toUInt();
+    int num_f=ui->lineEdit_num_f_sup->text().toInt();
     bool test1=f.supprimer(num_f);
     if(test1)
     {
