@@ -1,20 +1,24 @@
 #include "service.h"
 #include <QSqlQuery>
 
-Service:: Service(QString nom_s,QString offre,QString date_offre, float prix_s, float prix_offre , int code , bool disponibilite)
+
+
+Service::Service (){}
+
+Service::Service(QString nom_s,QString offre,QDate date_offre, float prix_s, float prix_offre , int code_s , bool disponibilite)
 {
 
     this->nom_s = nom_s;
 
     this->offre  = offre;
 
-    this->date_offre = date_offre;
+    this->date_offre = date_offre ;
 
     this->prix_s = prix_s;
 
     this->prix_offre = prix_offre;
 
-    this->code = code;
+    this->code_s = code_s;
 
     this->disponibilite = disponibilite;
 
@@ -24,18 +28,20 @@ Service:: Service(QString nom_s,QString offre,QString date_offre, float prix_s, 
 bool Service :: ajouter ()
 {
     QSqlQuery  query ;
-    QString res = QString :: number (code);
-
-    query.prepare("insert into service (  nom_s , offre , date_offre , prix_s , prix_offre , code , disponibilite)""values  (:nom_s , :offre ,:date_offre ,:prix_s ,:prix_offre ,:code ,:disponibilite) ");
+    QString res = QString :: number (code_s);
+    QString res1 = QString :: number (prix_s);
+    QString res2 = QString :: number (prix_offre);
+    QString res3 = QString :: number (disponibilite);
+    query.prepare("insert into services(code_s,nom_s,prix_s,disponibilite,offre,date_offre,prix_offre) values(:code_s,:nom_s,:prix_s,:disponibilite,:offre,:date_offre,:prix_offre)");
 
     //variables liees
-    query.bindValue(": nom_s",nom_s);
-    query.bindValue(": offre",offre);
-    query.bindValue(": date_offre",date_offre);
-    query.bindValue(": prix_s",prix_s);
-    query.bindValue(": prix_offre",prix_offre);
-    query.bindValue(": code ",res);
-    query.bindValue(": disponibilite",disponibilite);
+    query.bindValue(":code_s",res);
+    query.bindValue(":nom_s",nom_s);
+    query.bindValue(":prix_s",res1);
+    query.bindValue(":disponibilite",res3);
+    query.bindValue(":offre ",offre);
+    query.bindValue(":date_offre",date_offre);
+    query.bindValue(":prix_offre",res2);
 
     return query.exec();
 
@@ -51,21 +57,21 @@ QSqlQueryModel *  Service ::afficher ()
     model ->setHeaderData(2, Qt:: Horizontal ,QObject :: tr ("date_offre"));
     model ->setHeaderData(3, Qt:: Horizontal ,QObject :: tr ("prix_s"));
     model ->setHeaderData(4, Qt:: Horizontal ,QObject :: tr ("prix_offre"));
-    model ->setHeaderData(5, Qt:: Horizontal ,QObject :: tr ("code"));
+    model ->setHeaderData(5, Qt:: Horizontal ,QObject :: tr ("code_s"));
     model ->setHeaderData(6, Qt:: Horizontal ,QObject :: tr ("disponibilite"));
 
-
+  return model ;
 }
 
 
 
- bool  Service :: supprimer (int code)
+ bool  Service :: supprimer (int code_s)
 {
 
     QSqlQuery query ;
-    QString res = QString::number(code);
-    query.prepare("delete from service where code= :code");
-    query.bindValue(":code",res);
+    QString res = QString::number(code_s);
+    query.prepare("delete from services where code_s = :code_s");
+    query.bindValue(":code_s",res);
     return  query.exec();
 
 }
@@ -76,8 +82,8 @@ QSqlQueryModel *  Service ::afficher ()
 
      QSqlQuery query;
      QString res = QString::number(code);
-     query.prepare("UPDATE service SET nom_s = :nom_s, offre= :offre , date_offre= :date_offre ,prix_s = :prix_s , prix_offre =: prix_offre , disponibilite =: disponibilite  WHERE code = :code");
-     query.bindValue(":code",res);
+     query.prepare("UPDATE services SET nom_s= :nom_s, offre= :offre, date_offre= :date_offre, prix_s= :prix_s, prix_offre= :prix_offre, disponibilite= :disponibilite where code_s= :code_s");
+     query.bindValue(":code_s",res);
      query.bindValue(":nom_s",nom_s);
      query.bindValue(":offre",offre);
      query.bindValue(":date_offre",date_offre);
