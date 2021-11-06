@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include<QPixmap>
 #include <QString>
+#include<QDebug>
 #include <QDate>
 #include <QMessageBox>
 
@@ -10,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     //image****
     ui->setupUi(this);
     //affichage
-    //ui->tableView->setModel(c.afficher());
+    ui->tableViewAficherFacture->setModel(c.afficher());
         QPixmap pix("C:/Users/Ihebc/OneDrive/Desktop/gestion de caise/image/pix2.png");
         int w1 = ui->label_pic1->width();
         int h1 = ui->label_pic1->height();
@@ -40,10 +41,11 @@ void MainWindow::on_pushButtonAjouter_clicked()
     //recuperation
     int num_f=ui->lineEdit_num_fact->text().toInt();
     QDate date=ui->dateTimeEdit_ajouter->date();
-    float prix_u=ui->lineEdit_prix_unitare->text().toFloat();
-    int quntiter=ui->lineEdit_quantite->text().toInt();
+    qDebug()<<date;
+    float prix_u=ui->lineEdit_prix_unitaire->text().toFloat();
+    int quantite=ui->lineEdit_quantite->text().toInt();
     float prix_t=ui->lineEdit_prix_totale->text().toFloat();
-    caisse c(num_f,date,prix_u,quntiter,prix_t);//instancer
+    caisse c(num_f,date,prix_u,quantite,prix_t);//instancer
     bool test=c.ajouter();
 
     if(test)
@@ -61,7 +63,7 @@ void MainWindow::on_pushButtonAjouter_clicked()
 //supprimer********************
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-    int num_fact=ui->lineEdit_num_fact_sup->text().toUInt();
+    int num_fact=ui->lineEdit_num_fact_sup->text().toInt();
     bool test1=c.supprimer(num_fact);
     if(test1)
     {
@@ -83,13 +85,13 @@ void MainWindow::on_pushButtonModifier_clicked()
 void MainWindow::on_pushButtonModifier2_clicked()
 {
     //modifier les valeur de class
-    //c.setdate(ui->dateTimeEdit_modifier->text().to)
+    //c.setdate(ui->dateTimeEdit_modifier->date());
     c.setprix_unitair(ui->lineEdit_prix_u_modifier->text().toFloat());
-    c.setquantiter(ui->lineEdit_quntiter_modifier->text().toUInt());
+    c.setquantiter(ui->lineEdit_quntiter_modifier->text().toInt());
     c.setprix_totale(ui->lineEdit_prix_t_modifier->text().toFloat());
 
     //modifier requete************
-    int num_fact=ui->lineEdit_num_fact_modifier->text().toUInt();
+    int num_fact=ui->lineEdit_num_fact_modifier->text().toInt();
     bool test2=c.modifier(num_fact);
     ui->stackedWidget->setCurrentIndex(0);
     if(test2)

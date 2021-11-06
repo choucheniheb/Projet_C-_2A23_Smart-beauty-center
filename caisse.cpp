@@ -18,13 +18,16 @@ bool caisse::ajouter()
 {
     QSqlQuery query;
     QString res = QString::number(num_facture);
+    QString res2= QString::number(prix_unitaire);
+    QString res3= QString::number(quantiter);
+    QString res4= QString::number(prix_totale);
 
-    query.prepare("INSERT INTO caise(num_facture,date_D,prix_unitaire,quntiter,prix_totale) VALUES(:num_facture,:date,:prix_unitaire,:quntiter,:prix_totale)");
+    query.prepare("insert into FACTURES(NUM_FACTURE,DATE_D,PRIX_UNITAIRE,QUANTITE,PRIX_TOTALE) values(:num_facture,:date,:prix_unitaire,:quantite,:prix_totale)");
     query.bindValue(":num_facture",res);
-    query.bindValue(":date_D",date);
-    query.bindValue(":prix_unitaire",prix_unitaire);
-    query.bindValue(":quntiter",quantiter);
-    query.bindValue(":prix_totale",prix_totale);
+    query.bindValue(":date",date);
+    query.bindValue(":prix_unitaire",res2);
+    query.bindValue(":quantite",res3);
+    query.bindValue(":prix_totale",res4);
     return query.exec();
 }
 
@@ -32,12 +35,12 @@ bool caisse::ajouter()
 QSqlQueryModel * caisse::afficher()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from caise");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("num_facture"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("date"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_unitaire"));
-    model->setHeaderData(3,Qt::Horizontal,QObject::tr("quntiter"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("prix_totale"));
+    model->setQuery("SELECT * FROM factures");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUM_FACTURE"));
+    //model->setHeaderData(1,Qt::Horizontal,QObject::tr("date"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNITAIRE"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("QUANTITE"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("PRIX_TOTALE"));
     return model;
 }
 
@@ -46,8 +49,8 @@ bool caisse::supprimer(int num_facture)
 {
     QSqlQuery query;
     QString res = QString::number(num_facture);
-    query.prepare("delete from caise where id= :id");
-    query.bindValue(":id",res);
+    query.prepare("DELETE FROM FACTURES WHERE NUM_FACTURE= :num_facture");
+    query.bindValue(":num_facture",res);
     return  query.exec();
 }
 
@@ -55,12 +58,15 @@ bool caisse::modifier(int num_facture)
 {
     QSqlQuery query;
     QString res = QString::number(num_facture);
-    query.prepare("UPDATE caise SET date= :date, prix_unitaire= :prix_unitaire, quntiter= :quntiter,prix_totale= :prix_totale WHERE num_facture = :num_f");
-    query.bindValue(":id",res);
+    QString res2= QString::number(prix_unitaire);
+    QString res3= QString::number(quantiter);
+    QString res4= QString::number(prix_totale);
+    query.prepare("UPDATE FACTURES SET DATE_D= :date, PRIX_UNITAIRE= :prix_unitaire, QUANTITE= :quntiter,PRIX_TOTALE= :prix_totale WHERE NUM_FACTURE = :num_facture");
+    query.bindValue(":num_facture",res);
     query.bindValue(":date",date);
-    query.bindValue(":prix_unitaire",prix_unitaire);
-    query.bindValue(":quntiter",quantiter);
-    query.bindValue(":prix_totale",prix_totale);
+    query.bindValue(":prix_unitaire",res2);
+    query.bindValue(":quntiter",res3);
+    query.bindValue(":prix_totale",res4);
     return query.exec();
 }
 
