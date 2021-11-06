@@ -4,7 +4,7 @@
 #include "employers.h"
 #include <QMessageBox>
 
-
+//liiindaaa
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
