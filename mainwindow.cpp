@@ -5,13 +5,26 @@
 #include<QDebug>
 #include <QDate>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
 {
     //image****
     ui->setupUi(this);
-    //affichage
-    ui->tableViewAficherFacture->setModel(c.afficher());
+    //ajouter**************
+    ui->lineEdit_id_c->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_num_fact->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_prix_unitaire->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_quantite->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_prix_totale->setValidator ( new QIntValidator(0, 999999999, this));
+    //modifier***************
+    ui->lineEdit_num_fact_modifier->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_prix_u_modifier->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_quntiter_modifier->setValidator ( new QIntValidator(0, 999999999, this));
+    ui->lineEdit_prix_t_modifier->setValidator ( new QIntValidator(0, 999999999, this));
+    //supprimer***************
+    ui->lineEdit_num_fact_sup->setValidator ( new QIntValidator(0, 999999999, this));
         QPixmap pix("C:/Users/Ihebc/OneDrive/Desktop/gestion de caise/image/pix2.png");
         int w1 = ui->label_pic1->width();
         int h1 = ui->label_pic1->height();
@@ -40,23 +53,35 @@ void MainWindow::on_pushButtonAjouter_clicked()
 {
     //recuperation
     int num_f=ui->lineEdit_num_fact->text().toInt();
-    QDate date=ui->dateTimeEdit_ajouter->date();
-    qDebug()<<date;
+    QString date=ui->dateTimeEdit_ajouter->text();
     float prix_u=ui->lineEdit_prix_unitaire->text().toFloat();
     int quantite=ui->lineEdit_quantite->text().toInt();
     float prix_t=ui->lineEdit_prix_totale->text().toFloat();
-    caisse c(num_f,date,prix_u,quantite,prix_t);//instancer
+    int id_c=ui->lineEdit_id_c->text().toInt();
+    caisse c(num_f,date,prix_u,quantite,prix_t,id_c);//instancer
     bool test=c.ajouter();
 
     if(test)
     {
-        /*Refresh affichage
-        ui->tableViewAficherFacture->setModel(c.afficher());*/
+        //Refresh affichage
+        ui->tableViewAficherFacture->setModel(c.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
     }
+}
+
+//affichage*********
+void MainWindow::on_pushButtonAfficher_clicked()
+{
+    ui->tableViewAficherFacture->setModel(c.afficher());
+}
+
+//paiment******
+void MainWindow::on_pushButtom_Pousser_clicked()
+{
+QDesktopServices::openUrl(QUrl("https://www.coinbase.com/dashboard"));
 }
 
 
@@ -121,4 +146,10 @@ void MainWindow::on_pushButtonRetourRecette_clicked()
 void MainWindow::on_pushButtonRetourModifier_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+//tri***************
+void MainWindow::on_pushButtonTri_clicked()
+{
+    ui->tableViewAficherFacture->setModel(c.tri());
 }

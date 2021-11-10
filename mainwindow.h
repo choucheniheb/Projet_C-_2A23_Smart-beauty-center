@@ -22,6 +22,9 @@ private slots:
     void on_recette_clicked();
     void on_pushButtonRetourRecette_clicked();
     void on_pushButtonRetourModifier_clicked();
+    void on_pushButtonAfficher_clicked();
+    void on_pushButtom_Pousser_clicked();
+    void on_pushButtonTri_clicked();
 private:
     Ui::MainWindow *ui;
     caisse c;
