@@ -4,33 +4,41 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 
-Employers::Employers(){}
+Employers::Employers()
+{
+    id_e=0;
+    nom_e="";
+    prenom_e="";
+    adresse_e="";
+    telephone_e=0;
+    type="";
+    specialite="";
+
+}
 Employers::Employers(int id,QString nom, QString prenom,QDate date_naissance,QString adresse,int telephone,QString type, QString specialite)
 {
-this->id=id;
-this->nom=nom;
-this->prenom=prenom;
-this->date_naissance=date_naissance;
-this->adresse=adresse;
-this->telephone=telephone;
+this->id_e=id;
+this->nom_e=nom;
+this->prenom_e=prenom;
+this->date_naissance_e=date_naissance;
+this->adresse_e=adresse;
+this->telephone_e=telephone;
 this->type=type;
 this->specialite=specialite;
 }
 bool Employers::ajouter()
 {
-   //ariiiiiiiiiiiiiij
-    //linndaaa
-    QSqlQuery query;
-    QString res = QString::number(id);
-    QString res1 = QString::number(telephone);
-    //QString res2 = QString::number(date);
 
-    query.prepare("insert into EMPLOYERS(id_e,nom_e,prenom_e, date_naissance_e, adresse_e,telephone_e,type,specialite)"" values(:id_e,:nom,:prenom, :date_naissance, :adresse,:telephone,:type,:specialite)");
-    query.bindValue(":id_e",res);
-    query.bindValue(":nom",nom);
-    query.bindValue(":prenom",prenom);
-    query.bindValue(":date_naissance",date_naissance);
-    query.bindValue(":adresse",adresse);
+    QSqlQuery query;
+    QString res = QString::number(id_e); //convertion
+    QString res1 = QString::number(telephone_e);
+
+    query.prepare("insert into EMPLOYERS(id_e,nom_e,prenom_e, date_naissance_e, adresse_e,telephone_e,type,specialite)"" values(:id,:nom,:prenom, :date_naissance, :adresse,:telephone,:type,:specialite)");
+    query.bindValue(":id",res);
+    query.bindValue(":nom",nom_e);
+    query.bindValue(":prenom",prenom_e);
+    query.bindValue(":date_naissance",date_naissance_e);
+    query.bindValue(":adresse",adresse_e);
     query.bindValue(":telephone",res1);
     query.bindValue(":type",type);
     query.bindValue(":specialite",specialite);
@@ -63,19 +71,31 @@ bool Employers::modifier(int id)
 {
     QSqlQuery query;
     QString res = QString::number(id);
-    QString res1 = QString::number(telephone);
+    QString res1 = QString::number(telephone_e);
     //QString res2 = QString::number(date);
     query.prepare("UPDATE EMPLOYERS SET nom_e= :nom, prenom_e= :prenom,date_naissance_e= :date_naissance_e,adresse_e= :adresse,telephone_e= :telephone_e, type= :type, specialite= :specialite WHERE id_e = :id");
     query.bindValue(":id",res);
-    query.bindValue(":nom",nom);
-    query.bindValue(":prenom",prenom);
-    query.bindValue(":date_naissance",date_naissance);
-    query.bindValue(":adresse",adresse);
+    query.bindValue(":nom",nom_e);
+    query.bindValue(":prenom",prenom_e);
+    query.bindValue(":date_naissance",date_naissance_e);
+    query.bindValue(":adresse",adresse_e);
     query.bindValue(":telephone",res1);
     query.bindValue(":type",type);
     query.bindValue(":specialite",specialite);
     return query.exec();
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

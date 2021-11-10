@@ -44,16 +44,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //MODIFIER
         ui->lineEdit_id_e_modifier->setValidator ( new QIntValidator(0, 99999999, this));
         ui->lineEdit_telephone_e_modifier->setValidator ( new QIntValidator(0, 99999999, this));
-
 }
-//destructeur
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 void MainWindow::on_pushButtonAjouter_clicked()
 {
-    //recuperation
     int id=ui->lineEdit_id->text().toInt();
     QString  nom=ui->lineEdit_nom->text();
     QString  prenom=ui->lineEdit_prenom->text();
@@ -63,10 +60,10 @@ void MainWindow::on_pushButtonAjouter_clicked()
     QString  type=ui->lineEdit_type->text();
     QString  specialite=ui->lineEdit_specialite->text();
 
-    Employers e( id, nom, prenom,date_naissance, adresse,telephone,type,specialite);//instancer
+    Employers e( id, nom, prenom,date_naissance, adresse,telephone,type,specialite);
     bool test=e.ajouter();
 
-    if(test)
+    if(test)  //if requete executee
     {
         //Refresh affichage
         ui->tableViewAficherEmployers->setModel(e.afficher());
@@ -97,8 +94,6 @@ void MainWindow::on_pushButtonModifier_clicked()
 
 void MainWindow::on_pushButtonModifier2_clicked()
 {
-    //modifier les valeur de class
-    //c.setdate(ui->dateTimeEdit_modifier->text().to)
     e.setnom(ui->lineEdit_nom_e_modifier->text());
     e.setprenom(ui->lineEdit_prenom_e_modifier->text());
     e.setdate_naissance(ui->lineEdit_date_naissance_e_modifier->date());
@@ -127,6 +122,18 @@ void MainWindow::on_pushButtonafficher_clicked()
     //Refresh affichage
     ui->tableViewAficherEmployers->setModel(e.afficher());
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

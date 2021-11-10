@@ -19,27 +19,27 @@ public:
     //getters
     int getid()
     {
-        return id;
+        return id_e;
     }
     int gettelephone()
     {
-        return telephone;
+        return telephone_e;
     }
     QDate getdate_naissance()
     {
-        return date_naissance;
+        return date_naissance_e;
     }
     QString getnom()
     {
-        return nom;
+        return nom_e;
     }
     QString getprenom()
     {
-        return prenom;
+        return prenom_e;
     }
     QString getadresse()
     {
-        return adresse;
+        return adresse_e;
     }
     QString gettype()
     {
@@ -50,19 +50,19 @@ public:
         return specialite;
     }
     //SETTERS
-    void setid(int i){id=i;}
-    void setnom(QString n){nom=n;}
-    void setprenom(QString p){prenom=p;}
-    void setdate_naissance(QDate d){date_naissance =d;}
-    void setadresse(QString a){adresse=a;}
-    void settelephone(int t){telephone=t;}
+    void setid(int i){id_e=i;}
+    void setnom(QString n){nom_e=n;}
+    void setprenom(QString p){prenom_e=p;}
+    void setdate_naissance(QDate d){date_naissance_e=d;}
+    void setadresse(QString a){adresse_e=a;}
+    void settelephone(int t){telephone_e=t;}
     void settype(QString y){type=y;}
     void setspecialite(QString s){specialite=s;}
 
 private:
-    int id,telephone;
-    QString nom,prenom,adresse,type,specialite;
-    QDate date_naissance;
+    int id_e,telephone_e;
+    QString nom_e,prenom_e,adresse_e,type,specialite;
+    QDate date_naissance_e;
 };
 
 #endif // EMPLOYERS_H
