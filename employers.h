@@ -15,6 +15,7 @@ public:
     QSqlQueryModel * afficher();
     bool supprimer(int);
     bool modifier(int);
+    QSqlQueryModel * recherche(int);
     //getters
     int getid()
     {

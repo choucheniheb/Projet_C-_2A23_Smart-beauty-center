@@ -39,10 +39,11 @@ bool Employers::ajouter()
 QSqlQueryModel * Employers::afficher()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from employes");
+    model->setQuery("select * from Employers");
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("date_naissance"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("date_naissance"));
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("adresse"));
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
     model->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
@@ -77,62 +78,32 @@ bool Employers::modifier(int id)
 }
 
 
-/*
-caise::caise(){}
-//constructeur
-caise::caise(int num_facture,QDate date,float prix_unitair,int quntiter,float prix_totale)
-{
-    this->num_facture=num_facture;
-    this->date=date;
-    this->prix_unitaire=prix_unitair;
-    this->quntiter=quntiter;
-    this->prix_totale=prix_totale;
-}
-//fonction ajouter
-bool caise::ajouter()
-{
-    QSqlQuery query;
-    QString res = QString::number(num_facture);
 
-    query.prepare("insert into caise(num_facture,date_D,prix_unitaire,quntiter,prix_totale) values(:num_facture,:date,:prix_unitaire,:quntiter,:prix_totale)");
-    query.bindValue(":num_facture",res);
-    query.bindValue(":date_D",date);
-    query.bindValue(":prix_unitaire",prix_unitaire);
-    query.bindValue(":quntiter",quntiter);
-    query.bindValue(":prix_totale",prix_totale);
-    return query.exec();
-}
-//fonction afficher
-QSqlQueryModel * caise::afficher()
+
+
+
+
+
+
+
+//***************************************RECHERCHE*********************
+
+QSqlQueryModel * Employers::recherche(int id)
 {
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from caise");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("num_facture"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("date"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_unitaire"));
-    model->setHeaderData(3,Qt::Horizontal,QObject::tr("quntiter"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("prix_totale"));
+    QString c=QString::number(id);
+    model->setQuery("select * from EMPLOYERS where ID_E="+c);
+    model->setHeaderData(0,Qt::Horizontal,"id");
+    model->setHeaderData(1,Qt::Horizontal,"Nom");
+    model->setHeaderData(2,Qt::Horizontal,"Prenom");
+    model->setHeaderData(3,Qt::Horizontal,"date_naissance");
+    model->setHeaderData(4,Qt::Horizontal,"adresse");
+    model->setHeaderData(5,Qt::Horizontal,"telephone");
+    model->setHeaderData(5,Qt::Horizontal,"type");
+    model->setHeaderData(5,Qt::Horizontal,"specialite");
+    return(model);
 }
-//fonction supprimer
-bool caise::supprimer(int num_facture)
-{
-    QSqlQuery query;
-    QString res = QString::number(num_facture);
-    query.prepare("delete from caise where id= :id");
-    query.bindValue(":id",res);
-    return  query.exec();
-}
-//fonction modifier
-bool caise::modifier(int num_f)
-{
-    QSqlQuery query;
-    QString res = QString::number(num_facture);
-    query.prepare("UPDATE caise SET date= :date, prix_unitaire= :prix_unitaire, quntiter= :quntiter,prix_totale= :prix_totale WHERE num_facture = :num_f");
-    query.bindValue(":id",res);
-    query.bindValue(":date",date);
-    query.bindValue(":prix_unitaire",prix_unitaire);
-    query.bindValue(":quntiter",quntiter);
-    query.bindValue(":prix_totale",prix_totale);
-    return query.exec();
-}
- */
+
+//******************************MAILING************************
+
+
