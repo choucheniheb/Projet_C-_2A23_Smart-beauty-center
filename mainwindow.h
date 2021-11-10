@@ -30,6 +30,9 @@ void on_makeup_bottom_clicked();
 void on_cosmetiques_bottom_clicked();
 
 void on_parfums_bottom_clicked();
+void on_pushButtonModifier2_2_clicked();
+
+void on_categorie_bottom_clicked();
 
 private:
     Ui::MainWindow *ui;

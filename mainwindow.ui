@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
@@ -47,7 +47,7 @@
          <rect>
           <x>-4</x>
           <y>-7</y>
-          <width>631</width>
+          <width>641</width>
           <height>361</height>
          </rect>
         </property>
@@ -58,24 +58,33 @@
        <widget class="QLabel" name="label_4">
         <property name="geometry">
          <rect>
-          <x>290</x>
+          <x>330</x>
           <y>60</y>
-          <width>81</width>
-          <height>16</height>
+          <width>91</width>
+          <height>21</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;
+
+</string>
+        </property>
         <property name="text">
-         <string>prix promotion</string>
+         <string> Prix Promotion</string>
         </property>
        </widget>
        <widget class="QPushButton" name="aj_button">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>260</y>
-          <width>101</width>
+          <x>260</x>
+          <y>270</y>
+          <width>121</width>
           <height>31</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 170, 255);
+font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
         </property>
         <property name="text">
          <string>Ajouter</string>
@@ -85,46 +94,55 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>110</y>
-          <width>61</width>
+          <y>120</y>
+          <width>101</width>
           <height>16</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+        </property>
         <property name="text">
-         <string>Nom produit</string>
+         <string>Nom du Produit</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
-          <x>280</x>
-          <y>160</y>
-          <width>81</width>
+          <x>330</x>
+          <y>170</y>
+          <width>91</width>
           <height>16</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+        </property>
         <property name="text">
-         <string>Date expiration</string>
+         <string> Date expiration</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>160</y>
-          <width>71</width>
+          <y>170</y>
+          <width>81</width>
           <height>16</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+        </property>
         <property name="text">
-         <string>prix unitaire</string>
+         <string> Prix Unitaire</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="date_edit">
         <property name="geometry">
          <rect>
-          <x>370</x>
-          <y>160</y>
+          <x>440</x>
+          <y>170</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -133,7 +151,7 @@
        <widget class="QLineEdit" name="code_edit">
         <property name="geometry">
          <rect>
-          <x>140</x>
+          <x>150</x>
           <y>60</y>
           <width>113</width>
           <height>20</height>
@@ -143,7 +161,7 @@
        <widget class="QLineEdit" name="prixp_edit">
         <property name="geometry">
          <rect>
-          <x>370</x>
+          <x>440</x>
           <y>60</y>
           <width>113</width>
           <height>20</height>
@@ -155,32 +173,38 @@
          <rect>
           <x>50</x>
           <y>60</y>
-          <width>71</width>
+          <width>101</width>
           <height>21</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+        </property>
         <property name="text">
-         <string>code a barre</string>
+         <string>Code a Barre</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>300</x>
-          <y>110</y>
-          <width>61</width>
-          <height>16</height>
+          <x>340</x>
+          <y>120</y>
+          <width>91</width>
+          <height>20</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+        </property>
         <property name="text">
-         <string>categorie</string>
+         <string>  Categories</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="nom_edit">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>110</y>
+          <x>150</x>
+          <y>120</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -189,8 +213,8 @@
        <widget class="QLineEdit" name="prixu_edit">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>160</y>
+          <x>150</x>
+          <y>170</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -199,34 +223,24 @@
        <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
-          <x>170</x>
-          <y>210</y>
-          <width>101</width>
+          <x>190</x>
+          <y>220</y>
+          <width>121</width>
           <height>16</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Quantite du produit</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>260</y>
-          <width>101</width>
-          <height>31</height>
-         </rect>
+        <property name="styleSheet">
+         <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
         </property>
         <property name="text">
-         <string>Retour</string>
+         <string>  Quantite du produit</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="nbreEdit">
         <property name="geometry">
          <rect>
-          <x>270</x>
-          <y>210</y>
+          <x>320</x>
+          <y>220</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -235,8 +249,8 @@
        <widget class="QLineEdit" name="categorie_edit">
         <property name="geometry">
          <rect>
-          <x>370</x>
-          <y>110</y>
+          <x>440</x>
+          <y>120</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -280,7 +294,7 @@
            <rect>
             <x>0</x>
             <y>-50</y>
-            <width>631</width>
+            <width>671</width>
             <height>391</height>
            </rect>
           </property>
@@ -304,11 +318,15 @@
          <widget class="QPushButton" name="cosmetiques_bottom">
           <property name="geometry">
            <rect>
-            <x>260</x>
+            <x>240</x>
             <y>230</y>
             <width>91</width>
             <height>31</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
           </property>
           <property name="text">
            <string>Cosmetiques</string>
@@ -349,6 +367,10 @@
             <height>31</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
+          </property>
           <property name="text">
            <string>Parfums</string>
           </property>
@@ -362,6 +384,10 @@
             <height>31</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
+          </property>
           <property name="text">
            <string>Makeup</string>
           </property>
@@ -371,14 +397,44 @@
          <widget class="QLabel" name="label_mq1">
           <property name="geometry">
            <rect>
-            <x>16</x>
-            <y>13</y>
-            <width>601</width>
-            <height>301</height>
+            <x>-4</x>
+            <y>-7</y>
+            <width>621</width>
+            <height>361</height>
            </rect>
           </property>
           <property name="text">
            <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_12">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>50</y>
+            <width>291</width>
+            <height>231</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="categorie_bottom">
+          <property name="geometry">
+           <rect>
+            <x>520</x>
+            <y>280</y>
+            <width>81</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 170, 255);
+font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Retour</string>
           </property>
          </widget>
         </widget>
@@ -393,10 +449,10 @@
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>10</y>
-          <width>611</width>
-          <height>351</height>
+          <x>0</x>
+          <y>0</y>
+          <width>651</width>
+          <height>361</height>
          </rect>
         </property>
         <property name="currentIndex">
@@ -406,8 +462,8 @@
          <widget class="QLabel" name="label_9">
           <property name="geometry">
            <rect>
-            <x>140</x>
-            <y>140</y>
+            <x>160</x>
+            <y>160</y>
             <width>111</width>
             <height>20</height>
            </rect>
@@ -422,8 +478,8 @@
          <widget class="QLineEdit" name="codeabarrem">
           <property name="geometry">
            <rect>
-            <x>270</x>
-            <y>140</y>
+            <x>290</x>
+            <y>160</y>
             <width>113</width>
             <height>20</height>
            </rect>
@@ -432,14 +488,15 @@
          <widget class="QPushButton" name="pushButtonModifier">
           <property name="geometry">
            <rect>
-            <x>230</x>
-            <y>210</y>
+            <x>240</x>
+            <y>230</y>
             <width>101</width>
             <height>31</height>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 8pt &quot;Source Code Pro&quot;;</string>
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
           </property>
           <property name="text">
            <string>Valider</string>
@@ -448,10 +505,10 @@
          <widget class="QLabel" name="label_10">
           <property name="geometry">
            <rect>
-            <x>-4</x>
-            <y>3</y>
-            <width>611</width>
-            <height>341</height>
+            <x>0</x>
+            <y>0</y>
+            <width>651</width>
+            <height>361</height>
            </rect>
           </property>
           <property name="text">
@@ -467,14 +524,15 @@
          <widget class="QPushButton" name="pushButtonModifier2">
           <property name="geometry">
            <rect>
-            <x>240</x>
+            <x>350</x>
             <y>250</y>
             <width>121</width>
             <height>31</height>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 8pt &quot;Source Code Pro&quot;;
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;
 </string>
           </property>
           <property name="text">
@@ -484,21 +542,24 @@
          <widget class="QLabel" name="label_11">
           <property name="geometry">
            <rect>
-            <x>90</x>
+            <x>100</x>
             <y>70</y>
-            <width>71</width>
+            <width>91</width>
             <height>16</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
           <property name="text">
-           <string>prix unitaire</string>
+           <string>Prix Unitaire</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="prixu_edit_1">
           <property name="geometry">
            <rect>
-            <x>180</x>
-            <y>60</y>
+            <x>210</x>
+            <y>70</y>
             <width>113</width>
             <height>20</height>
            </rect>
@@ -509,18 +570,21 @@
            <rect>
             <x>90</x>
             <y>120</y>
-            <width>81</width>
-            <height>16</height>
+            <width>91</width>
+            <height>21</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
           <property name="text">
-           <string>prix promotion</string>
+           <string>Prix Promotion</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="prixp_edit_1">
           <property name="geometry">
            <rect>
-            <x>180</x>
+            <x>210</x>
             <y>120</y>
             <width>113</width>
             <height>20</height>
@@ -530,26 +594,69 @@
          <widget class="QLabel" name="label_15">
           <property name="geometry">
            <rect>
-            <x>70</x>
+            <x>80</x>
             <y>170</y>
-            <width>101</width>
+            <width>121</width>
             <height>16</height>
            </rect>
           </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
           <property name="text">
-           <string>nombre de produit</string>
+           <string>Quantite du produit</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="nbreEdit_1">
           <property name="geometry">
            <rect>
-            <x>180</x>
+            <x>210</x>
             <y>170</y>
             <width>113</width>
             <height>20</height>
            </rect>
           </property>
          </widget>
+         <widget class="QPushButton" name="pushButtonModifier2_2">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>250</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;
+</string>
+          </property>
+          <property name="text">
+           <string>Retour</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_16">
+          <property name="geometry">
+           <rect>
+            <x>-4</x>
+            <y>3</y>
+            <width>651</width>
+            <height>351</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <zorder>label_16</zorder>
+         <zorder>nbreEdit_1</zorder>
+         <zorder>label_15</zorder>
+         <zorder>pushButtonModifier2_2</zorder>
+         <zorder>label_13</zorder>
+         <zorder>pushButtonModifier2</zorder>
+         <zorder>prixp_edit_1</zorder>
+         <zorder>label_11</zorder>
+         <zorder>prixu_edit_1</zorder>
         </widget>
        </widget>
       </widget>
@@ -561,7 +668,7 @@
         <property name="geometry">
          <rect>
           <x>290</x>
-          <y>170</y>
+          <y>150</y>
           <width>113</width>
           <height>20</height>
          </rect>
@@ -570,8 +677,8 @@
        <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>170</y>
+          <x>160</x>
+          <y>150</y>
           <width>111</width>
           <height>20</height>
          </rect>
@@ -593,13 +700,30 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 8pt &quot;Source Code Pro&quot;;
-</string>
+         <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
         </property>
         <property name="text">
          <string>Supprimer</string>
         </property>
        </widget>
+       <widget class="QLabel" name="label_14">
+        <property name="geometry">
+         <rect>
+          <x>-4</x>
+          <y>3</y>
+          <width>631</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <zorder>label_14</zorder>
+       <zorder>lineEditcodeabarresupprimer</zorder>
+       <zorder>label_8</zorder>
+       <zorder>pushButtonSupprimer</zorder>
       </widget>
      </widget>
     </item>
