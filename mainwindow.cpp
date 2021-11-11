@@ -16,7 +16,7 @@ int h=ui->label_pic ->height();
           ui->label_pic->setPixmap(pix2.scaled(w,h,Qt::KeepAspectRatio));
 
 
-// modifier photo
+// photo modifier
     int w1=ui->label_mod ->width();
 
   int h1=ui->label_mod ->height();
@@ -25,22 +25,31 @@ int h=ui->label_pic ->height();
 
             // QPixmap pix2("C:/Users/wajdi/Desktop/image/pix2.png");
 
-// afficher photo
+// photo afficher
             int w2=ui->label_aff ->width();
 
             int h2=ui->label_aff ->height();
                       ui->label_aff->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
-// supprimer
+// photo supprimer
                       int w3=ui->label_sup ->width();
 
                       int h3=ui->label_sup ->height();
                                 ui->label_sup->setPixmap(pix2.scaled(w3,h3,Qt::KeepAspectRatio));
 
                                 //historique
-                                int w4=ui->label_h ->width();
+                               /* int w4=ui->label_h ->width();
 
                                 int h4=ui->label_h ->height();
-                                          ui->label_h->setPixmap(pix2.scaled(w4,h4,Qt::KeepAspectRatio));
+                                          ui->label_h->setPixmap(pix2.scaled(w4,h4,Qt::KeepAspectRatio));*/
+
+// controle de  saisie
+ui->lineEdit_num_f->setValidator(new QIntValidator(0,99999999,this));
+ui->lineEdit_code_f->setValidator(new QIntValidator(0,9999,this));
+ui->lineEdit_code_f_sup->setValidator(new QIntValidator(0,9999,this));
+ui->lineEdit_code_f_modifier->setValidator(new QIntValidator(0,9999,this));
+ui->lineEdit_prix_gros->setValidator(new QIntValidator(0,9999,this));
+ui->lineEdit_prix_modifier->setValidator(new QIntValidator(0,9999,this));
+
 }
 
 MainWindow::~MainWindow()
@@ -73,8 +82,8 @@ void MainWindow::on_pushButton_ajouter_clicked()
 }
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-    int num_f=ui->lineEdit_num_f_sup->text().toInt();
-    bool test1=f.supprimer(num_f);
+    int code_f=ui->lineEdit_code_f_sup->text().toInt();
+    bool test1=f.supprimer(code_f);
     if(test1)
     {
         //Refresh affichage
@@ -88,6 +97,10 @@ void MainWindow::on_pushButtonSupprimer_clicked()
 void MainWindow::on_pushButtonModifier_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+}
+void MainWindow::on_pushButtonRetourMod_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }
 void MainWindow::on_pushButtonModifier2_clicked()
 {

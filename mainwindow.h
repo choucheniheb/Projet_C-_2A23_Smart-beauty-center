@@ -20,6 +20,7 @@ private slots:
    void on_pushButtonSupprimer_clicked();
    void on_pushButtonModifier_clicked();
    void   on_pushButtonModifier2_clicked();
+   void on_pushButtonRetourMod_clicked();
 private:
     Ui::MainWindow *ui;
     fournisseur f;
