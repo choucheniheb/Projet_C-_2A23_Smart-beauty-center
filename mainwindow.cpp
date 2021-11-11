@@ -13,7 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
+    ui->code_edit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->lineEditcodeabarresupprimer->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->codeabarrem->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->nbreEdit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->nbreEdit_1->setValidator ( new QIntValidator(0, 9999999, this));
+
+
     QPixmap pix("C:/Users/HP/Desktop/image/makeup.jpg");
      QPixmap pix1("C:/Users/HP/Desktop/image/cosmetics.jpg");
        QPixmap pix2("C:/Users/HP/Desktop/image/bc.png");
@@ -24,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
        QPixmap pix7("C:/Users/HP/Desktop/image/modifier.png");
       QPixmap pix14("C:/Users/HP/Desktop/image/99.png");
       QPixmap pix16("C:/Users/HP/Desktop/image/modifier1.png");
+      QPixmap pix17("C:/Users/HP/Desktop/image/modifier1.png");
     // background1
        int w = ui->label_bc->width();
     int h = ui->label_bc->height();
@@ -54,6 +63,9 @@ int h14 = ui->label_14->height();
 //
 int w16 = ui->label_16->width();
 int h16 = ui->label_16->height();
+//
+int w17 = ui->label_17->width();
+int h17 = ui->label_17->height();
     //cos
     ui->label_cos->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
     //mq
@@ -73,6 +85,8 @@ int h16 = ui->label_16->height();
      ui->label_14->setPixmap(pix14.scaled(w14,h14,Qt::KeepAspectRatio));
 
      ui->label_16->setPixmap(pix16.scaled(w16,h16,Qt::KeepAspectRatio));
+
+      ui->label_17->setPixmap(pix17.scaled(w17,h17,Qt::KeepAspectRatio));
 
  //IMAGE ANIMEE///////////////
 
@@ -112,7 +126,7 @@ void MainWindow::on_aj_button_clicked()
 
 produit p (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expiration, quantite_produit);
 bool test=p.ajouter();
- if(test)
+ if (test)
 {
      if (quantite_produit < 10)
        {
@@ -135,6 +149,7 @@ bool test=p.ajouter();
 
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
+
 int code_a_barre=ui->lineEditcodeabarresupprimer->text().toInt();
 bool test1=p.supprimer(code_a_barre);
 if(test1)

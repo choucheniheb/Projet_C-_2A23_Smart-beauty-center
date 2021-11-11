@@ -41,7 +41,7 @@ QString produit::getdate_expiration(){return date_expiration;}
 
 //set
 
-void produit::setquantite_produit(int nbre_produit){this -> quantite_produit=quantite_produit;}
+void produit::setquantite_produit(int quantite_produit){this -> quantite_produit=quantite_produit;}
 void produit::setprix_uni(float prix_uni){this -> prix_uni=prix_uni;}
 void produit::setprix_promo(float prix_promo){this -> prix_promo=prix_promo;}
 void produit::setcategorie(QString categorie){this -> categorie=categorie;}
@@ -66,6 +66,7 @@ bool produit::ajouter()
     query.bindValue(":nom_p",nom_p);
     query.bindValue(":prix_uni",res1);
     query.bindValue(":prix_promo",res2);
+
     query.bindValue(":date_expiration",date_expiration);
     query.bindValue(":categorie",categorie);
     query.bindValue(":quantite_produit",res3);
@@ -82,8 +83,9 @@ QSqlQueryModel * produit::afficher()
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom_p"));
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_uni"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("prix_promo"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("date_expiration"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("quantite_produit"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("categorie"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("date_expiration"));
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("quantite_produit"));
     return model;
 }
 //fonction supprimer
