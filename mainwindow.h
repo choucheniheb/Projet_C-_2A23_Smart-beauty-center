@@ -20,8 +20,7 @@ private slots :
    void  on_pushButton_supprimer_clicked();
    void on_pushButtonModifier_clicked();
    void on_pushButtonModifier2_clicked();
-
-
+   void on_pushButtonafficher_clicked();
 private:
     Ui::MainWindow *ui;
     Service S ;

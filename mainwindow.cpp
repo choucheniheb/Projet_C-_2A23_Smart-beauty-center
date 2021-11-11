@@ -13,10 +13,42 @@
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-        QPixmap pix("C:/Users/Samar/Pictures/Camera Roll/logo1.jpg");
+        QPixmap pix("C:/Users/Samar/Desktop/image/image.png");
         int w = ui->label_pic->width();
         int h = ui->label_pic->height();
          ui->label_pic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
+
+         QPixmap pix1("C:/Users/Samar/Desktop/image/image.png");
+         int w1 = ui->label_pic1->width();
+         int h1 = ui->label_pic1->height();
+          ui->label_pic1->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
+
+          QPixmap pix2("C:/Users/Samar/Desktop/image/image.png");
+          int w2 = ui->label_pic2->width();
+          int h2 = ui->label_pic2->height();
+           ui->label_pic2->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
+
+
+           QPixmap pix3("C:/Users/Samar/Desktop/image/image.png");
+           int w3 = ui->label_pic3->width();
+           int h3 = ui->label_pic3->height();
+            ui->label_pic3->setPixmap(pix3.scaled(w3,h3,Qt::KeepAspectRatio));
+
+
+
+
+
+         ui->lineEdit_code->setValidator(new QIntValidator(0,9999999,this));
+         ui->lineEdit_code_modifier_2->setValidator(new QIntValidator(0,9999999,this));
+         ui->lineEdit_code1->setValidator(new QIntValidator(0,9999999,this));
+
+        // ui->lineEdit_prix_s->setValidator(new QIntValidator(0,9999999,this));
+         //ui->lineEdit_prix_offre->setValidator(new QIntValidator(0,9999999,this));
+
+
+
+
+
 }
 MainWindow::~MainWindow()
 {
@@ -25,20 +57,19 @@ MainWindow::~MainWindow()
  void MainWindow::on_pushButton_ajouter_clicked ()
  {
 
-     int code_s = ui-> lineEdit_code->text().toInt();
-     QString nom_s = ui -> lineEdit_nom_s ->text();
-     QString offre = ui -> lineEdit_offre ->text();
-     //QDate date=ui->dateEdit_date;
-     QDate date_offre ;
+     int code_s = ui->lineEdit_code->text().toInt();
+     QString nom_s = ui->lineEdit_nom_s->text();
+     QString offre = ui->lineEdit_offre->text();
+     QDate date_offre=ui->dateEditAjouter->date();
      float prix_s=ui->lineEdit_prix_s->text().toFloat();
      float prix_offre=ui->lineEdit_prix_offre->text().toFloat();
-   Service S ( nom_s , offre ,  date_offre , prix_s, prix_offre, code_s ,true ); //instancer
+   Service S ( nom_s , offre ,  date_offre , prix_s, prix_offre, code_s ,"oui"); //instancer
   bool  test = S.ajouter ();
 
    if (test)
    {
        //Refresh affichage
-      ui->tableViewAfficherService->setModel(S.afficher());
+       ui->tableViewAfficherService->setModel(S.afficher());
        QMessageBox :: information(nullptr , QObject :: tr("ok"),QObject::tr("ajouter effectue\n"),QObject::tr("click cancel to exit"));
    }else
    {
@@ -51,13 +82,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_supprimer_clicked()
 {
-    int  code_s =ui->lineEdit_code->text().toInt();
-    bool test1 = S.supprimer(code_s);
-    if(test1)
+    int code_s=ui->lineEdit_code1->text().toInt();
+    bool test=S.supprimer(code_s);
+    if(test)
     {
+        QMessageBox :: information(nullptr , QObject :: tr("ok"),QObject::tr("supprimer effectue\n"),QObject::tr("click cancel to exit"));
         //Refresh affichage
         ui->tableViewAfficherService->setModel(S.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectue\n"),QObject::tr("click cancel to exit"));
     }else
     {
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("supprimer non effectue"),QObject::tr("click cancel to exit"));
@@ -68,18 +99,18 @@ void MainWindow::on_pushButton_supprimer_clicked()
 
  void MainWindow::on_pushButtonModifier_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget_2->setCurrentIndex(0);
 }
  void MainWindow::on_pushButtonModifier2_clicked()
 {
     //modifier les valeur de class
-    //S.setdate(ui->dateTimeEdit_modifier->text().to)
     S.setprix_s(ui->lineEdit_prix->text().toFloat());
-    S.setprix_offre(ui->lineEdit_prix_offre->text().toFloat());
+    S.setprix_offre(ui->lineEdit_prix_offre_2->text().toFloat());
     S.setdate_offre(ui->date_offre_modifier->date());
-
+    S.setdisponibilite(ui->lineEdit_disponibilite->text());
+    S.setnom_s(ui->lineEdit_nom->text());
     //modifier requete************
-    int code_s =ui->lineEdit_code_modifier->text().toInt();
+    int code_s =ui->lineEdit_code_modifier_2->text().toInt();
     bool test2=S.modifier(code_s);
     if(test2)
     {
@@ -91,4 +122,10 @@ void MainWindow::on_pushButton_supprimer_clicked()
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("modifier non effectue"),QObject::tr("click cancel to exit"));
     }
 }
+
+
+  void MainWindow::on_pushButtonafficher_clicked()
+  {
+       ui->tableViewAfficherService->setModel(S.afficher());
+  }
 

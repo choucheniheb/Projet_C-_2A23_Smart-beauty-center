@@ -19,7 +19,7 @@
      <rect>
       <x>100</x>
       <y>30</y>
-      <width>741</width>
+      <width>771</width>
       <height>551</height>
      </rect>
     </property>
@@ -27,7 +27,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="ajouter_service">
      <attribute name="title">
@@ -177,7 +177,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QDateEdit" name="dateEdit">
+     <widget class="QDateEdit" name="dateEditAjouter">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -200,16 +200,31 @@
      <widget class="QLabel" name="label_pic">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>20</y>
-        <width>291</width>
-        <height>301</height>
+        <x>0</x>
+        <y>0</y>
+        <width>781</width>
+        <height>521</height>
        </rect>
       </property>
       <property name="text">
        <string/>
       </property>
      </widget>
+     <zorder>label_pic</zorder>
+     <zorder>label_1</zorder>
+     <zorder>lineEdit_prix_s</zorder>
+     <zorder>label_15</zorder>
+     <zorder>lineEdit_nom_s</zorder>
+     <zorder>pushButton_ajouter</zorder>
+     <zorder>label_2</zorder>
+     <zorder>lineEdit_code</zorder>
+     <zorder>pushButton</zorder>
+     <zorder>label_4</zorder>
+     <zorder>label_3</zorder>
+     <zorder>label_5</zorder>
+     <zorder>lineEdit_offre</zorder>
+     <zorder>dateEditAjouter</zorder>
+     <zorder>lineEdit_prix_offre</zorder>
     </widget>
     <widget class="QWidget" name="afficher_service">
      <attribute name="title">
@@ -231,8 +246,8 @@
        <widget class="QPushButton" name="pushButton_4">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>60</y>
+          <x>180</x>
+          <y>10</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -257,18 +272,18 @@
        <widget class="QTableView" name="tableViewAfficherService">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>100</y>
-          <width>501</width>
-          <height>291</height>
+          <x>20</x>
+          <y>50</y>
+          <width>631</width>
+          <height>341</height>
          </rect>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit">
         <property name="geometry">
          <rect>
-          <x>100</x>
-          <y>60</y>
+          <x>50</x>
+          <y>10</y>
           <width>113</width>
           <height>22</height>
          </rect>
@@ -278,7 +293,7 @@
         <property name="geometry">
          <rect>
           <x>480</x>
-          <y>60</y>
+          <y>20</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -287,6 +302,39 @@
          <string>Offre</string>
         </property>
        </widget>
+       <widget class="QLabel" name="label_pic1">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-30</y>
+          <width>771</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonafficher">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>430</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>refresh</string>
+        </property>
+       </widget>
+       <zorder>label_pic1</zorder>
+       <zorder>pushButton_4</zorder>
+       <zorder>pushButton_11</zorder>
+       <zorder>tableViewAfficherService</zorder>
+       <zorder>lineEdit</zorder>
+       <zorder>pushButton_5</zorder>
+       <zorder>pushButtonafficher</zorder>
       </widget>
       <widget class="QWidget" name="page_2">
        <widget class="QTableView" name="tableView_2">
@@ -371,7 +419,7 @@
          <string>prix</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lineEdit_prix_offre_modifier">
+       <widget class="QLabel" name="lineEdit_prix_offre_3">
         <property name="geometry">
          <rect>
           <x>130</x>
@@ -430,9 +478,9 @@
        <widget class="QLabel" name="label_20">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>100</y>
-          <width>56</width>
+          <x>130</x>
+          <y>80</y>
+          <width>50</width>
           <height>16</height>
          </rect>
         </property>
@@ -443,8 +491,31 @@
        <widget class="QLineEdit" name="lineEdit_nom">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>100</y>
+          <x>240</x>
+          <y>80</y>
+          <width>110</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>120</y>
+          <width>71</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>disponibilite</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_disponibilite">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>120</y>
           <width>113</width>
           <height>22</height>
          </rect>
@@ -503,6 +574,35 @@
        </widget>
       </widget>
      </widget>
+     <widget class="QLabel" name="label_pic2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>5</y>
+        <width>731</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_pic2_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>5</y>
+        <width>751</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_pic2</zorder>
+     <zorder>stackedWidget_2</zorder>
+     <zorder>label_pic2_2</zorder>
     </widget>
     <widget class="QWidget" name="supprimer_service">
      <attribute name="title">
@@ -534,7 +634,7 @@
        <string>Code</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_16">
+     <widget class="QLineEdit" name="lineEdit_code1">
       <property name="geometry">
        <rect>
         <x>330</x>
@@ -560,6 +660,24 @@
        <string>Retour</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_pic3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>5</y>
+        <width>761</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_pic3</zorder>
+     <zorder>pushButton_supprimer</zorder>
+     <zorder>lineEdit_code_2</zorder>
+     <zorder>lineEdit_code1</zorder>
+     <zorder>pushButton_3</zorder>
     </widget>
    </widget>
   </widget>
