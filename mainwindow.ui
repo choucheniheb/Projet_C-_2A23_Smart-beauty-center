@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>903</width>
-    <height>508</height>
+    <width>988</width>
+    <height>628</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_17">
        <attribute name="title">
@@ -248,8 +248,8 @@
        <widget class="QPushButton" name="pushButtonAjouter">
         <property name="geometry">
          <rect>
-          <x>520</x>
-          <y>300</y>
+          <x>590</x>
+          <y>330</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -327,7 +327,7 @@
          </rect>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page_16">
          <widget class="QLabel" name="label_84">
@@ -341,16 +341,6 @@
           </property>
           <property name="text">
            <string>ID</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="lineEdit_id_e_modifier">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>190</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButton_37">
@@ -377,6 +367,16 @@
           </property>
           <property name="text">
            <string>Modifier</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_id_modifier">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>190</y>
+            <width>111</width>
+            <height>22</height>
+           </rect>
           </property>
          </widget>
         </widget>
@@ -417,16 +417,6 @@
            </rect>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_nom_e_modifier">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>90</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_87">
           <property name="geometry">
            <rect>
@@ -438,29 +428,6 @@
           </property>
           <property name="text">
            <string>Spécialité</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="lineEdit_prenom_e_modifier">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>130</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_88">
-          <property name="geometry">
-           <rect>
-            <x>110</x>
-            <y>130</y>
-            <width>47</width>
-            <height>14</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Prenom</string>
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_telephone_e_modifier">
@@ -484,42 +451,6 @@
           </property>
           <property name="text">
            <string>Adresse</string>
-          </property>
-         </widget>
-         <widget class="QDateEdit" name="lineEdit_date_naissance_e_modifier">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>170</y>
-            <width>110</width>
-            <height>22</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_90">
-          <property name="geometry">
-           <rect>
-            <x>120</x>
-            <y>90</y>
-            <width>47</width>
-            <height>14</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Nom</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_91">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>170</y>
-            <width>81</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Date_naissance</string>
           </property>
          </widget>
          <widget class="QPushButton" name="pushButtonModifier2">
@@ -575,16 +506,6 @@
        <attribute name="title">
         <string>Supprimer employer</string>
        </attribute>
-       <widget class="QLineEdit" name="lineEdit_id_sup">
-        <property name="geometry">
-         <rect>
-          <x>260</x>
-          <y>180</y>
-          <width>113</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_92">
         <property name="geometry">
          <rect>
@@ -637,11 +558,21 @@
          <string/>
         </property>
        </widget>
+       <widget class="QComboBox" name="comboBox_id_supprimer">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>180</y>
+          <width>121</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
        <zorder>label</zorder>
-       <zorder>lineEdit_id_sup</zorder>
        <zorder>label_92</zorder>
        <zorder>pushButtonSupprimer</zorder>
        <zorder>pushButton_42</zorder>
+       <zorder>comboBox_id_supprimer</zorder>
       </widget>
       <widget class="QWidget" name="tab_20">
        <attribute name="title">
@@ -758,6 +689,44 @@
            <string/>
           </property>
          </widget>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>340</x>
+            <y>90</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>mail</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="comboBox_critere">
+          <property name="geometry">
+           <rect>
+            <x>260</x>
+            <y>90</y>
+            <width>71</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <item>
+           <property name="text">
+            <string>nom</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>prenom</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>id</string>
+           </property>
+          </item>
+         </widget>
          <zorder>label_pic_2</zorder>
          <zorder>pushButton_43</zorder>
          <zorder>lineEdit_idEmployerachercher</zorder>
@@ -766,6 +735,8 @@
          <zorder>pushButton_46</zorder>
          <zorder>tableViewAficherEmployers</zorder>
          <zorder>pushButtonafficher</zorder>
+         <zorder>pushButton</zorder>
+         <zorder>comboBox_critere</zorder>
         </widget>
         <widget class="QWidget" name="page_19">
          <widget class="QTextEdit" name="textEdit_4">
@@ -957,10 +928,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>903</width>
+     <width>988</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuGestion_Employers">
+    <property name="title">
+     <string>Gestion_Employers</string>
+    </property>
+   </widget>
+   <addaction name="menuGestion_Employers"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

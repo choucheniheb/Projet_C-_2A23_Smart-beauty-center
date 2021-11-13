@@ -24,6 +24,12 @@ private slots:
 
     void on_pushButton_Login_clicked();
     void on_rechercheEmployerButton_clicked();
+    bool search(int t);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_40_clicked();
+
 
 private:
     Ui::MainWindow *ui;

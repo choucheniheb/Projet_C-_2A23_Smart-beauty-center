@@ -15,7 +15,8 @@ public:
     QSqlQueryModel * afficher();
     bool supprimer(int);
     bool modifier(int);
-    QSqlQueryModel * recherche(int);
+    QSqlQueryModel * rechercheMulticritere(QString);
+
     //getters
     int getid()
     {
@@ -49,6 +50,7 @@ public:
     {
         return specialite;
     }
+
     //SETTERS
     void setid(int i){id_e=i;}
     void setnom(QString n){nom_e=n;}

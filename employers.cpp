@@ -4,6 +4,10 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 
+
+#include "smtp.h"
+Employers e;
+
 Employers::Employers()
 {
     id_e=0;
@@ -13,6 +17,7 @@ Employers::Employers()
     telephone_e=0;
     type="";
     specialite="";
+
 
 }
 Employers::Employers(int id,QString nom, QString prenom,QDate date_naissance,QString adresse,int telephone,QString type, QString specialite)
@@ -25,6 +30,7 @@ this->adresse_e=adresse;
 this->telephone_e=telephone;
 this->type=type;
 this->specialite=specialite;
+
 }
 bool Employers::ajouter()
 {
@@ -90,40 +96,47 @@ bool Employers::modifier(int id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //***************************************RECHERCHE*********************
+QSqlQueryModel* Employers::rechercheMulticritere(QString recherche){
+    QSqlQueryModel* trouve = new QSqlQueryModel();
 
-QSqlQueryModel * Employers::recherche(int id)
-{
-    QSqlQueryModel * model=new QSqlQueryModel();
-    QString c=QString::number(id);
-    model->setQuery("select * from EMPLOYERS where ID_E="+c);
-    model->setHeaderData(0,Qt::Horizontal,"id");
-    model->setHeaderData(1,Qt::Horizontal,"Nom");
-    model->setHeaderData(2,Qt::Horizontal,"Prenom");
-    model->setHeaderData(3,Qt::Horizontal,"date_naissance");
-    model->setHeaderData(4,Qt::Horizontal,"adresse");
-    model->setHeaderData(5,Qt::Horizontal,"telephone");
-    model->setHeaderData(5,Qt::Horizontal,"type");
-    model->setHeaderData(5,Qt::Horizontal,"specialite");
-    return(model);
+    trouve->setQuery("SELECT * FROM EMPLOYERS WHERE ID_E LIKE '"+recherche+"%' OR NOM_E LIKE '"+recherche+"%' OR PRENOM_E LIKE '"+recherche+"%'");
+    trouve->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
+    trouve->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+    trouve->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+    trouve->setHeaderData(3,Qt::Horizontal,QObject::tr("date_naissance"));
+    trouve->setHeaderData(4,Qt::Horizontal,QObject::tr("adresse"));
+    trouve->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
+    trouve->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
+    trouve->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
+
+    return trouve;
 }
+
+
+
+
+
+
+
+
+
 
 //******************************MAILING************************
 
+/*void Employers::mailSent(QString status)
+{
+    if(status == "Message sent")
+        e.mailEmployers();
+}
+
+void Employers::on_send_mail_clicked()
+{
+
+    Smtp* smtp = new Smtp("aura.forgetPass@gmail.com","Service100a","smtp.gmail.com",465);
+       connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+       smtp->sendMail("aura.forgetPass@gmail.com",ui->rcpt->text(),ui->subject->text(),ui->msg->toPlainText());
+}
+*/
 
