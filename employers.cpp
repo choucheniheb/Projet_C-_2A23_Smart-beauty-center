@@ -3,11 +3,7 @@
 #include <QDate>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
-
-
 #include "smtp.h"
-Employers e;
-
 Employers::Employers()
 {
     id_e=0;
@@ -20,7 +16,7 @@ Employers::Employers()
 
 
 }
-Employers::Employers(int id,QString nom, QString prenom,QDate date_naissance,QString adresse,int telephone,QString type, QString specialite)
+Employers::Employers(int id,QString nom, QString prenom,QDateTime date_naissance,QString adresse,int telephone,QString type, QString specialite)
 {
 this->id_e=id;
 this->nom_e=nom;
@@ -30,7 +26,14 @@ this->adresse_e=adresse;
 this->telephone_e=telephone;
 this->type=type;
 this->specialite=specialite;
+}
 
+Employers::Employers(int id, QString entree, QString sortie,QString jour_travail)
+{
+    this->id_e=id;
+    this->entree=entree;
+    this->sortie=sortie;
+    this->jour_travail=jour_travail;
 }
 bool Employers::ajouter()
 {
@@ -64,6 +67,35 @@ QSqlQueryModel * Employers::afficher()
     model->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
     return model;
 }
+
+
+//**********************
+bool Employers::ajouterh()
+{
+    QSqlQuery query;
+    QString res = QString::number(id_e); //convertion
+
+    query.prepare("update EMPLOYERS set entree= :entree,sortie= :sortie,jour_travail= :jour_travail where id_e= :id");
+    query.bindValue(":id",res);
+    query.bindValue(":entree",entree);
+    query.bindValue(":sortie",sortie);
+    query.bindValue(":jour_travail",jour_travail);
+    return query.exec();
+}
+
+QSqlQueryModel* Employers::afficherh()
+{
+    QSqlQueryModel* model=new QSqlQueryModel();
+         model->setQuery("SELECT id_e,entree,sortie,jour_travail FROM Employers");
+         model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+         model->setHeaderData(1, Qt::Horizontal, QObject::tr("heure d'arrive"));
+         model->setHeaderData(2, Qt::Horizontal, QObject::tr("heure de sortir"));
+         model->setHeaderData(2, Qt::Horizontal, QObject::tr("jour_travail"));
+    return model;
+}
+//**********************
+
+
 bool Employers::supprimer(int id)
 {
     QSqlQuery query;
@@ -92,10 +124,6 @@ bool Employers::modifier(int id)
 }
 
 
-
-
-
-
 //***************************************RECHERCHE*********************
 QSqlQueryModel* Employers::rechercheMulticritere(QString recherche){
     QSqlQueryModel* trouve = new QSqlQueryModel();
@@ -113,13 +141,55 @@ QSqlQueryModel* Employers::rechercheMulticritere(QString recherche){
     return trouve;
 }
 
+//*************************TRI**************
+
+QSqlQueryModel * Employers::triParId()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+        model->setQuery("SELECT * FROM EMPLOYERS ORDER BY CAST (ID_E AS number)");
+        model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
+        model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+        model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+        model->setHeaderData(3,Qt::Horizontal,QObject::tr("date_naissance"));
+        model->setHeaderData(4,Qt::Horizontal,QObject::tr("adresse"));
+        model->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
+        model->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
+        model->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
+        return model;
+}
 
 
+QSqlQueryModel * Employers::triParNom()
+{
+    QSqlQueryModel * model =new QSqlQueryModel();
+    model->setQuery("SELECT * FROM EMPLOYERS ORDER BY NOM_E ASC ");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("date_naissance"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("adresse"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
+    model->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
+    model->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
 
+    return model;
+}
 
+QSqlQueryModel * Employers::trierDate()
+{
+             QSqlQueryModel * model = new  QSqlQueryModel ();
+             model->setQuery("SELECT * FROM EMPLOYERS ORDER BY CAST (DATE_NAISSANCE_E as TIMESTAMP) ASC");
+             model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
+             model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+             model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
+             model->setHeaderData(3,Qt::Horizontal,QObject::tr("date_naissance"));
+             model->setHeaderData(4,Qt::Horizontal,QObject::tr("adresse"));
+             model->setHeaderData(5,Qt::Horizontal,QObject::tr("telephone"));
+             model->setHeaderData(6,Qt::Horizontal,QObject::tr("type"));
+             model->setHeaderData(7,Qt::Horizontal,QObject::tr("specialite"));
+             return model;
 
-
-
+}
 
 
 //******************************MAILING************************
@@ -139,4 +209,36 @@ void Employers::on_send_mail_clicked()
        smtp->sendMail("aura.forgetPass@gmail.com",ui->rcpt->text(),ui->subject->text(),ui->msg->toPlainText());
 }
 */
+
+
+
+
+
+
+
+
+void Employers::chat(QString message,QString username,QString password)
+{
+    QSqlQuery query;
+    if(username=="employer" && password=="employer")
+        query.prepare("update employers set message= :message");
+    else
+        query.prepare("update employers set message_gerant= :message");
+    query.bindValue(":message",message);
+    query.exec();
+}
+
+QSqlQueryModel * Employers::affichermessage(QString username,QString password)
+{
+    QSqlQueryModel* model=new QSqlQueryModel();
+    if(username=="employer" && password=="employer")
+    {
+        model->setQuery("SELECT type,MESSAGE_gerant FROM Employers where id_e= 1");
+    }else
+        model->setQuery("SELECT type,MESSAGE FROM Employers where id_e= 2");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("type"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("message"));
+
+    return model;
+}
 

@@ -27,6 +27,7 @@ CONFIG += c++11
 
 SOURCES += \
     employers.cpp \
+    mailing.cpp \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
     employers.h \
+    mailing.h \
         mainwindow.h \
     connection.h \
     smtp.h
