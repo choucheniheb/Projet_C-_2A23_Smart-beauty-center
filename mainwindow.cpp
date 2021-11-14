@@ -8,27 +8,48 @@
 #include<QApplication>
 #include<QtWidgets>
 #include<QMainWindow>
+#include<QFileDialog>
+#include<QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
+    //
+    //
+ /* ui->comboBox->addItem("parfums");
+ ui->comboBox->addItem("cosmetiques");
+  ui->comboBox->addItem("makeup"); */
+  //
     ui->setupUi(this);
+
     ui->code_edit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixu_edit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixp_edit->setValidator ( new QIntValidator(0, 9999999, this));
+
+   // ui->prixp_edit->setValidator ( new QDoubleValidator(0, 9999999, this));
+
     ui->lineEditcodeabarresupprimer->setValidator ( new QIntValidator(0, 9999999, this));
     ui->codeabarrem->setValidator ( new QIntValidator(0, 9999999, this));
     ui->nbreEdit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->nbreEdit_1->setValidator ( new QIntValidator(0, 9999999, this));
 
+    QRegularExpression rx("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",
+                                  QRegularExpression::CaseInsensitiveOption);
+        ui->nom_edit->setValidator(new QRegularExpressionValidator(rx, this));
 
-    QPixmap pix("C:/Users/HP/Desktop/image/makeup.jpg");
+        QRegularExpression rx1("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",
+                                      QRegularExpression::CaseInsensitiveOption);
+            ui->categorie_edit->setValidator(new QRegularExpressionValidator(rx, this));
+
+    //
+     QPixmap pix("C:/Users/HP/Desktop/image/makeup.jpg");
      QPixmap pix1("C:/Users/HP/Desktop/image/cosmetics.jpg");
        QPixmap pix2("C:/Users/HP/Desktop/image/bc.png");
        QPixmap pix3("C:/Users/HP/Desktop/image/k1.png");
        QPixmap pix4("C:/Users/HP/Desktop/image/parfums.jpg");
        QPixmap pix5("C:/Users/HP/Desktop/image/555.png");
-       QPixmap pix6("C:/Users/HP/Desktop/image/mqqq1.jpg");
+       QPixmap pix6("C:/Users/HP/Desktop/image/mqqq11.png");
        QPixmap pix7("C:/Users/HP/Desktop/image/modifier.png");
       QPixmap pix14("C:/Users/HP/Desktop/image/99.png");
       QPixmap pix16("C:/Users/HP/Desktop/image/modifier1.png");
@@ -89,14 +110,20 @@ int h17 = ui->label_17->height();
       ui->label_17->setPixmap(pix17.scaled(w17,h17,Qt::KeepAspectRatio));
 
  //IMAGE ANIMEE///////////////
-
-     ui->label_12->setMask((new QPixmap("C:/Users/HP/Desktop/image/promo.gif"))->mask());
-     QMovie *movie = new QMovie ("C:/Users/HP/Desktop/image/promo.gif");
+     ui->label_12->setMask((new QPixmap("C:/Users/HP/Desktop/image/promo9.gif"))->mask());
+     QMovie *movie = new QMovie ("C:/Users/HP/Desktop/image/promo9.gif");
      ui->label_12->setMovie(movie);
      movie->start();
      ui->label_12->show();
 //
+     //code a barre metier/////////
+           QPixmap pixc("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
+           ui->label_picc->setPixmap(pixc);
 
+                 QPixmap pixc1("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
+                 ui->label_picc1->setPixmap(pixc1);
+                 QPixmap pixc2("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
+                 ui->label_picc2->setPixmap(pixc2);
 }
 
 
@@ -112,15 +139,24 @@ void MainWindow::on_aj_button_clicked()
 {
     //code a barre
     int code_a_barre=ui->code_edit->text().toInt();
+    ui->code_edit->clear();
     //nom
    QString nom_produit=ui->nom_edit->text();
+   ui->nom_edit->clear();
    //prix uni
    float prix_uni=ui->prixu_edit->text().toFloat();
+   ui->prixu_edit->clear();
    float prix_promo=ui->prixp_edit->text().toFloat();
+   ui->prixp_edit->clear();
    //
    QString categorie=ui->categorie_edit->text();
+    ui->categorie_edit->clear();
+
    QString date_expiration=ui->date_edit->text();
+   ui->date_edit->clear();
+
    int quantite_produit=ui-> nbreEdit->text().toInt();
+   ui->nbreEdit->clear();
 
 
 
@@ -136,7 +172,7 @@ bool test=p.ajouter();
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
-}else
+}else if ((categorie != "parfums" && categorie !="cosmetique" && categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
 {
     QMessageBox::critical(nullptr,QObject::tr(" non ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
 }
@@ -195,6 +231,16 @@ if(test2)
         }
 
 }
+
+
+void MainWindow::lineEdit_produitrechercher_cursorPositionChanged()
+{
+    QString i=ui->lineEdit_produitrechercher->text();
+    ui->tableViewproduit->setModel(p.rechercheMulticritere(i));
+}
+
+
+
 void MainWindow::on_makeup_bottom_clicked()
 {
     ui->stackedWidget2->setCurrentIndex(1);
@@ -217,3 +263,49 @@ void MainWindow::on_categorie_bottom_clicked()
 {
     ui->stackedWidget2->setCurrentIndex(0);
 }
+
+
+
+
+void MainWindow::on_codeabarre1_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP\Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
+//to select and show the picture
+    if (!fileName.isEmpty())
+    {
+        QImage image(fileName);
+            ui->label_picc->setPixmap(QPixmap::fromImage(image));
+    }
+}
+
+void MainWindow::on_codeabarre1_2_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP\Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
+//to select and show the picture
+    if (!fileName.isEmpty())
+    {
+        QImage image(fileName);
+            ui->label_picc1->setPixmap(QPixmap::fromImage(image));
+    }
+}
+
+void MainWindow::on_codeabarre1_3_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP\Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
+//to select and show the picture
+    if (!fileName.isEmpty())
+    {
+        QImage image(fileName);
+            ui->label_picc2->setPixmap(QPixmap::fromImage(image));
+    }
+}
+
