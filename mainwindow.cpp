@@ -341,52 +341,8 @@ void MainWindow::on_comboBoxTri_activated()
 
 
 
-void MainWindow::on_pushButton_PDF_clicked()
-{
-    QPdfWriter pdf("C:\\Users\\asus\\OneDrive\\Desktop\\pdf_projet\\pdf_final");
+//************************************
 
-   QPainter painter(&pdf);
-   int i = 4000;
-   if(ui->comboBoxTri->currentText()=="Tri par id")
-       {
-           ui->tableViewAficherEmployers->setModel(e.triParId());
-           painter.setPen(Qt::red);
-           painter.setFont(QFont("Time New Roman", 25));
-           painter.drawText(3000,1400,"Liste Des Employes");
-           painter.setPen(Qt::black);
-           painter.setFont(QFont("Time New Roman", 15));
-           painter.drawRect(100,3000,9400,500);
-           painter.setFont(QFont("Time New Roman", 9));
-           painter.drawText(400,3300,"id");
-           painter.drawText(1350,3300,"nom");
-           painter.drawText(2200,3300,"prenom");
-           painter.drawText(3400,3300,"date_naissance");
-           painter.drawText(5000,3300,"adresse");
-           painter.drawText(6200,3300,"telephone");
-           painter.drawText(7600,3300,"type");
-           painter.drawText(8500,3300,"specialite");
-           painter.drawRect(100,3000,9400,9000);
-
-           QSqlQuery query;
-           query.prepare("select * from EMPLOYERS");
-           query.exec();
-           while (query.next())
-           {
-               painter.drawText(400,i,query.value(0).toString());
-               painter.drawText(1350,i,query.value(1).toString());
-               painter.drawText(2300,i,query.value(2).toString());
-               painter.drawText(3400,i,query.value(3).toString());
-               painter.drawText(5000,i,query.value(4).toString());
-               painter.drawText(6200,i,query.value(5).toString());
-               painter.drawText(7600,i,query.value(6).toString());
-               painter.drawText(8500,i,query.value(7).toString());
-              i = i + 350;
-           }
-           QMessageBox::information(this, QObject::tr("PDF Enregistré!"),
-           QObject::tr("PDF Enregistré!.\n" "Click Cancel to exit."), QMessageBox::Cancel);
-       }
-
-}
 
 
 void MainWindow::on_pushButtonAfficherMessage_clicked()

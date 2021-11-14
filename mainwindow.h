@@ -43,7 +43,7 @@ private slots:
 
     void on_comboBoxTri_activated();
 
-    void on_pushButton_PDF_clicked();
+
 
 
     void on_pushButtonAfficherMessage_clicked();
