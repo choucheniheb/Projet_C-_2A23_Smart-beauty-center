@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 /****************************************************/
 
 
-        QPixmap pix2("C:/Users/wajdi/Desktop/image/pix2.png");
+   QPixmap pix2("C:/Users/wajdi/Desktop/image/pix2.png");
 // ajouter photo
 int w=ui->label_pic ->width();
 
