@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="ajouter_facture">
      <attribute name="title">
@@ -196,19 +196,6 @@
        <string>Pousser</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_id_c">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>190</y>
-        <width>151</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
@@ -222,7 +209,17 @@
        <string>ID_C</string>
       </property>
      </widget>
-     <widget class="QDateEdit" name="dateTimeEdit_ajouter">
+     <widget class="QComboBox" name="comboBox_id_c">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>190</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDateTimeEdit" name="dateTimeEdit_ajouter">
       <property name="geometry">
        <rect>
         <x>370</x>
@@ -245,8 +242,8 @@
      <zorder>label_5</zorder>
      <zorder>pushButtonAjouter</zorder>
      <zorder>pushButtom_Pousser</zorder>
-     <zorder>lineEdit_id_c</zorder>
      <zorder>label_7</zorder>
+     <zorder>comboBox_id_c</zorder>
      <zorder>dateTimeEdit_ajouter</zorder>
     </widget>
     <widget class="QWidget" name="afficher_facture">
@@ -346,17 +343,57 @@
          <string>Afficher</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonTri">
+       <widget class="QComboBox" name="comboBoxCriter">
         <property name="geometry">
          <rect>
-          <x>500</x>
-          <y>480</y>
+          <x>150</x>
+          <y>10</y>
+          <width>101</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Tri</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tri par date</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tri par id</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tri par prix</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QPushButton" name="pushButton_stat">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>0</y>
           <width>93</width>
           <height>28</height>
          </rect>
         </property>
         <property name="text">
-         <string>Trier</string>
+         <string>stat</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_rechercher">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>8</y>
+          <width>130</width>
+          <height>22</height>
+         </rect>
         </property>
        </widget>
       </widget>
@@ -387,7 +424,7 @@
          <string>Retour</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEditImprimer">
+       <widget class="QLineEdit" name="lineEditRecette">
         <property name="geometry">
          <rect>
           <x>360</x>
@@ -395,6 +432,44 @@
           <width>113</width>
           <height>22</height>
          </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <widget class="QTextEdit" name="textEdit_impression">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>771</width>
+          <height>431</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_impression">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>460</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>imprimer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonRetourIm">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>460</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Retour</string>
         </property>
        </widget>
       </widget>
@@ -445,19 +520,6 @@
          <string>Numero de facture</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_num_fact_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>220</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
        <widget class="QPushButton" name="pushButtonModifier">
         <property name="geometry">
          <rect>
@@ -484,6 +546,16 @@
          <string>Retour</string>
         </property>
        </widget>
+       <widget class="QComboBox" name="comboBox_num_facture_mod">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>220</y>
+          <width>131</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="modifier">
        <widget class="QLabel" name="label_37">
@@ -504,7 +576,7 @@
          <rect>
           <x>360</x>
           <y>220</y>
-          <width>113</width>
+          <width>131</width>
           <height>20</height>
          </rect>
         </property>
@@ -569,7 +641,7 @@
          <rect>
           <x>360</x>
           <y>180</y>
-          <width>113</width>
+          <width>131</width>
           <height>20</height>
          </rect>
         </property>
@@ -582,22 +654,12 @@
          <rect>
           <x>360</x>
           <y>260</y>
-          <width>113</width>
+          <width>131</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
          <string/>
-        </property>
-       </widget>
-       <widget class="QDateTimeEdit" name="dateTimeEdit_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>140</y>
-          <width>131</width>
-          <height>22</height>
-         </rect>
         </property>
        </widget>
        <widget class="QPushButton" name="pushButtonModifier2">
@@ -611,6 +673,16 @@
         </property>
         <property name="text">
          <string>Modifier</string>
+        </property>
+       </widget>
+       <widget class="QDateTimeEdit" name="dateTimeEdit_modifier">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>140</y>
+          <width>131</width>
+          <height>22</height>
+         </rect>
         </property>
        </widget>
       </widget>
@@ -661,19 +733,6 @@
        <string>Numero de facture</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_num_fact_sup">
-      <property name="geometry">
-       <rect>
-        <x>380</x>
-        <y>220</y>
-        <width>151</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pushButtonRetourSupprimer">
       <property name="geometry">
        <rect>
@@ -700,11 +759,21 @@
        <string/>
       </property>
      </widget>
+     <widget class="QComboBox" name="comboBox_num_fact_sup">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>220</y>
+        <width>131</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
      <zorder>label_pic4</zorder>
      <zorder>pushButtonSupprimer</zorder>
      <zorder>label_11</zorder>
-     <zorder>lineEdit_num_fact_sup</zorder>
      <zorder>pushButtonRetourSupprimer</zorder>
+     <zorder>comboBox_num_fact_sup</zorder>
     </widget>
    </widget>
   </widget>

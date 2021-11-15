@@ -5,7 +5,7 @@ caisse::caisse()
 
 }
 //constructure
-caisse::caisse(int num_facture,QString date_delevrance,float prix_unitair,int quantiter,float prix_totale,int id_c)
+caisse::caisse(int num_facture,QDateTime date_delevrance,float prix_unitair,int quantiter,float prix_totale,int id_c)
 {
     this->num_facture=num_facture;
     this->date_delevrance=date_delevrance;
@@ -24,7 +24,7 @@ bool caisse::ajouter()
     QString res4= QString::number(prix_totale);
     QString res5= QString::number(id_c);
 
-    query.prepare("insert into FACTURES(NUM_FACTURE,DATE_D,PRIX_UNITAIRE,QUANTITE_F,PRIX_TOTALE,ID_C) values(:num_facture,:date,:prix_unitaire,:quantite,:prix_totale,:id_c)");
+   query.prepare("insert into FACTURES(NUM_FACTURE,DATE_D,PRIX_UNITAIRE,QUANTITE_F,PRIX_TOTALE,ID_C) values(:num_facture,:date,:prix_unitaire,:quantite,:prix_totale,:id_c)");
     query.bindValue(":num_facture",res);
     query.bindValue(":date",date_delevrance);
     query.bindValue(":id_c",res5);
@@ -74,10 +74,56 @@ bool caisse::modifier(int num_facture)
     query.bindValue(":prix_totale",res4);
     return query.exec();
 }
-QSqlQueryModel * caisse::tri()
+QSqlQueryModel * caisse::triParId()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("SELECT * from FACTURES ORDER BY CAST(num_facture AS number)");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUM_FACTURE"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNITAIRE"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("DATE_D"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("QUANTITE_F"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("PRIX_TOTALE"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("ID_C"));
+    return model;
+}
+QSqlQueryModel * caisse::triParDate()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * from FACTURES ORDER BY CAST(date_d as TIMESTAMP) desc");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUM_FACTURE"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNITAIRE"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("DATE_D"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("QUANTITE_F"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("PRIX_TOTALE"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("ID_C"));
+    return model;
+}
+QSqlQueryModel * caisse::triParPrix()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("SELECT * from FACTURES ORDER BY CAST(prix_totale AS float) desc");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUM_FACTURE"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNITAIRE"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("DATE_D"));
+    model->setHeaderData(3,Qt::Horizontal,QObject::tr("QUANTITE_F"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("PRIX_TOTALE"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("ID_C"));
+    return model;
+}
+QSqlQuery caisse::calculerecette()
+{
+    QSqlQuery query;
+    query.prepare("SELECT SUM(prix_totale) FROM factures");
+    return query;
+}
+
+
+//rechercher*****************************
+QSqlQueryModel* caisse::rechercheMulticritere(QString recherche)
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+    model->setQuery("SELECT * FROM FACTURES WHERE NUM_FACTURE LIKE '"+recherche+"%' OR DATE_D LIKE '"+recherche+"%' OR PRIX_TOTALE LIKE '"+recherche+"%'");
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUM_FACTURE"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNITAIRE"));
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("DATE_D"));
