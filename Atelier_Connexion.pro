@@ -28,12 +28,14 @@ SOURCES += \
     fournisseur.cpp \
         main.cpp \
         mainwindow.cpp \
-    connection.cpp
+    connection.cpp \
+    notification.cpp
 
 HEADERS += \
     fournisseur.h \
         mainwindow.h \
-    connection.h
+    connection.h \
+    notification.h
 
 FORMS += \
         mainwindow.ui
@@ -42,3 +44,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    historique

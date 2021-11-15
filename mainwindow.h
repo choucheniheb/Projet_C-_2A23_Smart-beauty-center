@@ -21,6 +21,14 @@ private slots:
    void on_pushButtonModifier_clicked();
    void   on_pushButtonModifier2_clicked();
    void on_pushButtonRetourMod_clicked();
+   void on_pushButtonafficher_clicked();
+
+   void on_lineEdit_chercher_cursorPositionChanged_textChanged();
+
+   QModelIndex on_tableViewAficherfournisseur_activated();
+
+   void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     fournisseur f;

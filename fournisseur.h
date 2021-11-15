@@ -2,6 +2,7 @@
 #define FOURNISSEUR_H
 #include <QSqlQuery>
 #include <QString>
+#include<QTableView>
 #include <QSqlQueryModel>
 class fournisseur
 {
@@ -29,9 +30,10 @@ public:
     QSqlQueryModel    *   afficher();
     bool modifier(int);
     bool supprimer(int);
-
-
-
+    //metier
+    QSqlQueryModel * rechercheMulticritere(QString recherche);
+    void ajouterhist(QString);
+    QSqlQueryModel * afficherhist();
 
 private:
     int num_f,code_f;
