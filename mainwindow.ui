@@ -261,42 +261,221 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
        <attribute name="title">
         <string>Afficher un produit</string>
        </attribute>
-       <widget class="QTableView" name="tableViewproduit">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>521</width>
-          <height>271</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_produitrechercher">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>181</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_17">
         <property name="geometry">
          <rect>
           <x>-4</x>
-          <y>3</y>
-          <width>571</width>
-          <height>361</height>
+          <y>-7</y>
+          <width>731</width>
+          <height>411</height>
          </rect>
         </property>
         <property name="text">
          <string/>
         </property>
        </widget>
-       <zorder>label_17</zorder>
-       <zorder>tableViewproduit</zorder>
-       <zorder>lineEdit_produitrechercher</zorder>
+       <widget class="QStackedWidget" name="stackedWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>-1</x>
+          <y>-1</y>
+          <width>651</width>
+          <height>381</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="page_13">
+         <widget class="QLineEdit" name="lineEdit_chercher_cursorPositionChanged">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>181</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButtonModifier">
+          <property name="geometry">
+           <rect>
+            <x>400</x>
+            <y>20</y>
+            <width>101</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Modifier</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_refrech">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>350</y>
+            <width>100</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Refrecher</string>
+          </property>
+         </widget>
+         <widget class="QTableView" name="tableViewproduit">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>60</y>
+            <width>631</width>
+            <height>271</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButtonSupprimer">
+          <property name="geometry">
+           <rect>
+            <x>360</x>
+            <y>350</y>
+            <width>111</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Supprimer</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="page_14">
+         <widget class="QLineEdit" name="prixp_edit_1">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>150</y>
+            <width>113</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="nbreEdit_1">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>200</y>
+            <width>113</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButtonModifier2_2">
+          <property name="geometry">
+           <rect>
+            <x>240</x>
+            <y>280</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;
+</string>
+          </property>
+          <property name="text">
+           <string>Retour</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="prixu_edit_1">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>100</y>
+            <width>113</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_15">
+          <property name="geometry">
+           <rect>
+            <x>170</x>
+            <y>200</y>
+            <width>121</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Quantite du produit</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_13">
+          <property name="geometry">
+           <rect>
+            <x>180</x>
+            <y>150</y>
+            <width>91</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Prix Promotion</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButtonModifier2">
+          <property name="geometry">
+           <rect>
+            <x>440</x>
+            <y>280</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(211, 149, 255);
+font: 25 8pt &quot;Rockwell Nova Light&quot;;
+</string>
+          </property>
+          <property name="text">
+           <string>Modifier</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_11">
+          <property name="geometry">
+           <rect>
+            <x>190</x>
+            <y>100</y>
+            <width>91</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
+          </property>
+          <property name="text">
+           <string>Prix Unitaire</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -558,288 +737,20 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
         <widget class="QWidget" name="page_6"/>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="tab_7">
        <attribute name="title">
-        <string>Modifier un produit</string>
+        <string>Historique</string>
        </attribute>
-       <widget class="QStackedWidget" name="stackedWidget">
+       <widget class="QTableView" name="tableView_hist">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>651</width>
-          <height>361</height>
-         </rect>
-        </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="page_3">
-         <widget class="QLabel" name="label_9">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>160</y>
-            <width>111</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 63 11pt &quot;Verdana Pro Semibold&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Code a Barre</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="codeabarrem">
-          <property name="geometry">
-           <rect>
-            <x>290</x>
-            <y>160</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButtonModifier">
-          <property name="geometry">
-           <rect>
-            <x>240</x>
-            <y>230</y>
-            <width>101</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(211, 149, 255);
-font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Valider</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_10">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>651</width>
-            <height>361</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-         <zorder>label_10</zorder>
-         <zorder>label_9</zorder>
-         <zorder>codeabarrem</zorder>
-         <zorder>pushButtonModifier</zorder>
-        </widget>
-        <widget class="QWidget" name="page_4">
-         <widget class="QPushButton" name="pushButtonModifier2">
-          <property name="geometry">
-           <rect>
-            <x>350</x>
-            <y>250</y>
-            <width>121</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(211, 149, 255);
-font: 25 8pt &quot;Rockwell Nova Light&quot;;
-</string>
-          </property>
-          <property name="text">
-           <string>Modifier</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_11">
-          <property name="geometry">
-           <rect>
-            <x>100</x>
-            <y>70</y>
-            <width>91</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Prix Unitaire</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="prixu_edit_1">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>70</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_13">
-          <property name="geometry">
-           <rect>
-            <x>90</x>
-            <y>120</y>
-            <width>91</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Prix Promotion</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="prixp_edit_1">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>120</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_15">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>170</y>
-            <width>121</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 87 10pt &quot;Verdana Pro&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Quantite du produit</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="nbreEdit_1">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>170</y>
-            <width>113</width>
-            <height>20</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButtonModifier2_2">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>250</y>
-            <width>121</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(211, 149, 255);
-font: 25 8pt &quot;Rockwell Nova Light&quot;;
-</string>
-          </property>
-          <property name="text">
-           <string>Retour</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_16">
-          <property name="geometry">
-           <rect>
-            <x>-4</x>
-            <y>3</y>
-            <width>651</width>
-            <height>351</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-         <zorder>label_16</zorder>
-         <zorder>nbreEdit_1</zorder>
-         <zorder>label_15</zorder>
-         <zorder>pushButtonModifier2_2</zorder>
-         <zorder>label_13</zorder>
-         <zorder>pushButtonModifier2</zorder>
-         <zorder>prixp_edit_1</zorder>
-         <zorder>label_11</zorder>
-         <zorder>prixu_edit_1</zorder>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>Supprimer un produit</string>
-       </attribute>
-       <widget class="QLineEdit" name="lineEditcodeabarresupprimer">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>150</y>
-          <width>113</width>
-          <height>20</height>
+          <x>60</x>
+          <y>30</y>
+          <width>571</width>
+          <height>311</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>150</y>
-          <width>111</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 63 11pt &quot;Verdana Pro Semibold&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Code a Barre</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonSupprimer">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>250</y>
-          <width>111</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(211, 149, 255);
-font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Supprimer</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_14">
-        <property name="geometry">
-         <rect>
-          <x>-4</x>
-          <y>3</y>
-          <width>631</width>
-          <height>361</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <zorder>label_14</zorder>
-       <zorder>lineEditcodeabarresupprimer</zorder>
-       <zorder>label_8</zorder>
-       <zorder>pushButtonSupprimer</zorder>
       </widget>
      </widget>
     </item>

@@ -35,10 +35,15 @@ void on_pushButtonModifier2_2_clicked();
 void on_categorie_bottom_clicked();
 
 void on_codeabarre1_clicked();
-void lineEdit_produitrechercher_cursorPositionChanged();
+
 void on_codeabarre1_2_clicked();
 
 void on_codeabarre1_3_clicked();
+void on_lineEdit_chercher_cursorPositionChanged_textChanged();
+
+QModelIndex on_tableViewproduit_activated();
+
+void on_pushButton_refrech_clicked();
 
 private:
     Ui::MainWindow *ui;

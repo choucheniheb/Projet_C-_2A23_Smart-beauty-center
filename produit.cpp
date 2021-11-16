@@ -2,7 +2,7 @@
 #include <QSqlQuery>
 #include <QString>
 #include <QSqlQueryModel>
-
+#include <QDateTime>
 produit::produit()
 {
 
@@ -50,39 +50,6 @@ void produit::setnom_p(QString nom_p){this -> nom_p=nom_p;}
 void produit::setdate_expiration(QString date_expiration){this -> date_expiration=date_expiration;}
 // void produit::setstock(bool stock){this -> stock=stock;}
 
-//recherche
-QSqlQueryModel* produit::rechercheMulticritere(QString recherche){
-    QSqlQueryModel* trouve = new QSqlQueryModel();
-
-    trouve->setQuery("SELECT * FROM produit WHERE code_a_barre LIKE '"+recherche+"%' OR nom_p LIKE '"+recherche+"%' OR categorie LIKE '"+recherche+"%'");
-
-    trouve->setHeaderData(0,Qt::Horizontal,QObject::tr("code_a_barre"));
-    trouve->setHeaderData(1,Qt::Horizontal,QObject::tr("nom_p"));
-    trouve->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_uni"));
-    trouve->setHeaderData(3,Qt::Horizontal,QObject::tr("prix_promo"));
-    trouve->setHeaderData(4,Qt::Horizontal,QObject::tr("categorie"));
-    trouve->setHeaderData(5,Qt::Horizontal,QObject::tr("date_expiration"));
-    trouve->setHeaderData(6,Qt::Horizontal,QObject::tr("quantite_produit"));
-
-
-    return trouve;
-}
-
-/* fonction rechercher
-QSqlQueryModel * produit::recherche(int code_a_barre)
-{
-    QSqlQueryModel * model=new QSqlQueryModel();
-    QString c=QString::number(code_a_barre);
-    model->setQuery("select * from produit where code_a_barre="+c);
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("code_a_barre"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom_p"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix_uni"));
-    model->setHeaderData(3,Qt::Horizontal,QObject::tr("prix_promo"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("categorie"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("date_expiration"));
-    model->setHeaderData(6,Qt::Horizontal,QObject::tr("quantite_produit"));
-    return(model);
-} */
 
 //ajout////////////
 bool produit::ajouter()
@@ -144,5 +111,39 @@ bool produit::modifier(int code_a_barre)
     query.bindValue(":prix_promo",res2);
     query.bindValue(":quantite_produit",res3);
     return query.exec();
+}
+
+//recherche
+QSqlQueryModel * produit::rechercheMulticritere(QString recherche) {
+    QSqlQueryModel* trouve = new QSqlQueryModel();
+
+    trouve->setQuery("SELECT * FROM produit WHERE code_a_barre LIKE '"+recherche+"%' OR nom_p LIKE '"+recherche+"%'OR categorie LIKE '"+recherche+"%'");
+    trouve->setHeaderData(0,Qt::Horizontal,QObject::tr("CODE_A_BARRE"));
+    trouve->setHeaderData(1,Qt::Horizontal,QObject::tr("PRIX_UNI"));
+    trouve->setHeaderData(2,Qt::Horizontal,QObject::tr("PRIX_PROMO"));
+    trouve->setHeaderData(3,Qt::Horizontal,QObject::tr("NOM_P"));
+    trouve->setHeaderData(4,Qt::Horizontal,QObject::tr("CATEGORIE"));
+    trouve->setHeaderData(5,Qt::Horizontal,QObject::tr("DATE_EXPIRATION"));
+    trouve->setHeaderData(6,Qt::Horizontal,QObject::tr("QUANTITE_PRODUIT"));
+
+
+    return trouve;
+}
+void produit::historique_produit(QString hist)
+{
+    QSqlQuery query;
+    QString res= QDateTime::currentDateTime().toString();
+    query.prepare("insert into historique_produit(date_h,historique_p) values(:date_h,:historique_p)");
+    query.bindValue(":date_h",res);
+    query.bindValue(":historique_p",hist);
+    query.exec();
+}
+QSqlQueryModel * produit::afficher_historique_produit()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select * from historique_produit");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("Date_historique"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("Historique"));
+    return model;
 }
 

@@ -40,9 +40,13 @@ void setdate_expiration(QString);
    QSqlQueryModel    *   afficher();
    bool modifier(int);
    bool supprimer(int);
-QSqlQueryModel* rechercheMulticritere(QString recherche);
-private:
+   //metier
 
+QSqlQueryModel * rechercheMulticritere(QString recherche);
+void historique_produit(QString);
+QSqlQueryModel * afficher_historique_produit();
+
+private:
     int quantite_produit;
     int prix_uni , prix_promo;
     QString categorie;

@@ -10,16 +10,14 @@
 #include<QMainWindow>
 #include<QFileDialog>
 #include<QLabel>
+#include "notification.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     //
-    //
- /* ui->comboBox->addItem("parfums");
- ui->comboBox->addItem("cosmetiques");
-  ui->comboBox->addItem("makeup"); */
+
   //
     ui->setupUi(this);
 
@@ -29,8 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
    // ui->prixp_edit->setValidator ( new QDoubleValidator(0, 9999999, this));
 
-    ui->lineEditcodeabarresupprimer->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->codeabarrem->setValidator ( new QIntValidator(0, 9999999, this));
+
     ui->nbreEdit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->nbreEdit_1->setValidator ( new QIntValidator(0, 9999999, this));
 
@@ -76,15 +73,6 @@ MainWindow::MainWindow(QWidget *parent) :
  int w6 = ui->label_mq1->width();
 int h6 = ui->label_mq1->height();
 //
-int w7 = ui->label_10->width();
-int h7 = ui->label_10->height();
-
-int w14 = ui->label_14->width();
-int h14 = ui->label_14->height();
-//
-int w16 = ui->label_16->width();
-int h16 = ui->label_16->height();
-//
 int w17 = ui->label_17->width();
 int h17 = ui->label_17->height();
     //cos
@@ -102,11 +90,6 @@ int h17 = ui->label_17->height();
     //
      ui->label_mq1->setPixmap(pix6.scaled(w6,h6,Qt::KeepAspectRatio));
      //
-     ui->label_10->setPixmap(pix7.scaled(w7,h7,Qt::KeepAspectRatio));
-     ui->label_14->setPixmap(pix14.scaled(w14,h14,Qt::KeepAspectRatio));
-
-     ui->label_16->setPixmap(pix16.scaled(w16,h16,Qt::KeepAspectRatio));
-
       ui->label_17->setPixmap(pix17.scaled(w17,h17,Qt::KeepAspectRatio));
 
  //IMAGE ANIMEE///////////////
@@ -125,6 +108,8 @@ int h17 = ui->label_17->height();
                  QPixmap pixc2("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
                  ui->label_picc2->setPixmap(pixc2);
 }
+
+//
 
 
 MainWindow::~MainWindow()
@@ -164,15 +149,14 @@ produit p (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expirati
 bool test=p.ajouter();
  if (test)
 {
-     if (quantite_produit < 10)
-       {
-           QMessageBox::warning(this,"WARNING","la quantité du produit est très peu");
-       }
-
+     QString c=QString::number(code_a_barre);
+     QString message2="ajouter une produit"+c;
+     p.historique_produit(message2);
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
+    ui->tableView_hist->setModel(p.afficher_historique_produit());
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
-}else if ((categorie != "parfums" && categorie !="cosmetique" && categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
+}else if ((categorie != "parfums" || categorie !="cosmetique" || categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
 {
     QMessageBox::critical(nullptr,QObject::tr(" non ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
 }
@@ -185,13 +169,17 @@ bool test=p.ajouter();
 
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-
-int code_a_barre=ui->lineEditcodeabarresupprimer->text().toInt();
+    QModelIndex index=on_tableViewproduit_activated();
+    int code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toInt();
 bool test1=p.supprimer(code_a_barre);
 if(test1)
 {
+    QString c=QString::number(code_a_barre);
+    QString message2="supprimer une produit"+c;
+    p.historique_produit(message2);
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
+    ui->tableView_hist->setModel(p.afficher_historique_produit());
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
 }else
 {
@@ -200,7 +188,7 @@ if(test1)
 }
 void MainWindow::on_pushButtonModifier_clicked()
 {
-ui->stackedWidget->setCurrentIndex(1);
+ui->stackedWidget_3->setCurrentIndex(1);
 }
 void MainWindow::on_pushButtonModifier2_clicked()
 {
@@ -209,21 +197,20 @@ void MainWindow::on_pushButtonModifier2_clicked()
 p.setprix_uni(ui->prixu_edit_1->text().toFloat());
 p.setprix_promo(ui->prixp_edit_1->text().toFloat());
 p.setquantite_produit(ui->nbreEdit_1->text().toInt());
-int quantite_produit=ui-> nbreEdit_1->text().toInt();
-
 
 //modifier requete************
-int code_a_barre=ui->codeabarrem->text().toInt();
+QModelIndex index=on_tableViewproduit_activated();
+int code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toInt();
 bool test2=p.modifier(code_a_barre);
 if(test2)
 {
-    if (quantite_produit < 10)
-      {
-          QMessageBox::warning(this,"WARNING","la quantité du produit est très peu");
-      }
-
+    QString c=QString::number(code_a_barre);
+    QString message2="modifier une produit"+c;
+    p.historique_produit(message2);
+    ui->stackedWidget_3->setCurrentIndex(0);
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
+    ui->tableView_hist->setModel(p.afficher_historique_produit());
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
 }else
 {
@@ -233,12 +220,13 @@ if(test2)
 }
 
 
-void MainWindow::lineEdit_produitrechercher_cursorPositionChanged()
+void MainWindow::on_lineEdit_chercher_cursorPositionChanged_textChanged()
 {
-    QString i=ui->lineEdit_produitrechercher->text();
+    QString i=ui->lineEdit_chercher_cursorPositionChanged->text();
     ui->tableViewproduit->setModel(p.rechercheMulticritere(i));
 }
 
+//
 
 
 void MainWindow::on_makeup_bottom_clicked()
@@ -256,7 +244,7 @@ void MainWindow::on_parfums_bottom_clicked()
 
 void MainWindow::on_pushButtonModifier2_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_3->setCurrentIndex(0);
 }
 
 void MainWindow::on_categorie_bottom_clicked()
@@ -309,3 +297,27 @@ void MainWindow::on_codeabarre1_3_clicked()
     }
 }
 
+
+QModelIndex MainWindow::on_tableViewproduit_activated()
+{
+    return  ui->tableViewproduit->currentIndex();
+}
+
+void MainWindow::on_pushButton_refrech_clicked()
+{
+    ui->tableViewproduit->setModel(p.afficher());
+    ui->tableView_hist->setModel(p.afficher_historique_produit());
+    QSqlQuery query;
+    query.prepare("select quantite_produit from produit where quantite_produit < 6");
+    query.exec();
+    query.next();
+    int q=query.value(0).toInt();
+    QString nom=query.value(0).toString();
+    if(q<=6)
+    {
+        notification n;
+        n.notification_system();
+    }
+
+
+}

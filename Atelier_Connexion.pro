@@ -28,11 +28,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
+    notification.cpp \
     produit.cpp
 
 HEADERS += \
         mainwindow.h \
     connection.h \
+    notification.h \
     produit.h
 
 FORMS += \
