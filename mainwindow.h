@@ -1,11 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <QString>
+#include <QDialog>
+#include "smtp.h"
+#include <QtWidgets/QMessageBox>
+#include <QFileDialog>
 #include <QMainWindow>
+#include <QtCore/QCoreApplication>
 #include "employers.h"
-namespace Ui {
+namespace  Ui{
 class MainWindow;
 }
+
 
 class MainWindow : public QMainWindow
 {
@@ -26,7 +32,7 @@ private slots:
     //void on_rechercheEmployerButton_clicked();
     bool search(int t);
 
-    void on_pushButton_clicked();
+    //void on_pushButton_clicked();
 
     void on_pushButton_40_clicked();
 
@@ -43,15 +49,24 @@ private slots:
 
     void on_comboBoxTri_activated();
 
-
+    //void on_pushButton_PDF_clicked();
 
 
     void on_pushButtonAfficherMessage_clicked();
+
+    void on_pushButton_Contacter_clicked();
+    void browse();
+    void sendMail();
+    void mailSent(QString status);
+    //void on_pushButton_43_clicked();
+
+    void on_pushButton_6_clicked();
 
 private:
     Ui::MainWindow *ui;
     Employers e;
     Employers e1;
+    QStringList files;
 };
 
 #endif // MAINWINDOW_H

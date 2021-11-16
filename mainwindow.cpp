@@ -9,6 +9,17 @@
 #include <QPdfWriter>
 #include "smtp.h"
 
+#include <QAbstractSocket>
+
+#include <QPrinter>
+#include <QtPrintSupport/QPrinter>
+#include <QPrintDialog>
+
+#include <QSystemTrayIcon>
+#include <QValidator>
+#include"notification.h"
+
+
 
 //liiindaaa
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,7 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QPixmap pix1("C:/Users/asus/OneDrive/Desktop/image/logo2.png");
         QPixmap pix2("C:/Users/asus/OneDrive/Desktop/image/logo3.png");
         QPixmap pix3("C:/Users/asus/OneDrive/Desktop/image/logo3.png");
-         QPixmap pix4("C:/Users/asus/OneDrive/Desktop/image/logo3.png");
+        QPixmap pix4("C:/Users/asus/OneDrive/Desktop/image/logo3.png");
+        QPixmap pix5("C:/Users/asus/OneDrive/Desktop/image/chat.png");
         int w = ui->label_pic->width();
         int h = ui->label_pic->height();
 
@@ -39,11 +51,15 @@ MainWindow::MainWindow(QWidget *parent) :
         int w4 = ui->label_pic->width();
         int h4 = ui->label_pic->height();
 
+        int w5 = ui->label_pic->width();
+        int h5 = ui->label_pic->height();
+
          ui->label_pic->setPixmap(pix1.scaled(w,h,Qt::KeepAspectRatio));
          ui->label_pic1->setPixmap(pix.scaled(w1,h1,Qt::KeepAspectRatio));
          ui->label_pic2->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
          ui->label_pic_2->setPixmap(pix3.scaled(w3,h3,Qt::KeepAspectRatio));
          ui->label->setPixmap(pix4.scaled(w4,h4,Qt::KeepAspectRatio));
+         ui->label_7->setPixmap(pix5.scaled(w5,h5,Qt::KeepAspectRatio));
 //AJOUTER
         ui->lineEdit_id->setValidator ( new QIntValidator(0, 99999999, this));
         ui->lineEdit_telephone->setValidator ( new QIntValidator(0, 99999999, this));
@@ -64,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
           QRegularExpression rx7("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b", QRegularExpression::CaseInsensitiveOption);
                                ui->lineEdit_specialite_modifier->setValidator(new QRegularExpressionValidator(rx3, this));
 
-
+connect(ui->sendBtn_6,SIGNAL(clicked()),this,SLOT(sendMail()));
 }
 MainWindow::~MainWindow()
 {
@@ -84,6 +100,7 @@ bool MainWindow::search(int t)
 
 void MainWindow::on_pushButtonAjouter_clicked()
 {
+    Notification n;
     int id=ui->lineEdit_id->text().toInt();
     ui->lineEdit_id->clear();
     QString  nom=ui->lineEdit_nom->text();
@@ -110,6 +127,7 @@ void MainWindow::on_pushButtonAjouter_clicked()
     {
         //Refresh affichage
         ui->tableViewAficherEmployers->setModel(e.afficher());
+        n.notification_ajoutEmployer();
         QSqlQueryModel *model=new QSqlQueryModel();
         model->setQuery("select id_e from EMPLOYERS");
         ui->comboBox_id_modifier->setModel(model);
@@ -122,6 +140,7 @@ void MainWindow::on_pushButtonAjouter_clicked()
 }
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
+    Notification n;
     int id=ui->comboBox_id_supprimer->currentText().toUInt();
     bool t=search(id);
     if(t==false)
@@ -133,6 +152,7 @@ void MainWindow::on_pushButtonSupprimer_clicked()
     bool test1=e.supprimer(id);
     if(test1)
     {
+        n.notification_supprimerEmployer();
         //Refresh affichage
         ui->tableViewAficherEmployers->setModel(e.afficher());
         QSqlQueryModel *model=new QSqlQueryModel();
@@ -148,6 +168,7 @@ void MainWindow::on_pushButtonSupprimer_clicked()
 }
 void MainWindow::on_pushButtonModifier_clicked()
 {
+    Notification n;
     ui->stackedWidget_2->setCurrentIndex(1);
     QSqlQuery query;
     QString res= ui->comboBox_id_modifier->currentText();
@@ -175,6 +196,7 @@ void MainWindow::on_pushButtonModifier_clicked()
 
 void MainWindow::on_pushButtonModifier2_clicked()
 {
+    Notification n;
     e.setadresse(ui->lineEdit_adresse_e_modifier->text());
     e.settelephone(ui->lineEdit_telephone_e_modifier->text().toInt());
     e.settype(ui->lineEdit_type_modifier->text());
@@ -255,16 +277,6 @@ void MainWindow::on_pushButton_Login_clicked()
                QMessageBox::warning(this, "Login", "Username and password are not correct");
            }
 }
-
-//*********************BOUTON EMAIL******************************
-void MainWindow::on_pushButton_clicked()
-{
-    Smtp *newMail  = new Smtp("arij.afaya@esprit.tn","chouchene.iheb00@gmail.com"," Your Subject","My body text");
-    //delete newMail;
-}
-
-
-
 
 
 void MainWindow::on_pushButton_planning_clicked()
@@ -351,4 +363,56 @@ void MainWindow::on_pushButtonAfficherMessage_clicked()
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
     ui->tableViewAfficherMessage->setModel(e.affichermessage(username,password));
+}
+
+
+
+
+
+//********************MAILING*****************************
+
+void MainWindow::on_pushButton_Contacter_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(2);
+}
+
+void MainWindow::browse()
+{
+    files.clear();
+
+    QFileDialog dialog(this);
+    dialog.setDirectory(QDir::homePath());
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+
+    if (dialog.exec())
+        files = dialog.selectedFiles();
+
+    QString fileListString;
+    foreach(QString file, files)
+        fileListString.append( "\"" + QFileInfo(file).fileName() + "\" " );
+
+    ui->file_6->setText( fileListString );
+
+}
+
+void MainWindow::sendMail()
+{
+    Smtp* smtp = new Smtp(ui->uname_6->text(), ui->paswd_6->text(), ui->server_6->text(), ui->port_6->text().toInt());
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+    if( !files.isEmpty() )
+        smtp->sendMail(ui->uname_6->text(), ui->rcpt_6->text() , ui->subject_7->currentText(),ui->msg->toPlainText(), files );
+    else
+        smtp->sendMail(ui->uname_6->text(), ui->rcpt_6->text() , ui->subject_7->currentText(),ui->msg->toPlainText());
+}
+
+void MainWindow::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::warning( 0, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(0);
 }

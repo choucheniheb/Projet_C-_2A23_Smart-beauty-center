@@ -88,9 +88,9 @@ QSqlQueryModel* Employers::afficherh()
     QSqlQueryModel* model=new QSqlQueryModel();
          model->setQuery("SELECT id_e,entree,sortie,jour_travail FROM Employers");
          model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
-         model->setHeaderData(1, Qt::Horizontal, QObject::tr("heure d'arrive"));
-         model->setHeaderData(2, Qt::Horizontal, QObject::tr("heure de sortir"));
-         model->setHeaderData(2, Qt::Horizontal, QObject::tr("jour_travail"));
+         model->setHeaderData(1, Qt::Horizontal, QObject::tr("heure d'arrivee"));
+         model->setHeaderData(2, Qt::Horizontal, QObject::tr("heure de sortie"));
+         model->setHeaderData(3, Qt::Horizontal, QObject::tr("jour_travail"));
     return model;
 }
 //**********************
