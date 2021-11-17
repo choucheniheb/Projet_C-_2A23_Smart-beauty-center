@@ -56,7 +56,7 @@ bool Employers::ajouter()
 QSqlQueryModel * Employers::afficher()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from Employers");
+    model->setQuery("select id_e,nom_e,prenom_e,date_naissance_e,adresse_e,telephone_e,type,specialite from Employers");
     model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenom"));
@@ -105,19 +105,19 @@ bool Employers::supprimer(int id)
     return  query.exec();
 }
 
-bool Employers::modifier(int id)
+bool Employers::modifier(int id_e)
 {
     QSqlQuery query;
-    QString res = QString::number(id);
+    QString res = QString::number(id_e);
     QString res1 = QString::number(telephone_e);
     //QString res2 = QString::number(date);
-    query.prepare("UPDATE EMPLOYERS SET nom_e= :nom, prenom_e= :prenom,date_naissance_e= :date_naissance_e,adresse_e= :adresse,telephone_e= :telephone_e, type= :type, specialite= :specialite WHERE id_e = :id");
+    query.prepare("UPDATE EMPLOYERS SET adresse_e= :adresse,telephone_e= :telephone_e, type= :type, specialite= :specialite WHERE id_e = :id");
     query.bindValue(":id",res);
-    query.bindValue(":nom",nom_e);
-    query.bindValue(":prenom",prenom_e);
-    query.bindValue(":date_naissance",date_naissance_e);
+   // query.bindValue(":nom",nom_e);
+    //query.bindValue(":prenom",prenom_e);
+    //query.bindValue(":date_naissance",date_naissance_e);
     query.bindValue(":adresse",adresse_e);
-    query.bindValue(":telephone",res1);
+    query.bindValue(":telephone_e",res1);
     query.bindValue(":type",type);
     query.bindValue(":specialite",specialite);
     return query.exec();
@@ -241,4 +241,7 @@ QSqlQueryModel * Employers::affichermessage(QString username,QString password)
 
     return model;
 }
+
+
+
 

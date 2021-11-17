@@ -8,6 +8,7 @@
 #include <QMainWindow>
 #include <QtCore/QCoreApplication>
 #include "employers.h"
+#include <QTimer>
 namespace  Ui{
 class MainWindow;
 }
@@ -29,10 +30,9 @@ private slots:
 
 
     void on_pushButton_Login_clicked();
-    //void on_rechercheEmployerButton_clicked();
+
     bool search(int t);
 
-    //void on_pushButton_clicked();
 
     void on_pushButton_40_clicked();
 
@@ -49,7 +49,7 @@ private slots:
 
     void on_comboBoxTri_activated();
 
-    //void on_pushButton_PDF_clicked();
+    void on_pushButton_PDF_clicked();
 
 
     void on_pushButtonAfficherMessage_clicked();
@@ -62,11 +62,23 @@ private slots:
 
     void on_pushButton_6_clicked();
 
+    QModelIndex on_tableViewAficherEmployers_activated();
+
+    void on_pushButton_clicked();
+
+
+    //******************
+    void myfunction();
+    //******************
+
+    void on_QrCode_clicked();
+
 private:
     Ui::MainWindow *ui;
     Employers e;
-    Employers e1;
     QStringList files;
+    //**************
+    QTimer *timer;
 };
 
 #endif // MAINWINDOW_H

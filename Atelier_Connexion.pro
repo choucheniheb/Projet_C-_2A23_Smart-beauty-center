@@ -7,6 +7,7 @@
 QT       += core gui sql
 QT       += network
 QT       += printsupport
+QT       += svg
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Atelier_Connexion
@@ -31,6 +32,7 @@ SOURCES += \
         mainwindow.cpp \
     connection.cpp \
     notification.cpp \
+    qrcode.cpp \
     smtp.cpp
 
 HEADERS += \
@@ -38,6 +40,7 @@ HEADERS += \
         mainwindow.h \
     connection.h \
     notification.h \
+    qrcode.h \
     smtp.h
 
 FORMS += \
