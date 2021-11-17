@@ -7,12 +7,21 @@
 #include<QDate>
 #include<QDebug>
 #include <QFileDialog>
+#include <QTcpSocket>
 #include"notification.h"
+#include "dumessengerconnectiondialog.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mSocket=new QTcpSocket(this);
+    connect(mSocket,&QTcpSocket::readyRead,[&]()
+    { QTextStream T(mSocket);
+       auto text=T.readAll();
+       ui->textEdit->append(text);
+
+    });
      ui->tableViewAficherfournisseur->setModel(f.afficher());
 /****************************************************/
 
@@ -38,10 +47,16 @@ int h=ui->label_pic ->height();
 
 
                                 //historique
-                               /* int w4=ui->label_h ->width();
+
+                               int w4=ui->label_h ->width();
 
                                 int h4=ui->label_h ->height();
-                                          ui->label_h->setPixmap(pix2.scaled(w4,h4,Qt::KeepAspectRatio));*/
+                                          ui->label_h->setPixmap(pix2.scaled(w4,h4,Qt::KeepAspectRatio));
+// chat
+                                          int w5=ui->label_chat ->width();
+
+                                           int h5=ui->label_chat ->height();
+                                                     ui->label_chat->setPixmap(pix2.scaled(w5,h5,Qt::KeepAspectRatio));
 
 // controle de  saisie
 ui->lineEdit_num_f->setValidator(new QIntValidator(0,99999999,this));
@@ -256,4 +271,26 @@ void MainWindow::on_pushButton_clicked()
                                                  QObject::tr("Export avec succes .\n"
                                                              "Click OK to exit."), QMessageBox::Ok);
         }
+}
+
+void MainWindow::on_pb_envoyer_clicked()
+{
+    QTextStream T(mSocket);
+    T<<ui->le_nickname->text()<<": "<<ui->le_message->text();
+    mSocket->flush();
+    ui->le_message->clear();
+}
+
+void MainWindow::on_pb_connecter_clicked()
+{
+    {
+    dumessengerconnectiondialog D(this);
+    if(D.exec()==QDialog::Rejected)
+    {
+        return;
+
+    }
+    mSocket->connectToHost(D.hostname(),D.port());
+
+    }
 }

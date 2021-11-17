@@ -19,12 +19,12 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>561</width>
-      <height>321</height>
+      <width>551</width>
+      <height>401</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Ajouter_fournisseur">
      <attribute name="title">
@@ -409,13 +409,150 @@
      <widget class="QTableView" name="tableView_hist">
       <property name="geometry">
        <rect>
-        <x>4</x>
-        <y>2</y>
-        <width>541</width>
-        <height>281</height>
+        <x>40</x>
+        <y>20</y>
+        <width>481</width>
+        <height>261</height>
        </rect>
       </property>
      </widget>
+     <widget class="QLabel" name="label_h">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-17</y>
+        <width>551</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_h</zorder>
+     <zorder>tableView_hist</zorder>
+    </widget>
+    <widget class="QWidget" name="chat">
+     <attribute name="title">
+      <string>chat</string>
+     </attribute>
+     <widget class="QLineEdit" name="le_nickname">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>20</y>
+        <width>381</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>50</y>
+        <width>381</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="le_message">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>310</y>
+        <width>381</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pb_envoyer">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>340</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>envoyer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pb_connecter">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>340</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>connexion</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>nom</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>50</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>chat</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>310</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>message</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_chat">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-17</y>
+        <width>551</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_chat</zorder>
+     <zorder>le_nickname</zorder>
+     <zorder>textEdit</zorder>
+     <zorder>le_message</zorder>
+     <zorder>pb_envoyer</zorder>
+     <zorder>pb_connecter</zorder>
+     <zorder>label_5</zorder>
+     <zorder>label_7</zorder>
+     <zorder>label_9</zorder>
     </widget>
    </widget>
   </widget>

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui sql
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    dumessengerconnectiondialog.cpp \
     fournisseur.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -32,12 +34,14 @@ SOURCES += \
     notification.cpp
 
 HEADERS += \
+    dumessengerconnectiondialog.h \
     fournisseur.h \
         mainwindow.h \
     connection.h \
     notification.h
 
 FORMS += \
+        dumessengerconnectiondialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.

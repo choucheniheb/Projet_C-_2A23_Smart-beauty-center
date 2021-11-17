@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 #include "fournisseur.h"
 #include <QMainWindow>
-
+#include<dumessengerconnectiondialog.h>
+#include <QTcpSocket>
 namespace Ui {
 class MainWindow;
 }
@@ -29,9 +30,14 @@ private slots:
 
    void on_pushButton_clicked();
 
+   void on_pb_envoyer_clicked();
+
+   void on_pb_connecter_clicked();
+
 private:
     Ui::MainWindow *ui;
     fournisseur f;
+    QTcpSocket *mSocket;
 };
 
 #endif // MAINWINDOW_H
