@@ -41,6 +41,7 @@ public:
     QSqlQueryModel * afficher ();
     bool supprimer (int);
     bool modifier (int);
+    QSqlQueryModel* rechercheavancee(QString recherche);
 
 
 
@@ -52,6 +53,7 @@ private:
      float prix_offre ;
      int code_s ;
      QString disponibilite ;
+     QString recherche ;
 };
 
 #endif // SERVICE_H

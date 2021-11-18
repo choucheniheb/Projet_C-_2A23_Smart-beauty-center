@@ -93,3 +93,23 @@ QSqlQueryModel *  Service ::afficher ()
      return query.exec();
 
  }
+
+
+
+
+
+
+ QSqlQueryModel* Service::rechercheavancee(QString recherche){
+     QSqlQueryModel* trouve = new QSqlQueryModel();
+
+     trouve->setQuery("SELECT * FROM services WHERE CODE_S LIKE '"+recherche+"%' OR NOM_S LIKE '"+recherche+"%' OR OFFRE LIKE '"+recherche+"%'");
+     trouve ->setHeaderData(0, Qt:: Horizontal ,QObject :: tr ("CODE_S"));
+     trouve ->setHeaderData(1, Qt:: Horizontal ,QObject :: tr ("NOM_S"));
+     trouve ->setHeaderData(2, Qt:: Horizontal ,QObject :: tr ("PRIX_S"));
+     trouve ->setHeaderData(3, Qt:: Horizontal ,QObject :: tr ("DISPONIBILTE"));
+     trouve ->setHeaderData(4, Qt:: Horizontal ,QObject :: tr ("OFFRE"));
+     trouve ->setHeaderData(5, Qt:: Horizontal ,QObject :: tr ("DATE_OFFRE"));
+     trouve ->setHeaderData(6, Qt:: Horizontal ,QObject :: tr ("PRIX_OFFRE"));
+
+     return trouve;
+ }
