@@ -74,6 +74,10 @@ bool caisse::modifier(int num_facture)
     query.bindValue(":prix_totale",res4);
     return query.exec();
 }
+
+
+
+//tri**********************************************************************
 QSqlQueryModel * caisse::triParId()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
@@ -110,10 +114,12 @@ QSqlQueryModel * caisse::triParPrix()
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("ID_C"));
     return model;
 }
+//calculer recette**********************************************
 QSqlQuery caisse::calculerecette()
 {
     QSqlQuery query;
     query.prepare("SELECT SUM(prix_totale) FROM factures");
+    query.bindValue(":date_d",date_delevrance);
     return query;
 }
 

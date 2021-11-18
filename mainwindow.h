@@ -5,7 +5,7 @@
 #include "caisse.h"
 #include <QPrintDialog>
 #include <QPrinter>
-
+#include <QPainter>
 namespace Ui {
 class MainWindow;
 }
@@ -31,8 +31,6 @@ private slots:
 
     void on_pushButtonImprimer_clicked();
 
-    void on_pushButton_impression_clicked();
-
     void on_pushButtonRetourIm_clicked();
 
     QModelIndex on_tableViewAficherFacture_activated();
@@ -44,6 +42,8 @@ private slots:
     void on_pushButton_stat_clicked();
 
     void on_lineEdit_rechercher_textChanged();
+
+    void on_pushButtonreset_clicked();
 
 private:
     Ui::MainWindow *ui;

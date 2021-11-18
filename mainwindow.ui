@@ -396,6 +396,45 @@
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButtonModifier">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Modifier</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonSupprimer">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Supprimer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonreset">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>reset</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_2">
        <widget class="QLabel" name="label_6">
@@ -435,35 +474,126 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_3">
-       <widget class="QTextEdit" name="textEdit_impression">
+      <widget class="QWidget" name="page_4">
+       <widget class="QLabel" name="label_35">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>771</width>
-          <height>431</height>
+          <x>190</x>
+          <y>160</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Date de delvrance</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_36">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>280</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Prix totale</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_prix_u_modifier">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>200</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QDateTimeEdit" name="dateTimeEdit_modifier">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>160</y>
+          <width>131</width>
+          <height>22</height>
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_impression">
+       <widget class="QLabel" name="label_37">
         <property name="geometry">
          <rect>
-          <x>640</x>
-          <y>460</y>
+          <x>190</x>
+          <y>240</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Quantite</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_quntiter_modifier">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>240</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_prix_t_modifier">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>280</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonModifier2">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>400</y>
           <width>93</width>
           <height>28</height>
          </rect>
         </property>
         <property name="text">
-         <string>imprimer</string>
+         <string>Modifier</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonRetourIm">
+       <widget class="QLabel" name="label_34">
         <property name="geometry">
          <rect>
-          <x>530</x>
-          <y>460</y>
+          <x>190</x>
+          <y>200</y>
+          <width>101</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Prix unitade</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonRetourModifier">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>400</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -489,291 +619,6 @@
      </widget>
      <zorder>label_pic2</zorder>
      <zorder>stackedWidget1</zorder>
-    </widget>
-    <widget class="QWidget" name="modifier_facture">
-     <attribute name="title">
-      <string>modifier facture</string>
-     </attribute>
-     <widget class="QStackedWidget" name="stackedWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>0</y>
-        <width>781</width>
-        <height>501</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <widget class="QWidget" name="modifier_id">
-       <widget class="QLabel" name="label_12">
-        <property name="geometry">
-         <rect>
-          <x>210</x>
-          <y>220</y>
-          <width>111</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Numero de facture</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonModifier">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>350</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Modifier</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonRetourModifier2">
-        <property name="geometry">
-         <rect>
-          <x>430</x>
-          <y>350</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Retour</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_num_facture_mod">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>220</y>
-          <width>131</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="modifier">
-       <widget class="QLabel" name="label_37">
-        <property name="geometry">
-         <rect>
-          <x>210</x>
-          <y>220</y>
-          <width>91</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Quantite</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_quntiter_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>220</y>
-          <width>131</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonRetourModifier">
-        <property name="geometry">
-         <rect>
-          <x>440</x>
-          <y>380</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Retour</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_34">
-        <property name="geometry">
-         <rect>
-          <x>210</x>
-          <y>180</y>
-          <width>101</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Prix unitade</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_36">
-        <property name="geometry">
-         <rect>
-          <x>210</x>
-          <y>260</y>
-          <width>91</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Prix totale</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_35">
-        <property name="geometry">
-         <rect>
-          <x>210</x>
-          <y>140</y>
-          <width>121</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Date de delvrance</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_prix_u_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>180</y>
-          <width>131</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_prix_t_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>260</y>
-          <width>131</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonModifier2">
-        <property name="geometry">
-         <rect>
-          <x>530</x>
-          <y>380</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Modifier</string>
-        </property>
-       </widget>
-       <widget class="QDateTimeEdit" name="dateTimeEdit_modifier">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>140</y>
-          <width>131</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-     <widget class="QLabel" name="label_pic3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>-20</y>
-        <width>811</width>
-        <height>541</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <zorder>label_pic3</zorder>
-     <zorder>stackedWidget</zorder>
-    </widget>
-    <widget class="QWidget" name="supprimer_facture">
-     <attribute name="title">
-      <string>supprimer facture</string>
-     </attribute>
-     <widget class="QPushButton" name="pushButtonSupprimer">
-      <property name="geometry">
-       <rect>
-        <x>550</x>
-        <y>350</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Supprimer</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_11">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>220</y>
-        <width>111</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Numero de facture</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButtonRetourSupprimer">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>350</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Retour</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_pic4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>-20</y>
-        <width>811</width>
-        <height>541</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="comboBox_num_fact_sup">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>220</y>
-        <width>131</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <zorder>label_pic4</zorder>
-     <zorder>pushButtonSupprimer</zorder>
-     <zorder>label_11</zorder>
-     <zorder>pushButtonRetourSupprimer</zorder>
-     <zorder>comboBox_num_fact_sup</zorder>
     </widget>
    </widget>
   </widget>

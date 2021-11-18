@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     //image****
     ui->setupUi(this);
     ui->stackedWidget1->setCurrentIndex(0);
-    ui->stackedWidget->setCurrentIndex(0);
     ui->dateTimeEdit_ajouter->setDateTime(QDateTime::currentDateTime());
     ui->dateTimeEdit_modifier->setDateTime(QDateTime::currentDateTime());
     //ajouter**************
@@ -44,14 +43,6 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
         int w2 = ui->label_pic2->width();
         int h2 = ui->label_pic2->height();
         ui->label_pic2->setPixmap(pix.scaled(w2,h2,Qt::KeepAspectRatio));
-        //insrtion image3
-        int w3 = ui->label_pic3->width();
-        int h3 = ui->label_pic3->height();
-        ui->label_pic3->setPixmap(pix.scaled(w3,h3,Qt::KeepAspectRatio));
-        //insrtion image4
-        int w4 = ui->label_pic4->width();
-        int h4 = ui->label_pic4->height();
-        ui->label_pic4->setPixmap(pix.scaled(w4,h4,Qt::KeepAspectRatio));
 }
 
 MainWindow::~MainWindow()
@@ -80,10 +71,6 @@ void MainWindow::on_pushButtonAjouter_clicked()
     {
         //Refresh affichage
         ui->tableViewAficherFacture->setModel(c.afficher());
-        QSqlQueryModel * model=new QSqlQueryModel();
-        model->setQuery("SELECT num_facture from FACTURES");
-        ui->comboBox_num_facture_mod->setModel(model);
-        ui->comboBox_num_fact_sup->setModel(model);
         //****************************************
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
     }else
@@ -98,8 +85,6 @@ void MainWindow::on_pushButtonAfficher_clicked()
     ui->tableViewAficherFacture->setModel(c.afficher());
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("SELECT num_facture from FACTURES");
-    ui->comboBox_num_facture_mod->setModel(model);
-    ui->comboBox_num_fact_sup->setModel(model);
     QSqlQueryModel *model1=new QSqlQueryModel();
     model1->setQuery("SELECT id_c from client");
     ui->comboBox_id_c->setModel(model1);
@@ -115,16 +100,14 @@ QDesktopServices::openUrl(QUrl("https://www.coinbase.com/dashboard"));
 //supprimer********************
 void MainWindow::on_pushButtonSupprimer_clicked()
 {
-    int num_fact=ui->comboBox_num_fact_sup->currentText().toInt();
+    QModelIndex index;
+    index=on_tableViewAficherFacture_activated();
+    int num_fact= ui->tableViewAficherFacture->model()->data(ui->tableViewAficherFacture->model()->index(index.row(),0)).toInt();
     bool test1=c.supprimer(num_fact);
     if(test1)
     {
         //Refresh affichage
         ui->tableViewAficherFacture->setModel(c.afficher());
-        QSqlQueryModel * model=new QSqlQueryModel();
-        model->setQuery("SELECT num_facture from FACTURES");
-        ui->comboBox_num_facture_mod->setModel(model);
-        ui->comboBox_num_fact_sup->setModel(model);
         //****************************************
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
     }else
@@ -135,9 +118,11 @@ void MainWindow::on_pushButtonSupprimer_clicked()
 
 void MainWindow::on_pushButtonModifier_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget1->setCurrentIndex(2);
     QSqlQuery query;
-    QString res=ui->comboBox_num_facture_mod->currentText();
+    QModelIndex index;
+    index=on_tableViewAficherFacture_activated();
+    QString res= ui->tableViewAficherFacture->model()->data(ui->tableViewAficherFacture->model()->index(index.row(),0)).toString();
     query.prepare("SELECT prix_unitaire from FACTURES WHERE num_facture= :res");
     query.bindValue(":res",res);
     query.exec();
@@ -168,17 +153,15 @@ void MainWindow::on_pushButtonModifier2_clicked()
     ui->lineEdit_prix_t_modifier->clear();
 
     //modifier requete************
-    int num_fact=ui->comboBox_num_facture_mod->currentText().toInt();
+    QModelIndex index;
+    index=on_tableViewAficherFacture_activated();
+    int num_fact= ui->tableViewAficherFacture->model()->data(ui->tableViewAficherFacture->model()->index(index.row(),0)).toInt();
     bool test2=c.modifier(num_fact);
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget1->setCurrentIndex(0);
     if(test2)
     {
         //Refresh affichage
         ui->tableViewAficherFacture->setModel(c.afficher());
-        QSqlQueryModel * model=new QSqlQueryModel();
-        model->setQuery("SELECT num_facture from FACTURES");
-        ui->comboBox_num_facture_mod->setModel(model);
-        ui->comboBox_num_fact_sup->setModel(model);
         //****************************************
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
     }else
@@ -206,7 +189,7 @@ void MainWindow::on_pushButtonRetourRecette_clicked()
 //retour************
 void MainWindow::on_pushButtonRetourModifier_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget1->setCurrentIndex(0);
 }
 //tri***************
 void MainWindow::on_comboBoxCriter_activated()
@@ -225,68 +208,55 @@ void MainWindow::on_comboBoxCriter_activated()
 
 void MainWindow::on_pushButtonImprimer_clicked()
 {
-    ui->stackedWidget1->setCurrentIndex(2);
-    QSqlQuery query;
-    QModelIndex index;
-    index=on_tableViewAficherFacture_activated();
-    QString res= ui->tableViewAficherFacture->model()->data(ui->tableViewAficherFacture->model()->index(index.row(),0)).toString();
-    qDebug()<<res;
-    query.prepare("SELECT id_c from FACTURES WHERE num_facture= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    QString id_c=query.value(0).toString();
-    query.prepare("SELECT prix_unitaire from FACTURES WHERE num_facture= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    QString prix_uni=query.value(0).toString();
-    query.prepare("SELECT quantite_f from FACTURES WHERE num_facture= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    QString quantite=query.value(0).toString();
-    query.prepare("SELECT prix_totale from FACTURES WHERE num_facture= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    QString prix_totale=query.value(0).toString();
-    query.prepare("SELECT nom_c from client WHERE id_c= :id_c");
-    query.bindValue(":id_c",id_c);
-    query.exec();
-    query.next();
-    QString nom=query.value(0).toString();
-    query.prepare("SELECT prenom_c from client WHERE id_c= :id_c");
-    query.bindValue(":id_c",id_c);
-    query.exec();
-    query.next();
-    QString prenom=query.value(0).toString();
-    query.prepare("SELECT telephone_c from client WHERE id_c= :id_c");
-    query.bindValue(":id_c",id_c);
-    query.exec();
-    query.next();
-    QString tel=query.value(0).toString();
-    query.prepare("SELECT date_d from FACTURES WHERE num_facture= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    QString date=query.value(0).toString();
-    QString imp="\t\t\t\t\t\t id client: "+id_c+"\n \t\t\t\t\t\t nom et prenom: "+nom+" "+prenom+"\n \t\t\t\t\t\t telephone: "+tel+"\n \t\t\t\t\t\t date:"+date+"\n\n\n\n \t\t\t prix produit: "+prix_uni+"\n \t\t\t quantiter: "+quantite+"\n \t\t\t prix totale: "+prix_totale;
-    ui->textEdit_impression->setText(imp);
-    QFont serifFont("Times", 10, QFont::Bold);
-    ui->textEdit_impression->setFont(serifFont);
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tableViewAficherFacture->model()->rowCount();
+                const int columnCount = ui->tableViewAficherFacture->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tableViewAficherFacture->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tableViewAficherFacture->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tableViewAficherFacture->isColumnHidden(column)) {
+                            QString data = ui->tableViewAficherFacture->model()->data(ui->tableViewAficherFacture->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
 }
 
-void MainWindow::on_pushButton_impression_clicked()
-{
-    QPrinter printer;
-    QPrintDialog dialog(&printer,this);
-    if(ui->textEdit_impression->textCursor().hasSelection())
-        dialog.addEnabledOption(QAbstractPrintDialog::PrintSelection);
-
-    if(dialog.exec()!=QDialog::Accepted)
-    {return;}
-}
 
 void MainWindow::on_pushButtonRetourIm_clicked()
 {
@@ -319,31 +289,31 @@ void MainWindow::on_pushButton_stat_clicked()
 {
     QSqlQueryModel * model= new QSqlQueryModel();
                          model->setQuery("select * from factures where prix_totale < 50000 ");
-                         float age=model->rowCount();
+                         float e=model->rowCount();
                          model->setQuery("select * from factures where prix_totale between 50000 and 100000 ");
-                         float agee=model->rowCount();
+                         float ee=model->rowCount();
                          model->setQuery("select * from factures where prix_totale > 100000 ");
-                         float ageee=model->rowCount();
-                         float total=age+agee+ageee;
-                         QString a=QString("moins de 50 dinar "+QString::number((age*100)/total,'f',2)+"%" );
-                         QString b=QString("entre 50 et 100 dinar"+QString::number((agee*100)/total,'f',2)+"%" );
-                         QString c=QString("plus 100 dinar"+QString::number((ageee*100)/total,'f',2)+"%" );
+                         float eee=model->rowCount();
+                         float total=e+ee+eee;
+                         QString a=QString("moins de 50 dinar "+QString::number((e*100)/total,'f',2)+"%" );
+                         QString b=QString("entre 50 et 100 dinar"+QString::number((ee*100)/total,'f',2)+"%" );
+                         QString c=QString("plus 100 dinar"+QString::number((eee*100)/total,'f',2)+"%" );
                          QPieSeries *series = new QPieSeries();
-                         series->append(a,age);
-                         series->append(b,agee);
-                         series->append(c,ageee);
-                 if (age!=0)
+                         series->append(a,e);
+                         series->append(b,ee);
+                         series->append(c,eee);
+                 if (e!=0)
                  {QPieSlice *slice = series->slices().at(0);
                   slice->setLabelVisible();
                   slice->setPen(QPen());}
-                 if ( agee!=0)
+                 if ( ee!=0)
                  {
                           // Add label, explode and define brush for 2nd slice
                           QPieSlice *slice1 = series->slices().at(1);
                           //slice1->setExploded();
                           slice1->setLabelVisible();
                  }
-                 if(ageee!=0)
+                 if(eee!=0)
                  {
                           // Add labels to rest of slices
                           QPieSlice *slice2 = series->slices().at(2);
@@ -368,4 +338,13 @@ void MainWindow::on_lineEdit_rechercher_textChanged()
 {
     QString rech=ui->lineEdit_rechercher->text();
     ui->tableViewAficherFacture->setModel(c.rechercheMulticritere(rech));
+}
+
+
+void MainWindow::on_pushButtonreset_clicked()
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM FACTURES");
+    query.exec();
+    ui->tableViewAficherFacture->setModel(c.afficher());
 }
