@@ -192,56 +192,6 @@ QSqlQueryModel * Employers::trierDate()
 }
 
 
-//******************************MAILING************************
-
-/*void Employers::mailSent(QString status)
-{
-    if(status == "Message sent")
-        e.mailEmployers();
-}
-
-void Employers::on_send_mail_clicked()
-{
-
-    Smtp* smtp = new Smtp("aura.forgetPass@gmail.com","Service100a","smtp.gmail.com",465);
-       connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
-
-       smtp->sendMail("aura.forgetPass@gmail.com",ui->rcpt->text(),ui->subject->text(),ui->msg->toPlainText());
-}
-*/
-
-
-
-
-
-
-
-
-void Employers::chat(QString message,QString username,QString password)
-{
-    QSqlQuery query;
-    if(username=="employer" && password=="employer")
-        query.prepare("update employers set message= :message");
-    else
-        query.prepare("update employers set message_gerant= :message");
-    query.bindValue(":message",message);
-    query.exec();
-}
-
-QSqlQueryModel * Employers::affichermessage(QString username,QString password)
-{
-    QSqlQueryModel* model=new QSqlQueryModel();
-    if(username=="employer" && password=="employer")
-    {
-        model->setQuery("SELECT type,MESSAGE_gerant FROM Employers where id_e= 1");
-    }else
-        model->setQuery("SELECT type,MESSAGE FROM Employers where id_e= 2");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("type"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("message"));
-
-    return model;
-}
-
 
 
 

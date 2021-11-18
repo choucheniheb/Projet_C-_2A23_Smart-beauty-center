@@ -38,6 +38,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mSocket=new QTcpSocket(this);
+    connect(mSocket,&QTcpSocket::readyRead,[&]()
+    { QTextStream T(mSocket);
+       auto text=T.readAll();
+       ui->textEdit->append(text);
+    });
     //************************
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(myfunction()));
@@ -325,15 +331,6 @@ void MainWindow::on_lineEdit_idEmployerachercher_cursorPositionChanged()
     ui->tableViewAficherEmployers->setModel(e.rechercheMulticritere(i));
 }
 
-void MainWindow::on_pushButtonEnvoyer_clicked()
-{
-    QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_password->text();
-    QString message= ui->lineEditEnvoyer->text();
-    e.chat(message,username,password);
-    //Refresh affichage
-    ui->tableViewAfficherMessage->setModel(e.affichermessage(username,password));
-}
 
 
 
@@ -357,21 +354,6 @@ void MainWindow::on_comboBoxTri_activated()
         }
 }
 
-
-
-
-
-//************************************
-
-
-
-void MainWindow::on_pushButtonAfficherMessage_clicked()
-{
-    //Refresh affichage
-    QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_password->text();
-    ui->tableViewAfficherMessage->setModel(e.affichermessage(username,password));
-}
 
 
 
@@ -510,4 +492,24 @@ void MainWindow::on_QrCode_clicked()
                 svgRenderer.render( &pixPainter );
                 ui->label_code->setPixmap(pix);
            }
+}
+
+
+void MainWindow::on_pb_envoyer_clicked()
+{
+    QTextStream T(mSocket);
+    T<<ui->le_nickname->text()<<": "<<ui->le_message->text();
+    mSocket->flush();
+    ui->le_message->clear();
+}
+
+void MainWindow::on_pb_connecter_clicked()
+{
+    DuMessengerConnectionDialog D(this);
+    if(D.exec()==QDialog::Rejected)
+    {
+        return;
+
+    }
+    mSocket->connectToHost(D.hostname(),D.port());
 }

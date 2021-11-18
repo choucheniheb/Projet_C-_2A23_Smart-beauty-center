@@ -37,7 +37,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_17">
        <attribute name="title">
@@ -1277,11 +1277,11 @@ font-family:calibri;
        <attribute name="title">
         <string>Chat</string>
        </attribute>
-       <widget class="QPushButton" name="pushButtonEnvoyer">
+       <widget class="QPushButton" name="pb_envoyer">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>290</y>
+          <x>370</x>
+          <y>340</y>
           <width>75</width>
           <height>23</height>
          </rect>
@@ -1293,8 +1293,8 @@ font-family:calibri;
        <widget class="QLabel" name="label_6">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>70</y>
+          <x>80</x>
+          <y>297</y>
           <width>47</width>
           <height>14</height>
          </rect>
@@ -1303,36 +1303,13 @@ font-family:calibri;
          <string>Message</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEditEnvoyer">
+       <widget class="QLineEdit" name="le_message">
         <property name="geometry">
          <rect>
-          <x>132</x>
+          <x>133</x>
           <y>289</y>
-          <width>421</width>
+          <width>404</width>
           <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtonAfficherMessage">
-        <property name="geometry">
-         <rect>
-          <x>550</x>
-          <y>90</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Afficher</string>
-        </property>
-       </widget>
-       <widget class="QTableView" name="tableViewAfficherMessage">
-        <property name="geometry">
-         <rect>
-          <x>135</x>
-          <y>90</y>
-          <width>411</width>
-          <height>192</height>
          </rect>
         </property>
        </widget>
@@ -1373,13 +1350,75 @@ font-family:calibri;
          <enum>Qt::AutoText</enum>
         </property>
        </widget>
+       <widget class="QPushButton" name="pb_connecter">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>340</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>connecte</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="textEdit">
+        <property name="geometry">
+         <rect>
+          <x>134</x>
+          <y>90</y>
+          <width>401</width>
+          <height>191</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="le_nickname">
+        <property name="geometry">
+         <rect>
+          <x>136</x>
+          <y>54</y>
+          <width>398</width>
+          <height>29</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>84</x>
+          <y>90</y>
+          <width>47</width>
+          <height>14</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>chat</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>84</x>
+          <y>60</y>
+          <width>47</width>
+          <height>14</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>nom</string>
+        </property>
+       </widget>
        <zorder>label_7</zorder>
-       <zorder>pushButtonEnvoyer</zorder>
+       <zorder>pb_envoyer</zorder>
        <zorder>label_6</zorder>
-       <zorder>lineEditEnvoyer</zorder>
-       <zorder>pushButtonAfficherMessage</zorder>
-       <zorder>tableViewAfficherMessage</zorder>
+       <zorder>le_message</zorder>
        <zorder>time_label_2</zorder>
+       <zorder>pb_connecter</zorder>
+       <zorder>textEdit</zorder>
+       <zorder>le_nickname</zorder>
+       <zorder>label</zorder>
+       <zorder>label_8</zorder>
       </widget>
      </widget>
     </widget>

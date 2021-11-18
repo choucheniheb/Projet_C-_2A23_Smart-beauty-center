@@ -9,11 +9,13 @@
 #include <QtCore/QCoreApplication>
 #include "employers.h"
 #include <QTimer>
+#include"DuMessengerConnectionDialog.h"
+#include <QTcpSocket>
 namespace  Ui{
 class MainWindow;
 }
-
-
+QT_END_NAMESPACE
+class QTcpSocket;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -45,14 +47,9 @@ private slots:
 
     void on_lineEdit_idEmployerachercher_cursorPositionChanged();
 
-    void on_pushButtonEnvoyer_clicked();
-
     void on_comboBoxTri_activated();
 
     void on_pushButton_PDF_clicked();
-
-
-    void on_pushButtonAfficherMessage_clicked();
 
     void on_pushButton_Contacter_clicked();
     void browse();
@@ -72,6 +69,9 @@ private slots:
     //******************
 
     void on_QrCode_clicked();
+    void on_pb_envoyer_clicked();
+
+    void on_pb_connecter_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -79,6 +79,7 @@ private:
     QStringList files;
     //**************
     QTimer *timer;
+    QTcpSocket *mSocket;
 };
 
 #endif // MAINWINDOW_H

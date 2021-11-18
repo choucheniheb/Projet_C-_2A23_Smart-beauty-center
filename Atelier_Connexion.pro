@@ -27,6 +27,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    DuMessengerConnectionDialog.cpp \
     employers.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
     smtp.cpp
 
 HEADERS += \
+    DuMessengerConnectionDialog.h \
     employers.h \
         mainwindow.h \
     connection.h \
@@ -44,6 +46,7 @@ HEADERS += \
     smtp.h
 
 FORMS += \
+        DuMessengerConnectionDialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.
