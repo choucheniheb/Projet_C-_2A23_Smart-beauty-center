@@ -129,21 +129,6 @@ QSqlQueryModel * produit::rechercheMulticritere(QString recherche) {
 
     return trouve;
 }
-void produit::historique_produit(QString hist)
-{
-    QSqlQuery query;
-    QString res= QDateTime::currentDateTime().toString();
-    query.prepare("insert into historique_produit(date_h,historique_p) values(:date_h,:historique_p)");
-    query.bindValue(":date_h",res);
-    query.bindValue(":historique_p",hist);
-    query.exec();
-}
-QSqlQueryModel * produit::afficher_historique_produit()
-{
-    QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from historique_produit");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("Date_historique"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("Historique"));
-    return model;
-}
+
+
 

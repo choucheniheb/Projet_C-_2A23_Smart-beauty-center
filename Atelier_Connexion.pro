@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    historique.cpp \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     produit.cpp
 
 HEADERS += \
+    historique.h \
         mainwindow.h \
     connection.h \
     notification.h \

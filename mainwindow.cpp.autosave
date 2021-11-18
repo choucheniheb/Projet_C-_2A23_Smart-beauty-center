@@ -311,6 +311,7 @@ void MainWindow::on_codeabarre1_2_clicked()
     }
 }
 
+
 void MainWindow::on_codeabarre1_3_clicked()
 {
     QFileDialog dialog(this);

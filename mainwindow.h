@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "produit.h"
-
+#include "historique.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -45,9 +45,12 @@ QModelIndex on_tableViewproduit_activated();
 
 void on_pushButton_refrech_clicked();
 
+void on_historiqueButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 produit p;
+historique histo;
 };
 
 #endif // MAINWINDOW_H
