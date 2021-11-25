@@ -239,9 +239,9 @@
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>50</y>
-        <width>711</width>
+        <x>0</x>
+        <y>0</y>
+        <width>921</width>
         <height>521</height>
        </rect>
       </property>
@@ -298,10 +298,10 @@
        <widget class="QLabel" name="label_pic1">
         <property name="geometry">
          <rect>
-          <x>-20</x>
-          <y>-30</y>
-          <width>991</width>
-          <height>541</height>
+          <x>-10</x>
+          <y>0</y>
+          <width>931</width>
+          <height>511</height>
          </rect>
         </property>
         <property name="text">
@@ -347,6 +347,44 @@
          <string>Modifier</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButton_location">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>10</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>location</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox_location">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>10</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>esprit</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>boumhel</string>
+         </property>
+        </item>
+       </widget>
        <zorder>label_pic1</zorder>
        <zorder>pushButton_11</zorder>
        <zorder>tableViewAfficherService</zorder>
@@ -355,6 +393,8 @@
        <zorder>pushButtonafficher</zorder>
        <zorder>pushButton_supprimer</zorder>
        <zorder>pushButtonModifier</zorder>
+       <zorder>pushButton_location</zorder>
+       <zorder>comboBox_location</zorder>
       </widget>
       <widget class="QWidget" name="page_2">
        <widget class="QPushButton" name="pushButton_retour_modifier">
@@ -499,7 +539,23 @@
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="page_3"/>
      </widget>
+     <widget class="QLabel" name="label_pic2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-5</y>
+        <width>941</width>
+        <height>531</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_pic2</zorder>
+     <zorder>stackedWidget</zorder>
     </widget>
     <widget class="QWidget" name="video">
      <attribute name="title">

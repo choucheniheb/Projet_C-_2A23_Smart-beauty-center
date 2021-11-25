@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 #include <QtQuickWidgets>
 #include <QQuickItem>
+#include <QUrl>
 
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
@@ -20,21 +21,21 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
     ui->setupUi(this);
 
     ////setup images
-        QPixmap pix("C:/Users/Samar/Desktop/image/image.png");
+        QPixmap pix("C:/Users/Samar/Desktop/image.png");
         int w = ui->label_pic->width();
         int h = ui->label_pic->height();
          ui->label_pic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
-         QPixmap pix1("C:/Users/Samar/Desktop/image/image.png");
+         QPixmap pix1("C:/Users/Samar/Desktop/image.png");
          int w1 = ui->label_pic1->width();
          int h1 = ui->label_pic1->height();
           ui->label_pic1->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
 
 
-          /*QPixmap pix1("C:/Users/Samar/Desktop/image/image.png");
-          int w1 = ui->label_pic1->width();
-          int h1 = ui->label_pic1->height();
-           ui->label_pic1->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));*/
+          QPixmap pix2("C:/Users/Samar/Desktop/image.png");
+          int w2 = ui->label_pic2->width();
+          int h2 = ui->label_pic2->height();
+           ui->label_pic2->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
 
 
 
@@ -61,13 +62,12 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
 
 
 /// map
-    ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
+    /*ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
     ui->quickWidget->show();
 
     auto obj = ui->quickWidget->rootObject();
     connect(this, SIGNAL(setCenter(QVariant,QVariant)), obj, SLOT(setCenter(QVariant,QVariant)));
-    emit setCenter(25.000,50.000);
-
+    emit setCenter(25.000,50.000);*/
 
 
 }
@@ -210,7 +210,9 @@ void MainWindow::on_pushButton_supprimer_clicked()
                                                painter.drawText(2300,i,query.value(1).toString());
                                                painter.drawText(4300,i,query.value(2).toString());
                                                painter.drawText(6300,i,query.value(3).toString());
-
+                                               painter.drawText(8300,i,query.value(4).toString());
+                                               painter.drawText(10300,i,query.value(5).toString());
+                                               painter.drawText(12300,i,query.value(6).toString());
 
 
                                               i = i +500;
@@ -235,10 +237,15 @@ void MainWindow::on_pushButton_supprimer_clicked()
 
 void MainWindow::on_pushButton_folder_clicked()
 {
-    QString filename = QFileDialog::getOpenFileName(this,"Open a File","","Video File(*.*)");
+    QString filename=QFileDialog::getOpenFileName(
+                this,tr("Open File"),"c://","All files (*.*);;Text File (*.txt);;Music File(*.mp4)");
+
+    QDesktopServices::openUrl(QUrl("file:///"+filename,QUrl::TolerantMode));
+
+    /*QString filename = QFileDialog::getOpenFileName(this,"Open a File","","Video File(*.*)");
     on_pushButton_stop_clicked();
     player->setMedia(QUrl::fromLocalFile(filename));
-    on_pushButton_play_clicked();
+    on_pushButton_play_clicked();*/
 
 
     player = new QMediaPlayer(this);
@@ -247,7 +254,7 @@ void MainWindow::on_pushButton_folder_clicked()
     this->setCentralWidget(vw);
 }
 
-void MainWindow::on_pushButton_play_clicked()
+/*void MainWindow::on_pushButton_play_clicked()
 {
 
    player->play();
@@ -266,7 +273,7 @@ void MainWindow::on_pushButton_stop_clicked()
 {
     player->stop();
     ui->statusBar->showMessage("Stoping");
-}
+}*/
 
 
 
@@ -280,3 +287,13 @@ void MainWindow::on_pushButton_retour_modifier_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
+
+void MainWindow::on_pushButton_location_clicked()
+
+{
+        QString p=ui->comboBox_location->currentText();
+        QDesktopServices::openUrl(QUrl("http://maps.google.com.sg/maps?q="+p+"&oe=utf-8&rls=org.mozilla:en-US:official&client=firefox-a&um=1&ie=UTF-8&hl=en&sa=N&tab=wl"));
+
+}
+
+

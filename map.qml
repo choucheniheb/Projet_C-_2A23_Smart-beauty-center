@@ -1,4 +1,5 @@
-import QtQuick 2.0
+
+/*import QtQuick 2.0
 import QtPositioning 5.6
 import QtQuick.Window 2.2
 import QtLocation 5.6
@@ -28,3 +29,4 @@ Rectangle {
         oldLng = Lng
     }
 }
+*/

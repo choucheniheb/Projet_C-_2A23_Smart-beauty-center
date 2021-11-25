@@ -59,16 +59,20 @@ private slots :
 
  void on_pushButton_folder_clicked();
 
-void on_pushButton_play_clicked();
+/*void on_pushButton_play_clicked();
 
   void on_pushButton_pause_clicked();
 
-  void on_pushButton_stop_clicked();
+  void on_pushButton_stop_clicked();*/
 
 
   QModelIndex on_tableViewAfficherService_activated();
 
   void on_pushButton_retour_modifier_clicked();
+
+  void on_pushButton_location_clicked();
+
+  void on_lineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
