@@ -9,6 +9,7 @@
 #include <QPdfWriter>
 #include "smtp.h"
 #include <QDateTime>
+#include "employers.h"
 
 #include <QAbstractSocket>
 
@@ -472,28 +473,6 @@ void MainWindow::on_pushButton_PDF_clicked()
 
 }
 
-void MainWindow::on_QrCode_clicked()
-{
-    if(ui->tableViewAficherEmployers->currentIndex().row()==-1)
-               QMessageBox::information(nullptr, QObject::tr("QrCode"),
-                                        QObject::tr("Veuillez Choisir un employeur du Tableau.\n"
-                                                    "Click Ok to exit."), QMessageBox::Ok);
-           else
-           {
-                int ID_E=ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(ui->tableViewAficherEmployers->currentIndex().row(),0)).toInt();
-                const QrCode qr = QrCode::encodeText(std::to_string(ID_E).c_str(), QrCode::Ecc::LOW);
-                std::ofstream myfile;
-                myfile.open ("qrcode.svg") ;
-                myfile << qr.toSvgString(1);
-                myfile.close();
-                QSvgRenderer svgRenderer(QString("qrcode.svg"));
-                QPixmap pix( QSize(90, 90) );
-                QPainter pixPainter( &pix );
-                svgRenderer.render( &pixPainter );
-                ui->label_code->setPixmap(pix);
-           }
-}
-
 
 void MainWindow::on_pb_envoyer_clicked()
 {
@@ -513,3 +492,71 @@ void MainWindow::on_pb_connecter_clicked()
     }
     mSocket->connectToHost(D.hostname(),D.port());
 }
+
+
+
+void MainWindow::on_QrCode_clicked()
+{
+    Employers e;
+        if(ui->tableViewAficherEmployers->currentIndex().row()==-1)
+               QMessageBox::information(nullptr, QObject::tr("Suppression"),
+                                        QObject::tr("Veuillez Choisir un employeur du Tableau.\n"
+                                                    "Click Ok to exit."), QMessageBox::Ok);
+           else
+           {
+
+
+
+
+                       e.setid(ui->lineEdit_id ->text().toInt());
+                       e.setnom(ui->lineEdit_nom ->text());
+                       e.setprenom(ui->lineEdit_prenom ->text());
+                       //e.setageAnim(ui->le_age ->text().toInt());
+                       e.setadresse(ui->lineEdit_adresse ->text());
+                       e.settelephone(ui->lineEdit_telephone ->text().toInt());
+                       e.settype(ui->lineEdit_type ->text());
+                       e.setspecialite(ui->lineEdit_specialite ->text());
+               // int idAnim=ui->tab_animaux->model()->data(ui->tab_animaux->model()->index(ui->tab_animaux->currentIndex().row(),0)).toInt();
+
+
+
+
+
+             QString  rawQr = "ID_E:%1 NOM_E:%2 PRENOM_E:%3 ADRESSE_E:%4 TELEPHONE_E:%5 TYPE:%6 SPECIALITE:%7 " ;
+                rawQr = rawQr.arg(e.getid()).arg(e.getnom()).arg(e.getprenom()).arg(e.getadresse()).arg(e.gettelephone()).arg(e.gettype()).arg(e.getspecialite());
+                QrCode qr = QrCode::encodeText(rawQr.toUtf8().constData(), QrCode::Ecc::LOW);
+
+
+              //  const QrCode qr = QrCode::encodeText(std::to_string(idAnim).c_str(), QrCode::Ecc::LOW);
+                std::ofstream myfile;
+                myfile.open ("qrcode.svg") ;
+                myfile << qr.toSvgString(1);
+                myfile.close();
+                QSvgRenderer svgRenderer(QString("qrcode.svg"));
+                QPixmap pix( QSize(90, 90) );
+                QPainter pixPainter( &pix );
+                svgRenderer.render( &pixPainter );
+                ui->label_code->setPixmap(pix);
+    /*
+    if(ui->tableViewAficherEmployers->currentIndex().row()==-1)
+               QMessageBox::information(nullptr, QObject::tr("QrCode"),
+                                        QObject::tr("Veuillez Choisir un employeur du Tableau.\n"
+                                                    "Click Ok to exit."), QMessageBox::Ok);
+           else
+           {
+                int ID_E=ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(ui->tableViewAficherEmployers->currentIndex().row(),0)).toInt();
+                const QrCode qr = QrCode::encodeText(std::to_string(ID_E).c_str(), QrCode::Ecc::LOW);
+                std::ofstream myfile;
+                myfile.open ("qrcode.svg") ;
+                myfile << qr.toSvgString(1);
+                myfile.close();
+                QSvgRenderer svgRenderer(QString("qrcode.svg"));
+                QPixmap pix( QSize(90, 90) );
+                QPainter pixPainter( &pix );
+                svgRenderer.render( &pixPainter );
+                ui->label_code->setPixmap(pix);
+           }*/
+}
+}
+
+
