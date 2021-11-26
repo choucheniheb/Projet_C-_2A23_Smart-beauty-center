@@ -32,13 +32,13 @@ void on_cosmetiques_bottom_clicked();
 void on_parfums_bottom_clicked();
 void on_pushButtonModifier2_2_clicked();
 
-void on_categorie_bottom_clicked();
+void on_categorie_bottom_produit_clicked();
 
-void on_codeabarre1_clicked();
+void on_codeabarre1_produit_clicked();
 
-void on_codeabarre1_2_clicked();
+void on_codeabarre1_2_produit_clicked();
 
-void on_codeabarre1_3_clicked();
+void on_codeabarre1_3_produit_clicked();
 void on_lineEdit_chercher_cursorPositionChanged_textChanged();
 
 QModelIndex on_tableViewproduit_activated();

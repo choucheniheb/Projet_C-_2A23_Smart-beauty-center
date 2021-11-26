@@ -18,26 +18,8 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
-      <widget class="QWidget" name="tab_6">
-       <attribute name="title">
-        <string>Bienvenue</string>
-       </attribute>
-       <widget class="QLabel" name="label_bc">
-        <property name="geometry">
-         <rect>
-          <x>-4</x>
-          <y>3</y>
-          <width>771</width>
-          <height>371</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Ajouter un produit</string>
@@ -73,7 +55,7 @@
          <string> Prix Promotion</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="aj_button">
+       <widget class="QPushButton" name="aj_button_produit">
         <property name="geometry">
          <rect>
           <x>260</x>
@@ -138,7 +120,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          <string> Prix Unitaire</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="code_edit">
+       <widget class="QLineEdit" name="code_edit_produit">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -148,7 +130,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="prixp_edit">
+       <widget class="QLineEdit" name="prixp_edit_produit">
         <property name="geometry">
          <rect>
           <x>440</x>
@@ -190,7 +172,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          <string>  Categories</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="nom_edit">
+       <widget class="QLineEdit" name="nom_edit_produit">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -200,7 +182,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="prixu_edit">
+       <widget class="QLineEdit" name="prixu_edit_produit">
         <property name="geometry">
          <rect>
           <x>150</x>
@@ -226,7 +208,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          <string>  Quantite du produit</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="nbreEdit">
+       <widget class="QLineEdit" name="nbreEdit_produit">
         <property name="geometry">
          <rect>
           <x>320</x>
@@ -236,7 +218,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="categorie_edit">
+       <widget class="QLineEdit" name="categorie_edit_produit">
         <property name="geometry">
          <rect>
           <x>440</x>
@@ -246,7 +228,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          </rect>
         </property>
        </widget>
-       <widget class="QDateEdit" name="date_edit">
+       <widget class="QDateEdit" name="date_edit_produit">
         <property name="geometry">
          <rect>
           <x>430</x>
@@ -284,10 +266,10 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
          </rect>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_13">
-         <widget class="QLineEdit" name="lineEdit_chercher_cursorPositionChanged">
+         <widget class="QLineEdit" name="lineEdit_chercher_cursorPositionChanged_produit">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -297,7 +279,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
            </rect>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonModifier">
+         <widget class="QPushButton" name="pushButtonModifier_produit">
           <property name="geometry">
            <rect>
             <x>400</x>
@@ -314,7 +296,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            <string>Modifier</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_refrech">
+         <widget class="QPushButton" name="pushButton_refrech_produit">
           <property name="geometry">
            <rect>
             <x>120</x>
@@ -341,7 +323,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            </rect>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonSupprimer">
+         <widget class="QPushButton" name="pushButtonSupprimer_produit">
           <property name="geometry">
            <rect>
             <x>360</x>
@@ -360,7 +342,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
          </widget>
         </widget>
         <widget class="QWidget" name="page_14">
-         <widget class="QLineEdit" name="prixp_edit_1">
+         <widget class="QLineEdit" name="prixp_edit_1_produit">
           <property name="geometry">
            <rect>
             <x>300</x>
@@ -370,7 +352,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            </rect>
           </property>
          </widget>
-         <widget class="QLineEdit" name="nbreEdit_1">
+         <widget class="QLineEdit" name="nbreEdit_1_produit">
           <property name="geometry">
            <rect>
             <x>300</x>
@@ -380,7 +362,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            </rect>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonModifier2_2">
+         <widget class="QPushButton" name="pushButtonModifier2_2_produit">
           <property name="geometry">
            <rect>
             <x>240</x>
@@ -398,7 +380,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;
            <string>Retour</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="prixu_edit_1">
+         <widget class="QLineEdit" name="prixu_edit_1_produit">
           <property name="geometry">
            <rect>
             <x>300</x>
@@ -440,7 +422,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;
            <string>Prix Promotion</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButtonModifier2">
+         <widget class="QPushButton" name="pushButtonModifier2_produit">
           <property name="geometry">
            <rect>
             <x>440</x>
@@ -491,7 +473,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;
          </rect>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <widget class="QLabel" name="label_bc_2">
@@ -520,7 +502,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;
            <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="cosmetiques_bottom">
+         <widget class="QPushButton" name="cosmetiques_bottom_produit">
           <property name="geometry">
            <rect>
             <x>330</x>
@@ -563,7 +545,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="parfums_bottom">
+         <widget class="QPushButton" name="parfums_bottom_produit">
           <property name="geometry">
            <rect>
             <x>490</x>
@@ -580,7 +562,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            <string>Parfums</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="makeup_bottom">
+         <widget class="QPushButton" name="makeup_bottom_produit_">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -625,7 +607,7 @@ font: 25 8pt &quot;Rockwell Nova Light&quot;;</string>
            <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="categorie_bottom">
+         <widget class="QPushButton" name="categorie_bottom_produit">
           <property name="geometry">
            <rect>
             <x>710</x>
@@ -642,7 +624,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
            <string>Retour</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="codeabarre1">
+         <widget class="QPushButton" name="codeabarre1_produit">
           <property name="geometry">
            <rect>
             <x>100</x>
@@ -672,7 +654,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
            <string/>
           </property>
          </widget>
-         <widget class="QPushButton" name="codeabarre1_2">
+         <widget class="QPushButton" name="codeabarre1_2_produit">
           <property name="geometry">
            <rect>
             <x>360</x>
@@ -689,7 +671,7 @@ font: 75 10pt &quot;Verdana Pro Cond&quot;;</string>
            <string>Browser...</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="codeabarre1_3">
+         <widget class="QPushButton" name="codeabarre1_3_produit">
           <property name="geometry">
            <rect>
             <x>600</x>

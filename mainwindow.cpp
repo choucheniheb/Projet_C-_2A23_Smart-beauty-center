@@ -21,24 +21,24 @@ MainWindow::MainWindow(QWidget *parent) :
   //
     ui->setupUi(this);
 
-    ui->code_edit->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->prixu_edit->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->prixp_edit->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->prixu_edit_1->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->prixp_edit_1->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->code_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixu_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixp_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixu_edit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->prixp_edit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
    // ui->prixp_edit->setValidator ( new QDoubleValidator(0, 9999999, this));
 
 
-    ui->nbreEdit->setValidator ( new QIntValidator(0, 9999999, this));
-    ui->nbreEdit_1->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->nbreEdit_produit->setValidator ( new QIntValidator(0, 9999999, this));
+    ui->nbreEdit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
 
     QRegularExpression rx("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",
                                   QRegularExpression::CaseInsensitiveOption);
-        ui->nom_edit->setValidator(new QRegularExpressionValidator(rx, this));
+        ui->nom_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
 
         QRegularExpression rx1("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",
                                       QRegularExpression::CaseInsensitiveOption);
-            ui->categorie_edit->setValidator(new QRegularExpressionValidator(rx, this));
+            ui->categorie_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
 
     //
      QPixmap pix("C:/Users/HP/Desktop/image/makeup.jpg");
@@ -53,8 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
       QPixmap pix16("C:/Users/HP/Desktop/image/modifier1.png");
       QPixmap pix17("C:/Users/HP/Desktop/image/modifier1.png");
     // background1
-       int w = ui->label_bc->width();
-    int h = ui->label_bc->height();
+      // int w = ui->label_bc->width();
+   // int h = ui->label_bc->height();
     //background categorie
     int w3 = ui->label_bc_2->width();
     int h3 = ui->label_bc_2->height();
@@ -80,8 +80,7 @@ int h17 = ui->label_17->height();
     ui->label_cos->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
     //mq
     ui->label_mq->setPixmap(pix.scaled(w2,h2,Qt::KeepAspectRatio));
-      //background1 bienvevue
-   ui->label_bc->setPixmap(pix2.scaled(w,h,Qt::KeepAspectRatio));
+
       //background categorie
     ui->label_bc_2->setPixmap(pix3.scaled(w3,h3,Qt::KeepAspectRatio));
     // background parfums
@@ -124,25 +123,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_aj_button_clicked()
 {
     //code a barre
-    int code_a_barre=ui->code_edit->text().toInt();
-    ui->code_edit->clear();
+    int code_a_barre=ui->code_edit_produit->text().toInt();
+    ui->code_edit_produit->clear();
     //nom
-   QString nom_produit=ui->nom_edit->text();
-   ui->nom_edit->clear();
+   QString nom_produit=ui->nom_edit_produit->text();
+   ui->nom_edit_produit->clear();
    //prix uni
-   float prix_uni=ui->prixu_edit->text().toFloat();
-   ui->prixu_edit->clear();
-   float prix_promo=ui->prixp_edit->text().toFloat();
-   ui->prixp_edit->clear();
+   float prix_uni=ui->prixu_edit_produit->text().toFloat();
+   ui->prixu_edit_produit->clear();
+   float prix_promo=ui->prixp_edit_produit->text().toFloat();
+   ui->prixp_edit_produit->clear();
    //
-   QString categorie=ui->categorie_edit->text();
-    ui->categorie_edit->clear();
+   QString categorie=ui->categorie_edit_produit->text();
+    ui->categorie_edit_produit->clear();
 
-   QString date_expiration=ui->date_edit->text();
-   ui->date_edit->clear();
+   QString date_expiration=ui->date_edit_produit->text();
+   ui->date_edit_produit->clear();
 
-   int quantite_produit=ui-> nbreEdit->text().toInt();
-   ui->nbreEdit->clear();
+   int quantite_produit=ui-> nbreEdit_produit->text().toInt();
+   ui->nbreEdit_produit->clear();
 
 
 
@@ -158,7 +157,7 @@ bool test=p.ajouter();
    // ui->tableView_hist->setModel(p.afficher_historique_produit());
 
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
-   histo.save("code_a_barre:"+ui->code_edit->text(),"nom_p :"+ui->nom_edit->text(),"prix_uni :"+ui->prixu_edit->text(),"prix_promo :"+ui->prixp_edit->text(),"categorie :"+ui->categorie_edit->text(),"date_expiration :"+ui->date_edit->text(),"quantite_produit :"+ui->nbreEdit->text());
+   histo.save("code_a_barre:"+ui->code_edit_produit->text(),"nom_p :"+ui->nom_edit_produit->text(),"prix_uni :"+ui->prixu_edit_produit->text(),"prix_promo :"+ui->prixp_edit_produit->text(),"categorie :"+ui->categorie_edit_produit->text(),"date_expiration :"+ui->date_edit_produit->text(),"quantite_produit :"+ui->nbreEdit_produit->text());
 }else if ((categorie != "parfums" || categorie !="cosmetique" || categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
 {
     QMessageBox::critical(nullptr,QObject::tr(" non ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
@@ -209,9 +208,9 @@ void MainWindow::on_pushButtonModifier2_clicked()
 {
 //modifier les valeur de class
 //c.setdate(ui->dateTimeEdit_modifier->text().to)
-p.setprix_uni(ui->prixu_edit_1->text().toFloat());
-p.setprix_promo(ui->prixp_edit_1->text().toFloat());
-p.setquantite_produit(ui->nbreEdit_1->text().toInt());
+p.setprix_uni(ui->prixu_edit_1_produit->text().toFloat());
+p.setprix_promo(ui->prixp_edit_1_produit->text().toFloat());
+p.setquantite_produit(ui->nbreEdit_1_produit->text().toInt());
 
 //modifier requete************
 QModelIndex index=on_tableViewproduit_activated();
@@ -250,22 +249,22 @@ if(q<=6)
 
 void MainWindow::on_lineEdit_chercher_cursorPositionChanged_textChanged()
 {
-    QString i=ui->lineEdit_chercher_cursorPositionChanged->text();
+    QString i=ui->lineEdit_chercher_cursorPositionChanged_produit->text();
     ui->tableViewproduit->setModel(p.rechercheMulticritere(i));
 }
 
 //
 
 
-void MainWindow::on_makeup_bottom_clicked()
+void MainWindow::on_makeup_bottom_produit_clicked()
 {
     ui->stackedWidget2->setCurrentIndex(1);
 }
-void MainWindow::on_cosmetiques_bottom_clicked()
+void MainWindow::on_cosmetiques_bottom_produit_clicked()
 {
     ui->stackedWidget2->setCurrentIndex(2);
 }
-void MainWindow::on_parfums_bottom_clicked()
+void MainWindow::on_parfums_bottom_produit_clicked()
 {
     ui->stackedWidget2->setCurrentIndex(3);
 }
@@ -283,7 +282,7 @@ void MainWindow::on_categorie_bottom_clicked()
 
 
 
-void MainWindow::on_codeabarre1_clicked()
+void MainWindow::on_codeabarre1_produitclicked()
 {
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
@@ -297,7 +296,7 @@ void MainWindow::on_codeabarre1_clicked()
     }
 }
 
-void MainWindow::on_codeabarre1_2_clicked()
+void MainWindow::on_codeabarre1_2_produitclicked()
 {
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
@@ -311,7 +310,8 @@ void MainWindow::on_codeabarre1_2_clicked()
     }
 }
 
-void MainWindow::on_codeabarre1_3_clicked()
+
+void MainWindow::on_codeabarre1_3_produitclicked()
 {
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
