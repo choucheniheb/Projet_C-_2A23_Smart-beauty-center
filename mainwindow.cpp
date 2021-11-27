@@ -10,6 +10,8 @@
 #include <QTcpSocket>
 #include"notification.h"
 #include "dumessengerconnectiondialog.h"
+#include"historique.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,12 +28,12 @@ MainWindow::MainWindow(QWidget *parent) :
 /****************************************************/
 
 
-   QPixmap pix2("C:/Users/wajdi/Desktop/image/pix2.png");
+   QPixmap pix4("C:/Users/wajdi/Desktop/image/pix4.png");
 // ajouter photo
 int w=ui->label_pic ->width();
 
 int h=ui->label_pic ->height();
-          ui->label_pic->setPixmap(pix2.scaled(w,h,Qt::KeepAspectRatio));
+          ui->label_pic->setPixmap(pix4.scaled(w,h,Qt::KeepAspectRatio));
 
 
 // photo modifier
@@ -42,7 +44,7 @@ int h=ui->label_pic ->height();
             int w2=ui->label_aff ->width();
 
             int h2=ui->label_aff ->height();
-                      ui->label_aff->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
+                      ui->label_aff->setPixmap(pix4.scaled(w2,h2,Qt::KeepAspectRatio));
 // photo supprimer
 
 
@@ -51,12 +53,12 @@ int h=ui->label_pic ->height();
                                int w4=ui->label_h ->width();
 
                                 int h4=ui->label_h ->height();
-                                          ui->label_h->setPixmap(pix2.scaled(w4,h4,Qt::KeepAspectRatio));
+                                          ui->label_h->setPixmap(pix4.scaled(w4,h4,Qt::KeepAspectRatio));
 // chat
                                           int w5=ui->label_chat ->width();
 
                                            int h5=ui->label_chat ->height();
-                                                     ui->label_chat->setPixmap(pix2.scaled(w5,h5,Qt::KeepAspectRatio));
+                                                     ui->label_chat->setPixmap(pix4.scaled(w5,h5,Qt::KeepAspectRatio));
 
 // controle de  saisie
 ui->lineEdit_num_f->setValidator(new QIntValidator(0,99999999,this));
@@ -87,38 +89,33 @@ void MainWindow::on_pushButton_ajouter_clicked()
 
     //recuperation
    QString nom_f=ui->lineEdit_nom_f->text();
-   ui->lineEdit_nom_f->clear();
 
     float prix_gros=ui->lineEdit_prix_gros->text().toFloat();
-    ui->lineEdit_prix_gros->clear();
 
     int num_f=ui->lineEdit_num_f->text().toUInt();
-    ui->lineEdit_num_f->clear();
 
     int code_f=ui->lineEdit_code_f->text().toUInt();
-    ui->lineEdit_code_f->clear();
 
      QString produit_vendu=ui->lineEdit_produit_vendu->text();
-     ui->lineEdit_produit_vendu->clear();
     fournisseur f(num_f,code_f,prix_gros,nom_f,produit_vendu);//instancer
     bool test=f.ajouter();
+
     if(test)
+
     {
-        ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
-        QString c=QString::number(code_f);
-        QString message2="ajouter un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist->setModel(f.afficherhist());
-        QMessageBox::information(nullptr, QObject::tr("fournisseur ajouté"),
+
+        QMessageBox::information(nullptr, QObject::tr("ajouter un fournisseur "),
                     QObject::tr("successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-
+         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
+    histo.save("code_f:"+ui->lineEdit_code_f->text(),"nom :"+ui->lineEdit_nom_f->text(),"num_f :"+ui->lineEdit_num_f->text(),"prix_gros :"+ui->lineEdit_prix_gros->text(),"produi_vendu :"+ui->lineEdit_produit_vendu->text());
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("fournisseur non ajouté"),
                     QObject::tr("failed.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
     }
+
 
 
 
@@ -135,8 +132,9 @@ void MainWindow::on_pushButtonSupprimer_clicked()
     {
         QString c=QString::number(code_f);
         QString message2="supprimer un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist->setModel(f.afficherhist());
+
+
+
         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
         QMessageBox::information(nullptr, QObject::tr("fournisseur supprimé"),
                     QObject::tr("successful.\n"
@@ -177,8 +175,8 @@ void MainWindow::on_pushButtonModifier2_clicked()
     {
         QString c=QString::number(code_f);
         QString message2="modifier un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist->setModel(f.afficherhist());
+
+
         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
         QMessageBox::information(nullptr, QObject::tr("fournisseur modifié"),
                     QObject::tr("successful.\n"
@@ -200,7 +198,7 @@ void MainWindow::on_pushButtonModifier2_clicked()
 void MainWindow::on_pushButtonafficher_clicked()
 {
     ui->tableViewAficherfournisseur->setModel(f.afficher());
-    ui->tableView_hist->setModel(f.afficherhist());
+
     QSqlQuery query;
     QString res = QDate::currentDate().toString();
     qDebug()<<res;
@@ -293,4 +291,14 @@ void MainWindow::on_pb_connecter_clicked()
     mSocket->connectToHost(D.hostname(),D.port());
 
     }
+}
+
+
+void MainWindow::on_pushButton_histo_clicked()
+{
+    QFile file("C:/Users/wajdi/Desktop/historique.txt");
+        if (!file.open(QIODevice::ReadOnly))
+            QMessageBox::information(0,"info",file.errorString());
+        QTextStream in(&file);
+        ui->textBrowser->setText(in.readAll());
 }

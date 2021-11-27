@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include<dumessengerconnectiondialog.h>
 #include <QTcpSocket>
+#include"historique.h"
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -34,10 +37,15 @@ private slots:
 
    void on_pb_connecter_clicked();
 
+
+   void on_pushButton_histo_clicked();
+
 private:
     Ui::MainWindow *ui;
     fournisseur f;
     QTcpSocket *mSocket;
+    historique histo;
+
 };
 
 #endif // MAINWINDOW_H

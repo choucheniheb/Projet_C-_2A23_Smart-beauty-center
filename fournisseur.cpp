@@ -98,23 +98,5 @@ QSqlQueryModel* fournisseur::rechercheMulticritere(QString recherche){
     return trouve;
 }
 
-//historique**********
-void fournisseur::ajouterhist(QString hist)
-{
-    QSqlQuery query;
-    QString res= QDateTime::currentDateTime().toString();
-    query.prepare("insert into historique(date_h,historique) values(:date_h,:historique)");
-    query.bindValue(":date_h",res);
-    query.bindValue(":historique",hist);
-    query.exec();
-}
-QSqlQueryModel * fournisseur::afficherhist()
-{
-    QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery("select * from historique");
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("DATE_HISTORIQUE"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("HISTORIQUE"));
-    return  model;
-}
 
 
