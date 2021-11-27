@@ -9,4 +9,4 @@ public:
     notification();
 };
 
-#endif // NOTIFICATION_H
+#endif

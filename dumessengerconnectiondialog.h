@@ -35,4 +35,4 @@ inline quint16 dumessengerconnectiondialog::port()const
 {
     return mPort;
 }
-#endif // DUMESSENGERCONNECTIONDIALOG_H
+#endif

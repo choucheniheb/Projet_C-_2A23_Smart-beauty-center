@@ -6,29 +6,29 @@
 fournisseur::fournisseur(){}
 fournisseur::fournisseur(int num_f,int code_f,float prix_gros,QString nom_f,QString produit_vendu)
 {
-   this-> num_f=num_f;
-   this-> code_f=code_f;
-   this-> prix_gros=prix_gros;
-   this-> nom_f=nom_f;
-   this-> produit_vendu=produit_vendu;
+   this->  num_f=num_f;
+   this->  code_f=code_f;
+   this->  prix_gros=prix_gros;
+   this->  nom_f=nom_f;
+   this->  produit_vendu=produit_vendu;
 
 }
 
-//getters
+//les getters
 int fournisseur::getnum_f() {return num_f;}
 int fournisseur::getcode_f() {return code_f;}
 float fournisseur::getprix_gros() {return prix_gros;}
 QString fournisseur::getnom_f() {return nom_f;}
 QString fournisseur::getproduit_vendu() {return produit_vendu;}
 
-//setters
+//les setters
 void fournisseur::setnum_f(int num_f){this->num_f=num_f;}
 void fournisseur::setcode_f(int code_f){this->code_f=code_f;}
 void fournisseur::setprix_gros(float prix_gros){this->prix_gros=prix_gros;}
 void fournisseur::setnom_f(QString nom_f){this->nom_f=nom_f;}
 void fournisseur::setproduit_vendu(QString produit_vendu){this->produit_vendu=produit_vendu;}
 
-//fonction ajouter
+//fonction "ajouter"
 bool fournisseur::ajouter()
 {
     QSqlQuery query;

@@ -16,4 +16,4 @@ class historique
       QString load();
 };
 
-#endif // HISTORIQUE_H
+#endif

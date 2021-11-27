@@ -11,26 +11,26 @@ public:
     fournisseur(int num_f,int code_f,float prix_gros,QString nom_f,QString produit_vendu);
 
 
-    //getters
+    //les getters
     int getnum_f();
     int getcode_f();
     float getprix_gros();
     QString getnom_f();
     QString getproduit_vendu();
 
-    //setters
+    //les setters
     void setnum_f(int);
     void setcode_f(int);
     void setprix_gros(float);
     void setnom_f(QString);
     void setproduit_vendu(QString);
 
-    // cRuds
+    //les  cRuds
     bool ajouter();
     QSqlQueryModel    *   afficher();
     bool modifier(int);
     bool supprimer(int);
-    //metier
+    //les metiers
     QSqlQueryModel * rechercheMulticritere(QString recherche);
     void ajouterhist(QString);
     QSqlQueryModel * afficherhist();
