@@ -9,16 +9,16 @@
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(0);
-    ui->lineEdit_id->setValidator(new QIntValidator(0,999999,this));
-    ui->lineEdit_Pf->setValidator(new QIntValidator(0,1000,this));
-    ui->lineEdit_Num->setValidator(new QIntValidator(0,99999999,this));
+    ui->stackedWidget_client->setCurrentIndex(0);
+    ui->lineEdit_id_client->setValidator(new QIntValidator(0,999999,this));
+    ui->lineEdit_Pf_client->setValidator(new QIntValidator(0,1000,this));
+    ui->lineEdit_Num_client->setValidator(new QIntValidator(0,99999999,this));
     QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
                               QRegularExpression::CaseInsensitiveOption);
-    ui->lineEdit_EM->setValidator(new QRegularExpressionValidator(rx, this));
-    connect(ui->sendBtn,SIGNAL(clicked()),this,SLOT(sendMail()));
-    connect(ui->exitBtn, SIGNAL(clicked()),this, SLOT(close()));
-     connect(ui->browseBtn, SIGNAL(clicked()), this, SLOT(browse()));
+    ui->lineEdit_EM_client->setValidator(new QRegularExpressionValidator(rx, this));
+    connect(ui->sendBtn_client,SIGNAL(clicked()),this,SLOT(sendMail()));
+    connect(ui->exitBtn_client, SIGNAL(clicked()),this, SLOT(close()));
+     connect(ui->browseBtn_client, SIGNAL(clicked()), this, SLOT(browse()));
 }
 
 MainWindow::~MainWindow()
@@ -27,15 +27,15 @@ MainWindow::~MainWindow()
 }
 
 //ajouter************
-void MainWindow::on_pushButtonAjouter_clicked()
+void MainWindow::on_pushButtonAjouter_client_clicked()
 {
     //recuperation
-    int Id_c=ui->lineEdit_id->text().toInt();
-    QString Prenom_c=ui->lineEdit_Pc->text();
-    QString Nom_c=ui->lineEdit_Nc->text();
-    QString Email_c=ui->lineEdit_EM->text();
-    int Point_fidelite=ui->lineEdit_Pf->text().toInt();
-    int Telephone_c=ui->lineEdit_Num->text().toInt();
+    int Id_c=ui->lineEdit_id_client->text().toInt();
+    QString Prenom_c=ui->lineEdit_Pc_client->text();
+    QString Nom_c=ui->lineEdit_Nc_client->text();
+    QString Email_c=ui->lineEdit_EM_client->text();
+    int Point_fidelite=ui->lineEdit_Pf_client->text().toInt();
+    int Telephone_c=ui->lineEdit_Num_client->text().toInt();
 
     Client C ( Nom_c,Prenom_c,Email_c,Id_c,Point_fidelite,Telephone_c);//instancer
     bool test=C.ajouter();
@@ -43,7 +43,7 @@ void MainWindow::on_pushButtonAjouter_clicked()
     if(test)
     {
         //Refresh affichage
-        ui->tableViewAficherClient->setModel(C.afficher());
+        ui->tableViewAficherClient_client->setModel(C.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -52,21 +52,21 @@ void MainWindow::on_pushButtonAjouter_clicked()
 }
 
 //affichage*********
-void MainWindow::on_pushButtonAfficher_clicked()
+void MainWindow::on_pushButtonAfficher_client_clicked()
 {
-    ui->tableViewAficherClient->setModel(C.afficher());
+    ui->tableViewAficherClient_client->setModel(C.afficher());
 }
 
 //supprimer********************
-void MainWindow::on_pushButtonSupprimer_clicked()
+void MainWindow::on_pushButtonSupprimer_client_clicked()
 {
-    QModelIndex index=on_tableViewAficherClient_activated();
-    int Id_c=ui->tableViewAficherClient->model()->data(ui->tableViewAficherClient->model()->index(index.row(),0)).toInt();
+    QModelIndex index=on_tableViewAficherClient_client_activated();
+    int Id_c=ui->tableViewAficherClient_client->model()->data(ui->tableViewAficherClient_client->model()->index(index.row(),0)).toInt();
     bool test1=C.supprimer(Id_c);
     if(test1)
     {
         //Refresh affichage
-        ui->tableViewAficherClient->setModel(C.afficher());
+        ui->tableViewAficherClient_client->setModel(C.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -74,29 +74,29 @@ void MainWindow::on_pushButtonSupprimer_clicked()
     }
 }
 
-void MainWindow::on_pushButtonModifier_clicked()
+void MainWindow::on_pushButtonModifier_client_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    ui->stackedWidget_client->setCurrentIndex(3);
 }
 //modifier**************
-void MainWindow::on_pushButtonModifier2_clicked()
+void MainWindow::on_pushButtonModifier2_client_clicked()
 {
     //modifier les valeur de class
-    C.setnom(ui->lineEdit_nom_m->text());
-    C.setpre(ui->lineEdit_prenom_m->text());
-    C.setemail(ui->lineEdit_email_m->text());
-    C.settel(ui->lineEdit_tel_m->text().toInt());
-    C.setpf(ui->lineEdit_point_f_m->text().toInt());
+    C.setnom(ui->lineEdit_nom_m_client->text());
+    C.setpre(ui->lineEdit_prenom_m_client->text());
+    C.setemail(ui->lineEdit_email_m_client->text());
+    C.settel(ui->lineEdit_tel_m_client->text().toInt());
+    C.setpf(ui->lineEdit_point_f_m_client->text().toInt());
 
     //modifier requete************
-    QModelIndex index=on_tableViewAficherClient_activated();
-    int Id_c=ui->tableViewAficherClient->model()->data(ui->tableViewAficherClient->model()->index(index.row(),0)).toInt();
+    QModelIndex index=on_tableViewAficherClient_client_activated();
+    int Id_c=ui->tableViewAficherClient_client->model()->data(ui->tableViewAficherClient_client->model()->index(index.row(),0)).toInt();
     bool test2=C.modifier(Id_c);
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_client->setCurrentIndex(0);
     if(test2)
     {
         //Refresh affichage
-        ui->tableViewAficherClient->setModel(C.afficher());
+        ui->tableViewAficherClient_client->setModel(C.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -107,15 +107,15 @@ void MainWindow::on_pushButtonModifier2_clicked()
 
 
 
-void MainWindow::on_cb_tri_activated()
+void MainWindow::on_cb_tri_client_activated()
 {
-    QString val=ui->cb_tri->currentText();
-    ui->tableViewAficherClient->setModel(C.afficher_choix(val));
+    QString val=ui->cb_tri_client->currentText();
+    ui->tableViewAficherClient_client->setModel(C.afficher_choix(val));
 }
 
-void MainWindow::on_pushButton_Contacter_clicked()
+void MainWindow::on_pushButton_Contacter_client_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget_client->setCurrentIndex(1);
 }
 
 void MainWindow::browse()
@@ -133,19 +133,19 @@ void MainWindow::browse()
     foreach(QString file, files)
         fileListString.append( "\"" + QFileInfo(file).fileName() + "\" " );
 
-    ui->file->setText( fileListString );
+    ui->file_client->setText( fileListString );
 
 }
 
 void MainWindow::sendMail()
 {
-    Smtp* smtp = new Smtp(ui->uname->text(), ui->paswd->text(), ui->server->text(), ui->port->text().toInt());
+    Smtp* smtp = new Smtp(ui->uname_client->text(), ui->paswd_client->text(), ui->server_client->text(), ui->port_client->text().toInt());
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     if( !files.isEmpty() )
-        smtp->sendMail(ui->uname->text(), ui->rcpt->text() , ui->subject->currentText(),ui->msg->toPlainText(), files );
+        smtp->sendMail(ui->uname_client->text(), ui->rcpt_client->text() , ui->subject_client->currentText(),ui->msg_client->toPlainText(), files );
     else
-        smtp->sendMail(ui->uname->text(), ui->rcpt->text() , ui->subject->currentText(),ui->msg->toPlainText());
+        smtp->sendMail(ui->uname_client->text(), ui->rcpt_client->text() , ui->subject_client->currentText(),ui->msg_client->toPlainText());
 }
 
 void MainWindow::mailSent(QString status)
@@ -154,7 +154,7 @@ void MainWindow::mailSent(QString status)
         QMessageBox::warning( 0, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
 }
 
-void MainWindow::on_reserver_clicked()
+void MainWindow::on_reserver_client_clicked()
 {
     //recuperation
    QString id_c=ui->le_cl->text();
@@ -167,7 +167,7 @@ void MainWindow::on_reserver_clicked()
     if(test)
     {
         //Refresh affichage
-        ui->tab_res->setModel(R.afficher());
+        ui->tab_res_client->setModel(R.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -176,20 +176,20 @@ void MainWindow::on_reserver_clicked()
 }
 
 
-void MainWindow::on_show_clicked()
+void MainWindow::on_show_client_clicked()
 {
-    ui->tab_res->setModel(R.afficher());
+    ui->tab_res_client->setModel(R.afficher());
 
 }
 
-void MainWindow::on_pb_supp_res_clicked()
+void MainWindow::on_pb_supp_res_client_clicked()
 {
-    QString id_c=ui->le_supp_res->text();
+    QString id_c=ui->le_supp_res_client->text();
     bool test1=R.supprimer(id_c);
     if(test1)
     {
         //Refresh affichage
-        ui->tab_res->setModel(R.afficher());
+        ui->tab_res_client->setModel(R.afficher());
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("supprimer effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -197,34 +197,34 @@ void MainWindow::on_pb_supp_res_clicked()
     }
 }
 
-void MainWindow::on_pushButton_reserver_clicked()
+void MainWindow::on_pushButton_reserver_client_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(2);
+    ui->stackedWidget_client->setCurrentIndex(2);
 }
 
-void MainWindow::on_quitter_clicked()
+void MainWindow::on_quitter_client_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_client->setCurrentIndex(0);
 }
 
-void MainWindow::on_exitBtn_clicked()
+void MainWindow::on_exitBtn_client_clicked()
 {
 close();
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_client_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_client->setCurrentIndex(0);
 
 }
 
-void MainWindow::on_lineEdit_rechercher_textChanged()
+void MainWindow::on_lineEdit_rechercher_client_textChanged()
 {
-    QString rech=ui->lineEdit_rechercher->text();
-    ui->tableViewAficherClient->setModel(C.rechercheMulticritere(rech));
+    QString rech=ui->lineEdit_rechercher_client->text();
+    ui->tableViewAficherClient_client->setModel(C.rechercheMulticritere(rech));
 }
 
-QModelIndex MainWindow::on_tableViewAficherClient_activated()
+QModelIndex MainWindow::on_tableViewAficherClient_client_activated()
 {
-    return  ui->tableViewAficherClient->currentIndex();
+    return  ui->tableViewAficherClient_client->currentIndex();
 }

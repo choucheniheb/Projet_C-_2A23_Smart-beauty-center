@@ -14,7 +14,7 @@
    <string>Gestion des fournisseurs</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="tabWidget_client">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -46,7 +46,7 @@
        <string>Email</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_Pc">
+     <widget class="QLineEdit" name="lineEdit_Pc_client">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -72,7 +72,7 @@
        <string>Nom du client</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_id">
+     <widget class="QLineEdit" name="lineEdit_id_client">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -85,7 +85,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_Num">
+     <widget class="QLineEdit" name="lineEdit_Num_client">
       <property name="geometry">
        <rect>
         <x>410</x>
@@ -121,7 +121,7 @@
        <string>Num du client</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_EM">
+     <widget class="QLineEdit" name="lineEdit_EM_client">
       <property name="geometry">
        <rect>
         <x>410</x>
@@ -134,7 +134,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButtonAjouter">
+     <widget class="QPushButton" name="pushButtonAjouter_client">
       <property name="geometry">
        <rect>
         <x>490</x>
@@ -160,7 +160,7 @@
        <string>ID</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_Pf">
+     <widget class="QLineEdit" name="lineEdit_Pf_client">
       <property name="geometry">
        <rect>
         <x>410</x>
@@ -170,7 +170,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_Nc">
+     <widget class="QLineEdit" name="lineEdit_Nc_client">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -198,7 +198,7 @@
      <attribute name="title">
       <string>Afficher Client</string>
      </attribute>
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="stackedWidget_client">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -211,10 +211,10 @@
        <string notr="true">background-color:rgb(226, 226, 226);</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
-       <widget class="QPushButton" name="pushButton_Contacter">
+       <widget class="QPushButton" name="pushButton_Contacter_client">
         <property name="geometry">
          <rect>
           <x>460</x>
@@ -227,7 +227,7 @@
          <string>Contacter</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_reserver">
+       <widget class="QPushButton" name="pushButton_reserver_client">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -240,7 +240,7 @@
          <string>Reserver</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_rechercher">
+       <widget class="QLineEdit" name="lineEdit_rechercher_client">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -250,7 +250,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QTableView" name="tableViewAficherClient">
+       <widget class="QTableView" name="tableViewAficherClient_client">
         <property name="geometry">
          <rect>
           <x>15</x>
@@ -260,7 +260,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonAfficher">
+       <widget class="QPushButton" name="pushButtonAfficher_client">
         <property name="geometry">
          <rect>
           <x>450</x>
@@ -273,7 +273,7 @@
          <string>afficher</string>
         </property>
        </widget>
-       <widget class="QComboBox" name="cb_tri">
+       <widget class="QComboBox" name="cb_tri_client">
         <property name="geometry">
          <rect>
           <x>153</x>
@@ -348,7 +348,7 @@
          </property>
         </item>
        </widget>
-       <widget class="QPushButton" name="pushButtonSupprimer">
+       <widget class="QPushButton" name="pushButtonSupprimer_client">
         <property name="geometry">
          <rect>
           <x>369</x>
@@ -361,7 +361,7 @@
          <string>Supprimer</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonModifier">
+       <widget class="QPushButton" name="pushButtonModifier_client">
         <property name="geometry">
          <rect>
           <x>289</x>
@@ -376,7 +376,7 @@
        </widget>
       </widget>
       <widget class="QWidget" name="page_2">
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="groupBox_client">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -429,7 +429,7 @@
           <string>Attachment:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="server">
+        <widget class="QLineEdit" name="server_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -477,7 +477,7 @@ font-family:calibri;
           <string>l'assistant:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="rcpt">
+        <widget class="QLineEdit" name="rcpt_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -500,7 +500,7 @@ font-family:calibri;
   border-radius : 16px;</string>
          </property>
         </widget>
-        <widget class="QPlainTextEdit" name="msg">
+        <widget class="QPlainTextEdit" name="msg_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -523,7 +523,7 @@ font-family:calibri;
   border-radius : 16px;</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="uname">
+        <widget class="QLineEdit" name="uname_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -571,7 +571,7 @@ font-family:calibri;
           <string>le client:</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="browseBtn">
+        <widget class="QPushButton" name="browseBtn_client">
          <property name="geometry">
           <rect>
            <x>470</x>
@@ -597,7 +597,7 @@ font-family:calibri;
           <string>Browse...</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="file">
+        <widget class="QLineEdit" name="file_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -623,7 +623,7 @@ font-family:calibri;
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QPushButton" name="sendBtn">
+        <widget class="QPushButton" name="sendBtn_client">
          <property name="geometry">
           <rect>
            <x>214</x>
@@ -649,7 +649,7 @@ font-family:calibri;
           <string>Send</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="exitBtn">
+        <widget class="QPushButton" name="exitBtn_client">
          <property name="geometry">
           <rect>
            <x>370</x>
@@ -675,7 +675,7 @@ font-family:calibri;
           <string>Exit</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="paswd">
+        <widget class="QLineEdit" name="paswd_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -748,7 +748,7 @@ font-family:calibri;
           <string>Message:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="port">
+        <widget class="QLineEdit" name="port_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -815,7 +815,7 @@ font-family:calibri;
           <string>Server port:</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="subject">
+        <widget class="QComboBox" name="subject_client">
          <property name="geometry">
           <rect>
            <x>170</x>
@@ -863,7 +863,7 @@ font-family:calibri;
           </property>
          </item>
         </widget>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButton_client">
          <property name="geometry">
           <rect>
            <x>290</x>
@@ -902,7 +902,7 @@ font-family:calibri;
          </rect>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -1030,7 +1030,7 @@ font-family:calibri;
             <string>code service :</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="reserver">
+          <widget class="QPushButton" name="reserver_client">
            <property name="geometry">
             <rect>
              <x>214</x>
@@ -1056,7 +1056,7 @@ font-family:calibri;
             <string>reserver</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="quitter">
+          <widget class="QPushButton" name="quitter_client">
            <property name="geometry">
             <rect>
              <x>370</x>
@@ -1197,7 +1197,7 @@ font-family:calibri;
          <attribute name="title">
           <string>afficher reservation</string>
          </attribute>
-         <widget class="QTableView" name="tab_res">
+         <widget class="QTableView" name="tab_res_client">
           <property name="geometry">
            <rect>
             <x>70</x>
@@ -1207,7 +1207,7 @@ font-family:calibri;
            </rect>
           </property>
          </widget>
-         <widget class="QPushButton" name="show">
+         <widget class="QPushButton" name="show_client">
           <property name="geometry">
            <rect>
             <x>420</x>
@@ -1241,7 +1241,7 @@ font-family:calibri;
            <string>Identifiant _Client</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pb_supp_res">
+         <widget class="QPushButton" name="pb_supp_res_client">
           <property name="geometry">
            <rect>
             <x>440</x>
@@ -1254,7 +1254,7 @@ font-family:calibri;
            <string>Supprimer</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="le_supp_res">
+         <widget class="QLineEdit" name="le_supp_res_client">
           <property name="geometry">
            <rect>
             <x>280</x>
@@ -1284,7 +1284,7 @@ font-family:calibri;
          <string>Num du client</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_point_f_m">
+       <widget class="QLineEdit" name="lineEdit_point_f_m_client">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -1294,7 +1294,7 @@ font-family:calibri;
          </rect>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="pushButton_11_client">
         <property name="geometry">
          <rect>
           <x>550</x>
@@ -1307,7 +1307,7 @@ font-family:calibri;
          <string>Retour</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_prenom_m">
+       <widget class="QLineEdit" name="lineEdit_prenom_m_client">
         <property name="geometry">
          <rect>
           <x>230</x>
@@ -1320,7 +1320,7 @@ font-family:calibri;
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButtonModifier2">
+       <widget class="QPushButton" name="pushButtonModifier2_client">
         <property name="geometry">
          <rect>
           <x>330</x>
@@ -1346,7 +1346,7 @@ font-family:calibri;
          <string>point de fidelite</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_email_m">
+       <widget class="QLineEdit" name="lineEdit_email_m_client">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -1372,7 +1372,7 @@ font-family:calibri;
          <string>Email</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_nom_m">
+       <widget class="QLineEdit" name="lineEdit_nom_m_client">
         <property name="geometry">
          <rect>
           <x>230</x>
@@ -1408,7 +1408,7 @@ font-family:calibri;
          <string>Prénom du client</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_tel_m">
+       <widget class="QLineEdit" name="lineEdit_tel_m_client">
         <property name="geometry">
          <rect>
           <x>480</x>
