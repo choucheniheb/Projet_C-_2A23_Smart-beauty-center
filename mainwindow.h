@@ -73,6 +73,8 @@ private slots:
 
     void on_pb_connecter_clicked();
 
+    void on_tableViewAficherEmployers_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Employers e;
