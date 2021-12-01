@@ -10,6 +10,8 @@
 #include <QMainWindow>
 #include "client.h"
 #include "reservation.h"
+#include "arduino.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -32,14 +34,8 @@ private slots:
     void sendMail();
     void mailSent(QString);
     void browse();
-
-
-
-
-
     void on_reserver_client_clicked();
-
-    void on_show_client_clicked();
+   void on_show_client_clicked();
 
     void on_pb_supp_res_client_clicked();
 
@@ -54,12 +50,23 @@ private slots:
     void on_lineEdit_rechercher_client_textChanged();
 
     QModelIndex on_tableViewAficherClient_client_activated();
+/********************ARduinoo*****************************/
+    void update_label();   // slot permettant la mise à jour du label état de la lampe 1,
+        // ce slot est lancé à chaque réception d'un message de Arduino
+
+        void on_pushButton_alarme_clicked();   // bouton ON
+
+        void on_pushButton_alarme_2_clicked(); // bouton OFF
 
 private:
     Ui::MainWindow *ui;
     Client C;
     QStringList files;
     Reservation R;
+    /*******Arduino*****/
+    QByteArray data; // variable contenant les données reçues
+
+        Arduino A; // objet temporaire
 
 };
 

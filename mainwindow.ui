@@ -27,7 +27,7 @@
      <string notr="true">background-color:rgb(226, 226, 226);</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Ajouter_client">
      <attribute name="title">
@@ -1419,6 +1419,37 @@ font-family:calibri;
         </property>
        </widget>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>Arduino</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton_alarme">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>260</y>
+        <width>271</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Activer L'Alarme</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_alarme_2">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>257</y>
+        <width>271</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Code Erronee</string>
+      </property>
      </widget>
     </widget>
    </widget>
