@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/C:/Users/Ihebc/OneDrive/Desktop/integration/image integration">
+        <file>image integration/1401473-200.png</file>
+        <file>image integration/bg facture.jpg</file>
+        <file>image integration/bg login 1.png</file>
+        <file>image integration/bg login.jpg</file>
+        <file>image integration/bg.jpg</file>
+        <file>image integration/bg1.jpg</file>
+        <file>image integration/caisse2.png</file>
+        <file>image integration/employer1.png</file>
+        <file>image integration/fournisseur.png</file>
+        <file>image integration/gere.png</file>
+        <file>image integration/impression.png</file>
+        <file>image integration/log.jpg</file>
+        <file>image integration/produit.png</file>
+        <file>image integration/recette.png</file>
+        <file>image integration/services-beautician.png</file>
+        <file>image integration/stat.png</file>
+        <file>image integration/ajouter.png</file>
+    </qresource>
+</RCC>
