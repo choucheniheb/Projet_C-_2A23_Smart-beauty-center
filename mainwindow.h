@@ -5,6 +5,7 @@
 #include<dumessengerconnectiondialog.h>
 #include <QTcpSocket>
 #include"historique.h"
+#include"arduino.h"
 
 
 namespace Ui {
@@ -45,7 +46,7 @@ private:
     fournisseur f;
     QTcpSocket *mSocket;
     historique histo;
-
+     Arduino a;
 };
 
 #endif

@@ -11,12 +11,24 @@
 #include"notification.h"
 #include "dumessengerconnectiondialog.h"
 #include"historique.h"
-
+#include"arduino.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+        int ret=a.connect_arduino(); // lancer la connexion à arduino
+        switch(ret){
+        case(0):qDebug()<< "arduino is available and connected to : "<< a.getarduino_port_name();
+            break;
+        case(1):qDebug() << "arduino is available but not connected to :" <<a.getarduino_port_name();
+           break;
+        case(-1):qDebug() << "arduino is not available";
+        }
+         QObject::connect(a.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+         //le slot update_label suite à la reception du signal readyRead (reception des données).
+
     mSocket=new QTcpSocket(this);
     connect(mSocket,&QTcpSocket::readyRead,[&]()
     { QTextStream T(mSocket);
@@ -108,7 +120,8 @@ void MainWindow::on_pushButton_ajouter_clicked()
                     QObject::tr("successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
          ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
-    histo.save("code_f:"+ui->lineEdit_code_f->text(),"nom :"+ui->lineEdit_nom_f->text(),"num_f :"+ui->lineEdit_num_f->text(),"prix_gros :"+ui->lineEdit_prix_gros->text(),"produi_vendu :"+ui->lineEdit_produit_vendu->text());
+    histo.save("code_f:"+ui->lineEdit_code_f->text(),"nom :"+ui->lineEdit_nom_f->text(),"num_f :"+ui->lineEdit_num_f->text(),"prix_gros :"+ui->lineEdit_prix_gros->text(),"produit_vendu :"+ui->lineEdit_produit_vendu->text());
+   a.write_to_arduino("1"); //arduino
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("fournisseur non ajouté"),
@@ -139,6 +152,7 @@ void MainWindow::on_pushButtonSupprimer_clicked()
         QMessageBox::information(nullptr, QObject::tr("fournisseur supprimé"),
                     QObject::tr("successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
+         a.write_to_arduino("0"); //arduino
 
     }
     else

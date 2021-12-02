@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql serialport
 QT       += network
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,6 +27,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
     dumessengerconnectiondialog.cpp \
     fournisseur.cpp \
     historique.cpp \
@@ -35,6 +37,7 @@ SOURCES += \
     notification.cpp
 
 HEADERS += \
+    arduino.h \
     dumessengerconnectiondialog.h \
     fournisseur.h \
     historique.h \
