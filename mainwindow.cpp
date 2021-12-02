@@ -61,6 +61,22 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWind
                    ui->lineEdit_disponibilite->setValidator(new QRegularExpressionValidator(rx, this));
 
 
+
+  //////////***arduino
+
+                   int ret=A.connect_arduino(); // lancer la connexion à arduino
+                   switch(ret){
+                   case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+                       break;
+                   case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+                      break;
+                   case(-1):qDebug() << "arduino is not available";
+                   }
+                    QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+                    //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+
+
 /// map
     /*ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
     ui->quickWidget->show();
@@ -297,3 +313,18 @@ void MainWindow::on_pushButton_location_clicked()
 }
 
 
+////arduino
+void MainWindow::update_label()
+{
+    data=A.read_from_arduino();
+
+    if(data=="1")
+
+        ui->label_3->setText("ON"); // si les données reçues de arduino via la liaison série sont égales à 1
+    // alors afficher ON
+
+    else if (data=="0")
+
+        ui->label_3->setText("OFF");   // si les données reçues de arduino via la liaison série sont égales à 0
+     //alors afficher ON
+}

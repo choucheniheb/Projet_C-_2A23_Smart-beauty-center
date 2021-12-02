@@ -12,6 +12,7 @@
 #include <QtQuickWidgets>
 #include <QQuickItem>
 #include <QVariant>
+#include "arduino.h"
 
 namespace Ui {
 class MainWindow;
@@ -74,6 +75,10 @@ private slots :
 
   void on_lineEdit_textChanged(const QString &arg1);
 
+
+  void update_label();   // slot permettant la mise à jour du label état de la lampe 1,
+  // ce slot est lancé à chaque réception d'un message de Arduino
+
 private:
     Ui::MainWindow *ui;
     Service S ;
@@ -82,6 +87,11 @@ private:
     QVideoWidget* vw ;
     QProgressBar* bar ;
     QSlider* slider ;
+
+
+    QByteArray data; // variable contenant les données reçues
+
+    Arduino A; // objet temporaire
 
 signals:
 void setCenter(QVariant, QVariant);

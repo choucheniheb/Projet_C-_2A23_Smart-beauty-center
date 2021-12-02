@@ -8,6 +8,7 @@ QT       += core gui sql
 
 QT       += core gui multimedia multimediawidgets
 
+QT       += core gui serialport
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
@@ -29,12 +30,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
         main.cpp \
         mainwindow.cpp \
        connection.cpp \
     service.cpp
 
 HEADERS += \
+    arduino.h \
         mainwindow.h \
     connection.h \
     service.h
