@@ -37,7 +37,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_17">
        <attribute name="title">
@@ -1522,6 +1522,19 @@ font-family:calibri;
        <enum>Qt::AutoText</enum>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>370</y>
+        <width>131</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ACCES PAR CARTE</string>
+      </property>
+     </widget>
      <zorder>label_pic</zorder>
      <zorder>label_73</zorder>
      <zorder>pushButton_Login</zorder>
@@ -1529,6 +1542,7 @@ font-family:calibri;
      <zorder>lineEdit_username</zorder>
      <zorder>label_72</zorder>
      <zorder>time_label_4</zorder>
+     <zorder>pushButton_2</zorder>
     </widget>
    </widget>
   </widget>

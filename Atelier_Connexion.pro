@@ -8,6 +8,7 @@ QT       += core gui sql
 QT       += network
 QT       += printsupport
 QT       += svg
+QT       += serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Atelier_Connexion
@@ -28,6 +29,7 @@ CONFIG += c++11
 
 SOURCES += \
     DuMessengerConnectionDialog.cpp \
+    arduino.cpp \
     employers.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -38,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     DuMessengerConnectionDialog.h \
+    arduino.h \
     employers.h \
         mainwindow.h \
     connection.h \

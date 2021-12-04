@@ -11,6 +11,11 @@
 #include <QTimer>
 #include"DuMessengerConnectionDialog.h"
 #include <QTcpSocket>
+
+
+#include "arduino.h"
+
+
 namespace  Ui{
 class MainWindow;
 }
@@ -24,6 +29,11 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
+
+
+    void update_label();
+
+
     void on_pushButtonAjouter_clicked();
     void on_pushButtonSupprimer_clicked();
     void on_pushButtonModifier_clicked();
@@ -79,9 +89,11 @@ private:
     Ui::MainWindow *ui;
     Employers e;
     QStringList files;
-    //**************
     QTimer *timer;
     QTcpSocket *mSocket;
+
+    QByteArray data; // variable contenant les données reçues
+    Arduino A;
 };
 
 #endif // MAINWINDOW_H
