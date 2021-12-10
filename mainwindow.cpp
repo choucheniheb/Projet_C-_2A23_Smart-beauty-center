@@ -241,20 +241,18 @@ QModelIndex MainWindow::on_tableViewAficherClient_client_activated()
     return  ui->tableViewAficherClient_client->currentIndex();
 }
 /***************ARduino*********/
-/*void MainWindow::update_label()
+void MainWindow::update_label()
 {
     data=A.read_from_arduino();
 
     if(data=="1")
+        N.Notification_systeme();
 
-        ui->label_3->setText("ON"); // si les données reçues de arduino via la liaison série sont égales à 1
-    // alors afficher ON
 
     else if (data=="0")
+    N.Notification_sys();
 
-        ui->label_3->setText("OFF");   // si les données reçues de arduino via la liaison série sont égales à 0
-     //alors afficher ON
-}*/
+}
 void MainWindow::on_pushButton_alarme_clicked()   // implémentation du slot bouton on
 {
      A.write_to_arduino("1"); //envoyer 1 à arduino

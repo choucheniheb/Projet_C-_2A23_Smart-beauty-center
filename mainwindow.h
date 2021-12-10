@@ -11,7 +11,7 @@
 #include "client.h"
 #include "reservation.h"
 #include "arduino.h"
-
+#include "notification.h"
 namespace Ui {
 class MainWindow;
 }
@@ -67,7 +67,7 @@ private:
     QByteArray data; // variable contenant les données reçues
 
         Arduino A; // objet temporaire
-
+     Notification N;
 };
 
 #endif // MAINWINDOW_H

@@ -31,6 +31,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
+    notification.cpp \
     reservation.cpp \
     smtp.cpp
 
@@ -39,6 +40,7 @@ HEADERS += \
     client.h \
         mainwindow.h \
     connection.h \
+    notification.h \
     reservation.h \
     smtp.h
 
