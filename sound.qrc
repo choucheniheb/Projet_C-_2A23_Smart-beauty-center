@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/sound">
+        <file>son/mixkit-fast-double-click-on-mouse-275.wav</file>
+    </qresource>
+</RCC>

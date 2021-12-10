@@ -1,5 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "arduino.h"
+//**********************************
 #include "fournisseur.h"
 #include <QMainWindow>
 #include<dumessengerconnectiondialog.h>
@@ -47,6 +49,7 @@
 #include "employers.h"
 #include <QTimer>
 #include <QTcpSocket>
+#include "historique_wajdi.h"
 
 namespace Ui {
 class MainWindow;
@@ -59,6 +62,25 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    QSqlDatabase db ;
+        void connClose()
+        {
+            db.close();
+            db.removeDatabase("glamour_studio.db");
+        }
+        bool connOpen()
+        {
+            db =QSqlDatabase::addDatabase("QSQLITE");
+            db.setDatabaseName("glamour_studio.db");
+              if (db.open()){
+                  qDebug() <<"no connection to Database";
+                  return false;
+              }else{
+                  qDebug()<<"Database connected";
+                  return true;
+              }
+        }
 
 private slots:
     void on_pushButton_ajouter_fournisseur_clicked();
@@ -170,10 +192,12 @@ private slots:
    //******************
    void myfunction();
    //******************
-   void on_QrCode_clicked();
+   //void on_QrCode_clicked();
    void on_pb_envoyer_employer_clicked();
    void on_pb_connecter_employer_clicked();
-   void on_tableViewAficherEmployers_clicked(const QModelIndex &index);
+   void update_label_wajdi_nourhene();
+   void update_label_iheb_arij();
+   void update_label_aziz_samar();
 
 
    void on_pushButton_go_to_service_clicked();
@@ -190,6 +214,93 @@ private slots:
 
    void on_pushButton_quiter_clicked();
 
+   void on_pushButton_ajouter_produit_clicked();
+
+   void on_pushButton_gestion_produit_clicked();
+
+   void on_pushButton_categorie_produit_clicked();
+
+   void on_pushButton_historique_produit_clicked();
+
+   void on_pushButton_quitter_produit_clicked();
+
+   void on_rt_button_produit_clicked();
+
+   void on_pushButton_retour_categorie_clicked();
+
+   void on_categorie_bottom_hist_clicked();
+
+   void on_pushButton_retour_gestion_clicked();
+
+   void on_pushButton_ajouter_fournisseur_2_clicked();
+
+   void on_pushButton_gestion_fournisseur_clicked();
+
+   void on_pushButton_chat_clicked();
+
+   void on_pushButton_historique_clicked();
+
+   void on_pushButton_quitter_fournisseur_clicked();
+
+   void on_pushButton_3_clicked();
+
+   void on_pushButton_retour_histourique_clicked();
+
+   void on_pushButton_retour_chat_clicked();
+
+   void on_pushButton_retourA_fournisseur_clicked();
+
+   void on_pushButton_quitter_facture_clicked();
+
+   void on_historiqueButton_fournisseur_clicked();
+
+   void on_pushButton_retour_aj_employer_clicked();
+
+   void on_pushButton_retour_employer_clicked();
+
+   void on_pushButton_retour_reserver_employer_clicked();
+
+   void on_pushButton_retour_chat_employer_clicked();
+
+   void on_pushButton_ajouter_employer_clicked();
+
+   void on_pushButton_gestion_employer_clicked();
+
+   void on_pushButton_chat_employer_clicked();
+
+   void on_pushButton_quiter_employer_clicked();
+
+   void on_pushButton_2_clicked();
+
+   void on_pushButton_11_client_3_clicked();
+
+   void on_pushButton_retour_affichage_clicked();
+
+   void on_pushButtonretour_aj_client_clicked();
+
+   void on_pushButton_ajouter_client_clicked();
+
+   void on_pushButton_gestion_client_clicked();
+
+   void on_pushButton_quitter_client_clicked();
+
+   void on_pushButton_11_clicked();
+
+   void on_pushButton_retour_aj_ser_clicked();
+
+   void on_pushButton_ajouter_service_clicked();
+
+   void on_pushButton_gestion_service_clicked();
+
+   void on_pushButton_quitter_service_clicked();
+
+   void on_tableViewAficherEmployers_activated(const QModelIndex &index);
+   void on_pushButton_alarme_clicked();
+
+     void on_pushButton_alarme2_clicked();
+
+     void on_comboBox_a_activated(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     fournisseur f;
@@ -198,7 +309,7 @@ private:
     MainWindow *secgialog;
     produit p;
     historique_nourhene histo;
-    historique_nourhene histo1;
+    historique_wajdi hist_wajdi;
     Client C;
     QStringList files;
     Reservation R;
@@ -212,6 +323,12 @@ private:
     Employers e;
     //**************
     QTimer *timer;
+    //*****************
+    QByteArray data; // variable contenant les données reçues
+
+    Arduino A; // objet temporaire
+    QByteArray data1; // variable contenant les données reçues
+    QString ch="";
 };
 
 #endif // MAINWINDOW_H

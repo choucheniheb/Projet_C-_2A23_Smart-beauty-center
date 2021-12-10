@@ -9,6 +9,8 @@ QT       += network
 QT       += core gui charts
 QT       += printsupport
 QT       += core gui multimedia multimediawidgets
+QT       +=svg
+QT       += core gui  serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,17 +31,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
     caisse.cpp \
     client.cpp \
     dumessengerconnectiondialog.cpp \
     employers.cpp \
     fournisseur.cpp \
     historique_nourhene.cpp \
+    historique_wajdi.cpp \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
     notification.cpp \
     notification_nourhene.cpp \
+    notification_samar.cpp \
     produit.cpp \
     qrcode.cpp \
     reservation.cpp \
@@ -47,16 +52,19 @@ SOURCES += \
     smtp.cpp
 
 HEADERS += \
+    arduino.h \
     caisse.h \
     client.h \
     dumessengerconnectiondialog.h \
     employers.h \
     fournisseur.h \
     historique_nourhene.h \
+    historique_wajdi.h \
         mainwindow.h \
     connection.h \
     notification.h \
     notification_nourhene.h \
+    notification_samar.h \
     produit.h \
     qrcode.h \
     reservation.h \
@@ -76,4 +84,6 @@ DISTFILES += \
     historique
 
 RESOURCES += \
-    img.qrc
+    img.qrc \
+    sound.qrc \
+    traduction.qrc

@@ -10,13 +10,13 @@ produit::produit()
   this -> prix_uni=0;
   this ->  prix_promo=0;
   this -> categorie="";
-  this -> code_a_barre=0;
+  this -> code_a_barre="";
   this -> nom_p="";
   this -> date_expiration="";
  // this -> stock="";
 }
 
-produit::produit(int code_a_barre, QString nom_p , int prix_uni ,int prix_promo,QString categorie,QString date_expiration,int quantite_produit)
+produit::produit(QString code_a_barre, QString nom_p , int prix_uni ,int prix_promo,QString categorie,QString date_expiration,int quantite_produit)
 {
 
     this -> quantite_produit=quantite_produit;
@@ -34,7 +34,7 @@ int produit::getquantite_produit(){return quantite_produit;}
 int produit::getprix_uni(){return prix_uni;}
 int produit::getprix_promo(){return prix_promo;}
 QString produit::getcategorie(){return categorie;}
-int produit::getcode_a_barre(){return code_a_barre;}
+QString produit::getcode_a_barre(){return code_a_barre;}
 QString produit::getnom_p(){return nom_p;}
 QString produit::getdate_expiration(){return date_expiration;}
 // bool produit::getstock(){return stock;}
@@ -45,7 +45,7 @@ void produit::setquantite_produit(int quantite_produit){this -> quantite_produit
 void produit::setprix_uni(int prix_uni){this -> prix_uni=prix_uni;}
 void produit::setprix_promo(int prix_promo){this -> prix_promo=prix_promo;}
 void produit::setcategorie(QString categorie){this -> categorie=categorie;}
-void produit::setcode_a_barre(int code_a_barre){this -> code_a_barre=code_a_barre;}
+void produit::setcode_a_barre(QString code_a_barre){this -> code_a_barre=code_a_barre;}
 void produit::setnom_p(QString nom_p){this -> nom_p=nom_p;}
 void produit::setdate_expiration(QString date_expiration){this -> date_expiration=date_expiration;}
 // void produit::setstock(bool stock){this -> stock=stock;}
@@ -55,13 +55,12 @@ void produit::setdate_expiration(QString date_expiration){this -> date_expiratio
 bool produit::ajouter()
 {
     QSqlQuery query;
-    QString res = QString::number(code_a_barre);
     QString res1 = QString::number(prix_uni);
     QString res2 = QString::number(prix_promo);
     QString res3 = QString::number(quantite_produit);
 
     query.prepare("insert into produit( code_a_barre,  nom_p ,  prix_uni , prix_promo,date_expiration,categorie, quantite_produit)"" values(:code_a_barre,:nom_p,:prix_uni,:prix_promo,:date_expiration,:categorie,:quantite_produit)");
-    query.bindValue(":code_a_barre",res);
+    query.bindValue(":code_a_barre",code_a_barre);
     query.bindValue(":nom_p",nom_p);
     query.bindValue(":prix_uni",res1);
     query.bindValue(":prix_promo",res2);
@@ -88,25 +87,23 @@ QSqlQueryModel * produit::afficher()
     return model;
 }
 //fonction supprimer
-bool produit::supprimer(int code_a_barre)
+bool produit::supprimer(QString code_a_barre)
 {
     QSqlQuery query;
-    QString res =QString::number(code_a_barre);
     query.prepare("delete from produit where code_a_barre= :code_a_barre");
-    query.bindValue(":code_a_barre",res);
+    query.bindValue(":code_a_barre",code_a_barre);
     return  query.exec();
 }
 //fonction modifier
-bool produit::modifier(int code_a_barre)
+bool produit::modifier(QString code_a_barre)
 {
     QSqlQuery query;
-    QString res = QString::number(code_a_barre);
      QString res1 = QString::number(prix_uni);
       QString res2 = QString::number(prix_promo);
        QString res3 = QString::number(quantite_produit);
 
     query.prepare("UPDATE produit SET prix_uni= :prix_uni,prix_promo= :prix_promo, quantite_produit= :quantite_produit WHERE code_a_barre = :code_a_barre");
-    query.bindValue(":code_a_barre",res);
+    query.bindValue(":code_a_barre",code_a_barre);
     query.bindValue(":prix_uni",res1);
     query.bindValue(":prix_promo",res2);
     query.bindValue(":quantite_produit",res3);

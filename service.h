@@ -10,7 +10,7 @@ class Service
 {
 public:
     Service();
-     Service(QString nom_s,QString offre,QDate date_offre, float prix_s, float prix_offre , int code_s ,QString disponibilite);
+     Service(QString nom_s,QString offre,QDate date_offre, float prix_s, float prix_offre , int code_s ,QString disponibilite,int pt_f);
     //getters
 
 
@@ -21,6 +21,7 @@ public:
     float getprix_offre (){return prix_offre;}
     int getcode_s (){return code_s;}
     QString getdisponibilite (){return disponibilite;}
+    int getpt_f(){return pt_f;}
 
 
 
@@ -32,6 +33,7 @@ public:
     void setprix_offre(float po){prix_offre = po;}
     void setcode_s(int c){code_s = c;}
     void setdisponibilite (QString di ){disponibilite = di;}
+    void setpt_f(int p){pt_f=p;}
 
 
 
@@ -51,7 +53,7 @@ private:
      QDate date_offre;
      float prix_s ;
      float prix_offre ;
-     int code_s ;
+     int code_s,pt_f ;
      QString disponibilite ;
      QString recherche ;
 };

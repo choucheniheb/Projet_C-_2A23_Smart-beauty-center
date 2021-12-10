@@ -1,5 +1,5 @@
 #include "client.h"
-
+#include <QDebug>
 Client::Client()
 {
 
@@ -63,8 +63,9 @@ bool Client::modifier(int Id_c)
     QString id_str= QString::number(Id_c);
     QString pf_str = QString::number(Point_fidelite);
     QString tel_str= QString::number(Telephone_c);
+    qDebug()<<tel_str;
 
-    query.prepare("UPDATE client SET nom_c= :nom_c, prenom_c= :prenom_c,telephone_c= :telephone_c,email= :email,point_fidelite= :point_fidelite WHERE id_c = :id_c");
+    query.prepare("UPDATE client SET nom_c= :nom_c, prenom_c= :prenom_c,TELEPHONE_C= :Telephone_c,email= :email,point_fidelite= :point_fidelite WHERE id_c = :id_c");
     query.bindValue(":id_c",id_str);
     query.bindValue(":nom_c",Nom_c);
     query.bindValue(":prenom_c",Prenom_c);

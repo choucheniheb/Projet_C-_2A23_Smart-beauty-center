@@ -5,7 +5,7 @@
 
 Service::Service (){}
 
-Service::Service(QString nom_s,QString offre,QDate date_offre, float prix_s, float prix_offre , int code_s , QString disponibilite)
+Service::Service(QString nom_s,QString offre,QDate date_offre, float prix_s, float prix_offre , int code_s , QString disponibilite,int pt_f)
 {
 
     this->nom_s = nom_s;
@@ -21,6 +21,7 @@ Service::Service(QString nom_s,QString offre,QDate date_offre, float prix_s, flo
     this->code_s = code_s;
 
     this->disponibilite = disponibilite;
+    this->pt_f=pt_f;
 
 
 }
@@ -31,7 +32,8 @@ bool Service :: ajouter ()
     QString res = QString :: number (code_s);
     QString res1 = QString :: number (prix_s);
     QString res2 = QString :: number (prix_offre);
-    query.prepare("insert into services(code_s,nom_s,prix_s,disponibilite,offre,date_offre,prix_offre) values(:code_s,:nom_s,:prix_s,:disponibilite,:offre,:date_offre,:prix_offre)");
+    QString res3 = QString :: number (pt_f);
+    query.prepare("insert into services(code_s,nom_s,prix_s,disponibilite,offre,date_offre,prix_offre,ptf_s) values(:code_s,:nom_s,:prix_s,:disponibilite,:offre,:date_offre,:prix_offre,:ptf_s)");
 
     //variables liees
     query.bindValue(":code_s",res);
@@ -41,6 +43,7 @@ bool Service :: ajouter ()
     query.bindValue(":offre",offre);
     query.bindValue(":date_offre",date_offre);
     query.bindValue(":prix_offre",res2);
+    query.bindValue(":ptf_s",res3);
 
     return query.exec();
 
@@ -82,7 +85,7 @@ QSqlQueryModel *  Service ::afficher ()
      QString res = QString :: number (code_s);
      QString res1 = QString :: number (prix_s);
      QString res2 = QString :: number (prix_offre);
-     query.prepare("UPDATE services SET nom_s= :nom_s, offre= :offre, date_offre= :date_offre, prix_s= :prix_s, prix_offre= :prix_offre, disponibilite= :disponibilite where code_s= :code_s");
+     query.prepare("UPDATE services SET nom_s= :nom_s,date_offre= :date_offre, prix_s= :prix_s, prix_offre= :prix_offre, disponibilite= :disponibilite where code_s= :code_s");
      query.bindValue(":code_s",res);
      query.bindValue(":nom_s",nom_s);
      query.bindValue(":offre",offre);

@@ -86,6 +86,9 @@
 #include <fstream>
 #include <QtSvg/QSvgRenderer>
 #include "qrcode.h"
+#include <QSound>
+#include <QMediaPlaylist>
+#include "notification_samar.h"
 //*********************************************************************************************
 
 
@@ -97,9 +100,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //**********************Arduino*****************************
+    int ret=A.connect_arduino(); // lancer la connexion à arduino
+    switch(ret){
+    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
+        break;
+    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
+       break;
+    case(-1):qDebug() << "arduino is not available";
+    }
+     //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_wajdi_nourhene())); // permet de lancer
+     //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_iheb_arij())); // permet de lancer
+     //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_aziz_samar())); // permet de lancer
+     //le slot update_label suite à la reception du signal readyRead (reception des données).
+    //***************************************************
     mSocket=new QTcpSocket(this);
-    connect(mSocket,&QTcpSocket::readyRead,[&]()
-    { QTextStream T(mSocket);
+    connect(mSocket,&QTcpSocket::readyRead,[&](){
+        QTextStream T(mSocket);
        auto text=T.readAll();
        ui->textEdit->append(text);
        ui->textEdit_employer->append(text);
@@ -110,8 +127,15 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(timer,SIGNAL(timeout()),this,SLOT(myfunction()));
      timer->start(1000);
      //************************
+     QWidget::showMaximized();
 /****************************************************/
      ui->stackedWidget_integration->setCurrentIndex(6);
+     ui->stackedWidget_produit->setCurrentIndex(0);
+     ui->stackedWidget_fournisseur->setCurrentIndex(0);
+     ui->stackedWidget_client->setCurrentIndex(0);
+     ui->stackedWidget_employer->setCurrentIndex(0);
+     ui->stackedWidget_service->setCurrentIndex(0);
+//*********************************************************/
 
 
 // controle de  saisie wajdi
@@ -138,82 +162,22 @@ ui->lineEdit_prix_u_modifier_facture->setValidator ( new QIntValidator(0, 999999
 ui->lineEdit_quntiter_modifier_facture->setValidator ( new QIntValidator(0, 999999999, this));
 ui->lineEdit_prix_t_modifier_facture->setValidator ( new QIntValidator(0, 999999999, this));
 //controle de saisie nourhen
-    ui->code_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->prixu_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->prixp_edit_produit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->prixu_edit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->prixp_edit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
    // ui->prixp_edit->setValidator ( new QDoubleValidator(0, 9999999, this));
-
-
     ui->nbreEdit_produit->setValidator ( new QIntValidator(0, 9999999, this));
     ui->nbreEdit_1_produit->setValidator ( new QIntValidator(0, 9999999, this));
-
-    QRegularExpression rx5("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",QRegularExpression::CaseInsensitiveOption);
-        ui->nom_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
-
-        QRegularExpression rx6("\\b[A-Z._%+-]+@[A-Z.-]+\\.[A-Z]\\b",
-                                      QRegularExpression::CaseInsensitiveOption);
-            ui->categorie_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
-
-    //
-     QPixmap pix0("C:/Users/HP/Desktop/image/makeup.jpg");
-     QPixmap pix10("C:/Users/HP/Desktop/image/cosmetics.jpg");
-       QPixmap pix20("C:/Users/HP/Desktop/image/bc.png");
-       QPixmap pix3("C:/Users/HP/Desktop/image/k1.png");
-       QPixmap pix4("C:/Users/HP/Desktop/image/parfums.jpg");
-       QPixmap pix5("C:/Users/HP/Desktop/image/555.png");
-       QPixmap pix6("C:/Users/HP/Desktop/image/mqqq11.png");
-       QPixmap pix7("C:/Users/HP/Desktop/image/modifier.png");
-      QPixmap pix14("C:/Users/HP/Desktop/image/99.png");
-      QPixmap pix16("C:/Users/HP/Desktop/image/modifier1.png");
-      QPixmap pix17("C:/Users/HP/Desktop/image/modifier1.png");
-    // background1
-      // int w = ui->label_bc->width();
-   // int h = ui->label_bc->height();
-    //background categorie
-    int w30 = ui->label_bc_2->width();
-    int h30 = ui->label_bc_2->height();
-    //categorie makeup
-    int w20 = ui->label_mq->width();
-    int h20 = ui->label_mq->height();
-    //categorie cos
-    int w10 = ui->label_cos->width();
-    int h10 = ui->label_cos->height();
-    //parfums
-    int w40 = ui->label_parfums->width();
-    int h40 = ui->label_parfums->height();
-    // ajouter
-    int w50 = ui->label_aa->width();
- int h50 = ui->label_aa->height();
- //
- int w60 = ui->label_mq1->width();
-int h60 = ui->label_mq1->height();
-//
-int w17 = ui->label_17->width();
-int h17 = ui->label_17->height();
-    //cos
-    ui->label_cos->setPixmap(pix10.scaled(w10,h10,Qt::KeepAspectRatio));
-    //mq
-    ui->label_mq->setPixmap(pix0.scaled(w20,h20,Qt::KeepAspectRatio));
-
-      //background categorie
-    ui->label_bc_2->setPixmap(pix3.scaled(w30,h30,Qt::KeepAspectRatio));
-    // background parfums
-    ui->label_parfums->setPixmap(pix4.scaled(w40,h40,Qt::KeepAspectRatio));
-    //ajouter
-    ui->label_aa->setPixmap(pix5.scaled(w50,h50,Qt::KeepAspectRatio));
-    //
-     ui->label_mq1->setPixmap(pix6.scaled(w60,h60,Qt::KeepAspectRatio));
-     //
-      ui->label_17->setPixmap(pix17.scaled(w17,h17,Qt::KeepAspectRatio));
+    ui->nom_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
+    ui->categorie_edit_produit->setValidator(new QRegularExpressionValidator(rx, this));
 
  //IMAGE ANIMEE///////////////
-     ui->label_12->setMask((new QPixmap("C:/Users/HP/Desktop/image/promo9.gif"))->mask());
-     QMovie *movie = new QMovie ("C:/Users/HP/Desktop/image/promo9.gif");
-     ui->label_12->setMovie(movie);
+     ui->label_22->setMask((new QPixmap("C:/Users/Ihebc/OneDrive/Desktop/integration/image integration/promo9.gif"))->mask());
+     QMovie *movie = new QMovie ("C:/Users/Ihebc/OneDrive/Desktop/integration/image integration/promo9.gif");
+     ui->label_22->setMovie(movie);
      movie->start();
-     ui->label_12->show();
+     ui->label_22->show();
 //
      //code a barre metier/////////
            QPixmap pixc("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
@@ -224,7 +188,6 @@ int h17 = ui->label_17->height();
                  QPixmap pixc2("C:/Users/HP/Desktop/code a barre (produits)/code a barre produit1.jpg");
                  ui->label_picc2->setPixmap(pixc2);
 //controle de saisie aziz
-                 ui->stackedWidget_client_3->setCurrentIndex(0);
                  ui->lineEdit_id_client_3->setValidator(new QIntValidator(0,999999,this));
                  ui->lineEdit_Pf_client_3->setValidator(new QIntValidator(0,1000,this));
                  ui->lineEdit_Num_client_3->setValidator(new QIntValidator(0,99999999,this));
@@ -261,43 +224,126 @@ int h17 = ui->label_17->height();
                                                                  ui->lineEdit_type_modifier->setValidator(new QRegularExpressionValidator(rx18, this));
                                                                  ui->lineEdit_specialite_modifier->setValidator(new QRegularExpressionValidator(rx18, this));
 
-                                  connect(ui->sendBtn_6,SIGNAL(clicked()),this,SLOT(sendMail()));
+                                  connect(ui->sendBtn_6,SIGNAL(clicked()),this,SLOT(sendMail_employer()));
+                                  connect(ui->exitBtn_6, SIGNAL(clicked()),this, SLOT(close()));
+                                   connect(ui->browseBtn_6, SIGNAL(clicked()), this, SLOT(browse_employer()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::update_label_wajdi_nourhene()
+{
+    data=A.read_from_arduino();
+    ch+=data;
+    A.write_to_arduino("1");
+    QSqlQuery query;
+    query.prepare("select prix_uni from produit where code_a_barre= :code_a_barre");
+    query.bindValue(":code_a_barre",ch);
+    query.exec();
+    query.next();
+    QString d=query.value(0).toString();
+    qDebug()<<d;
+    data=A.read_from_arduino();
+
+
+
+
+
+}
+
+void MainWindow::update_label_iheb_arij()
+{
+    data=A.read_from_arduino();
+
+    if(data=="9")
+    {
+        ui->stackedWidget_integration->setCurrentIndex(7);
+        int c=A.write_to_arduino("2");
+    }
+
+    else  if (data=="0")
+    {
+        QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("acces non autorise"),QObject::tr("click cancel to exit"));
+    }
+}
+
+
+void MainWindow::update_label_aziz_samar()
+{
+    data=A.read_from_arduino();
+    Notification_SAMAR n;
+        if(data=="7") {
+
+
+           n.Notification_system();
+
+            }
+        else if (data=="8")
+            n.Notification_sys();
+}
+
+void MainWindow::on_pushButton_alarme_clicked()   // implémentation du slot bouton on
+{
+     A.write_to_arduino("7"); //envoyer 1 à arduino
+}
+
+
+void MainWindow::on_pushButton_alarme2_clicked()   // implémentation du slot bouton on
+{
+     A.write_to_arduino("8"); //envoyer 1 à arduino
+}
+
+
+
+
+void MainWindow::on_comboBox_a_activated(const QString &arg1)
+{
+    if (ui->comboBox_a->currentText()== "ON")
+    {
+        A.write_to_arduino("7");
+
+    } else
+        if (ui->comboBox_a->currentText()== "OFF")
+        {
+        A.write_to_arduino("8");
+        }
+
+
+}
+
 
 
 void MainWindow::on_pushButton_ajouter_fournisseur_clicked()
 {
-
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //recuperation
    QString nom_f=ui->lineEdit_nom_fournisseur->text();
-   ui->lineEdit_nom_fournisseur->clear();
 
     float prix_gros=ui->lineEdit_prix_gros_fournisseur->text().toFloat();
-    ui->lineEdit_prix_gros_fournisseur->clear();
 
     int num_f=ui->lineEdit_num_fournisseur->text().toUInt();
-    ui->lineEdit_num_fournisseur->clear();
 
     int code_f=ui->lineEdit_code_fournisseur->text().toUInt();
-    ui->lineEdit_code_fournisseur->clear();
 
      QString produit_vendu=ui->lineEdit_produit_vendu_fournisseur->text();
-     ui->lineEdit_produit_vendu_fournisseur->clear();
     fournisseur f(num_f,code_f,prix_gros,nom_f,produit_vendu);//instancer
     bool test=f.ajouter();
     if(test)
     {
         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
-        QString c=QString::number(code_f);
-        QString message2="ajouter un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist_fournisseur->setModel(f.afficherhist());
-        histo.save("code_f:"+ui->lineEdit_code_fournisseur->text(),"nom_f :"+ui->lineEdit_nom_fournisseur->text(),"num_f :"+ui->lineEdit_num_fournisseur->text().toUInt(),"prix_gros :"+ui->lineEdit_prix_gros_fournisseur->text(),"produit vendu :"+ui->lineEdit_produit_vendu_fournisseur->text(),"","");
+        hist_wajdi.save_wajdi("code_f:"+ui->lineEdit_code_fournisseur->text(),"nom :"+ui->lineEdit_nom_fournisseur->text(),"num_f :"+ui->lineEdit_num_fournisseur->text(),"prix_gros :"+ui->lineEdit_prix_gros_fournisseur->text(),"produit_vendu :"+ui->lineEdit_produit_vendu_fournisseur->text());
+        //clear*********************
+        ui->lineEdit_nom_fournisseur->clear();
+        ui->lineEdit_prix_gros_fournisseur->clear();
+        ui->lineEdit_num_fournisseur->clear();
+        ui->lineEdit_code_fournisseur->clear();
+        ui->lineEdit_produit_vendu_fournisseur->clear();
+        //*****************************
         QMessageBox::information(nullptr, QObject::tr("fournisseur ajouté"),
                     QObject::tr("successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
@@ -317,15 +363,15 @@ void MainWindow::on_pushButton_ajouter_fournisseur_clicked()
 
 void MainWindow::on_pushButtonSupprimer_fournisseur_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QModelIndex index=on_tableViewAficherfournisseur_activated();
     int code_f=ui->tableViewAficherfournisseur->model()->data(ui->tableViewAficherfournisseur->model()->index(index.row(),0)).toInt();
     bool test1=f.supprimer(code_f);
     if(test1)
     {
-        QString c=QString::number(code_f);
-        QString message2="supprimer un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist_fournisseur->setModel(f.afficherhist());
         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
         QMessageBox::information(nullptr, QObject::tr("fournisseur supprimé"),
                     QObject::tr("successful.\n"
@@ -343,14 +389,26 @@ void MainWindow::on_pushButtonSupprimer_fournisseur_clicked()
 
 void MainWindow::on_pushButtonModifier_fournisseur_clicked()
 {
-    ui->stackedWidget_fournisseur->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(3);
 }
 void MainWindow::on_pushButtonRetourMod_fournisseur_clicked()
 {
-    ui->stackedWidget_fournisseur->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(2);
 }
 void MainWindow::on_pushButtonModifier2_fournisseur_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //modifier les valeur de class
 
     f.setproduit_vendu(ui->lineEdit_produit_modifier_fournisseur->text());
@@ -364,15 +422,11 @@ void MainWindow::on_pushButtonModifier2_fournisseur_clicked()
 
     if(test2)
     {
-        QString c=QString::number(code_f);
-        QString message2="modifier un fournisseur: "+c;
-        f.ajouterhist(message2);
-        ui->tableView_hist_fournisseur->setModel(f.afficherhist());
         ui->tableViewAficherfournisseur->setModel(f.afficher());//rafraishissement
         QMessageBox::information(nullptr, QObject::tr("fournisseur modifié"),
                     QObject::tr("successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-        ui->stackedWidget_fournisseur->setCurrentIndex(0);
+        ui->stackedWidget_fournisseur->setCurrentIndex(2);
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("fournisseur non modifié"),
@@ -388,8 +442,11 @@ void MainWindow::on_pushButtonModifier2_fournisseur_clicked()
 
 void MainWindow::on_pushButtonafficher_fournisseur_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tableViewAficherfournisseur->setModel(f.afficher());
-    ui->tableView_hist_fournisseur->setModel(f.afficherhist());
     QSqlQuery query;
     QString res = QDate::currentDate().toString();
     qDebug()<<res;
@@ -410,6 +467,10 @@ void MainWindow::on_pushButtonafficher_fournisseur_clicked()
 
 void MainWindow::on_lineEdit_chercher_fournisseur_textChanged()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QString i=ui->lineEdit_chercher_fournisseur->text();
     ui->tableViewAficherfournisseur->setModel(f.rechercheMulticritere(i));
 }
@@ -424,6 +485,10 @@ QModelIndex MainWindow::on_tableViewAficherfournisseur_activated()
 
 void MainWindow::on_pushButton_excel_fournisseur_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QTableView *table;
                    table = ui->tableViewAficherfournisseur;
 
@@ -464,6 +529,10 @@ void MainWindow::on_pushButton_excel_fournisseur_clicked()
 
 void MainWindow::on_pb_envoyer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QTextStream T(mSocket);
     T<<ui->le_nickname->text()<<": "<<ui->le_message->text();
     mSocket->flush();
@@ -472,6 +541,10 @@ void MainWindow::on_pb_envoyer_clicked()
 
 void MainWindow::on_pb_connecter_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     {
     dumessengerconnectiondialog D(this);
     if(D.exec()==QDialog::Rejected)
@@ -486,6 +559,10 @@ void MainWindow::on_pb_connecter_clicked()
 
 void MainWindow::on_pushButtonAjouter_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //recuperation
     int num_f=ui->lineEdit_num_fact_facture->text().toInt();
     ui->lineEdit_num_fact_facture->clear();
@@ -516,6 +593,10 @@ void MainWindow::on_pushButtonAjouter_facture_clicked()
 
 void MainWindow::on_pushButtonAfficher_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tableViewAficherFacture_facture->setModel(c.afficher());
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("SELECT num_facture from FACTURES");
@@ -528,12 +609,20 @@ void MainWindow::on_pushButtonAfficher_facture_clicked()
 
 void MainWindow::on_pushButtom_Pousser_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QDesktopServices::openUrl(QUrl("https://www.coinbase.com/dashboard"));
 }
 
 
 void MainWindow::on_pushButtonSupprimer_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QModelIndex index;
     index=on_tableViewAficherFacture_activated();
     int num_fact= ui->tableViewAficherFacture_facture->model()->data(ui->tableViewAficherFacture_facture->model()->index(index.row(),0)).toInt();
@@ -554,6 +643,10 @@ void MainWindow::on_pushButtonSupprimer_facture_clicked()
 
 void MainWindow::on_pushButtonModifier_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_facture->setCurrentIndex(3);
     QSqlQuery query;
     QModelIndex index;
@@ -579,6 +672,10 @@ void MainWindow::on_pushButtonModifier_facture_clicked()
 
 void MainWindow::on_pushButtonModifier2_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //modifier les valeur de class
     c.setdate(ui->dateTimeEdit_modifier_facture->date());
     c.setprix_unitair(ui->lineEdit_prix_u_modifier_facture->text().toFloat());
@@ -609,7 +706,11 @@ void MainWindow::on_pushButtonModifier2_facture_clicked()
 
 void MainWindow::on_recette_facture_clicked()
 {
-    ui->stackedWidget_facture->setCurrentIndex(3);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(4);
     QSqlQuery query=c.calculerecette();
     query.exec();
     query.next();
@@ -620,6 +721,10 @@ void MainWindow::on_recette_facture_clicked()
 
 void MainWindow::on_pushButtonRetourRecette_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_facture->setCurrentIndex(0);
 }
 
@@ -627,7 +732,11 @@ void MainWindow::on_pushButtonRetourRecette_facture_clicked()
 
 void MainWindow::on_pushButtonRetourModifier_facture_clicked()
 {
-    ui->stackedWidget_facture->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(2);
 }
 
 
@@ -648,6 +757,10 @@ void MainWindow::on_comboBoxCriter_facture_activated()
 
 void MainWindow::on_pushButtonImprimer_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QString strStream;
                 QTextStream out(&strStream);
 
@@ -725,6 +838,10 @@ void MainWindow::on_lineEdit_quantite_facture_editingFinished()
 
 void MainWindow::on_pushButton_stat_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QSqlQueryModel * model= new QSqlQueryModel();
                          model->setQuery("select * from factures where prix_totale < 50000 ");
                          float e=model->rowCount();
@@ -774,6 +891,10 @@ void MainWindow::on_pushButton_stat_facture_clicked()
 
 void MainWindow::on_lineEdit_rechercher_facture_textChanged()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QString rech=ui->lineEdit_rechercher_facture->text();
     ui->tableViewAficherFacture_facture->setModel(c.rechercheMulticritere(rech));
 }
@@ -782,6 +903,10 @@ void MainWindow::on_lineEdit_rechercher_facture_textChanged()
 
 void MainWindow::on_pushButtonreset_facture_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QSqlQuery query;
     query.prepare("DELETE FROM FACTURES");
     query.exec();
@@ -796,26 +921,23 @@ void MainWindow::on_pushButtonreset_facture_clicked()
 
 void MainWindow::on_aj_button_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //code a barre
-    int code_a_barre=ui->code_edit_produit->text().toInt();
-    ui->code_edit_produit->clear();
+    QString code_a_barre=ui->code_edit_produit->text();
     //nom
    QString nom_produit=ui->nom_edit_produit->text();
-   ui->nom_edit_produit->clear();
    //prix uni
    float prix_uni=ui->prixu_edit_produit->text().toFloat();
-   ui->prixu_edit_produit->clear();
    float prix_promo=ui->prixp_edit_produit->text().toFloat();
-   ui->prixp_edit_produit->clear();
    //
    QString categorie=ui->categorie_edit_produit->text();
-    ui->categorie_edit_produit->clear();
 
    QString date_expiration=ui->date_edit_produit->text();
-   ui->date_edit_produit->clear();
 
    int quantite_produit=ui-> nbreEdit_produit->text().toInt();
-   ui->nbreEdit_produit->clear();
 
 
 
@@ -823,16 +945,26 @@ produit p (code_a_barre,nom_produit,prix_uni,prix_promo,categorie, date_expirati
 bool test=p.ajouter();
  if (test)
 {
-     QString c=QString::number(code_a_barre);
-     QString message2="ajouter une produit"+c;
-    // p.historique_produit(message2);
+     QMediaPlayer *music=new QMediaPlayer();
+     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+     music->setVolume(5);
+     music->play();
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
-   // ui->tableView_hist->setModel(p.afficher_historique_produit());
 
     QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("ajouter effectuer\n"),QObject::tr("click cancel to exit"));
    histo.save("code_a_barre:"+ui->code_edit_produit->text(),"nom_p :"+ui->nom_edit_produit->text(),"prix_uni :"+ui->prixu_edit_produit->text(),"prix_promo :"+ui->prixp_edit_produit->text(),"categorie :"+ui->categorie_edit_produit->text(),"date_expiration :"+ui->date_edit_produit->text(),"quantite_produit :"+ui->nbreEdit_produit->text());
-}else if ((categorie != "parfums" || categorie !="cosmetique" || categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
+    //clear************************************************
+   ui->code_edit_produit->clear();
+   ui->nom_edit_produit->clear();
+   ui->prixu_edit_produit->clear();
+   ui->prixp_edit_produit->clear();
+   ui->categorie_edit_produit->clear();
+   ui->date_edit_produit->clear();
+   ui->nbreEdit_produit->clear();
+
+   //******************************************************
+ }else if ((categorie != "parfums" || categorie !="cosmetique" || categorie !="makeup") || (prix_uni < prix_promo) || (quantite_produit=0))
 {
     QMessageBox::critical(nullptr,QObject::tr(" non ok"),QObject::tr("ajouter non effectuer"),QObject::tr("click cancel to exit"));
 }
@@ -841,7 +973,6 @@ bool test=p.ajouter();
  query.exec();
  query.next();
  int q=query.value(0).toInt();
- QString nom=query.value(0).toString();
  if(q<=6)
  {
      notification_nourhene n;
@@ -857,14 +988,15 @@ bool test=p.ajouter();
 
 void MainWindow::on_pushButtonSupprimer_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QModelIndex index=on_tableViewproduit_activated();
-    int code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toInt();
+    QString code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toString();
 bool test1=p.supprimer(code_a_barre);
 if(test1)
 {
-    QString c=QString::number(code_a_barre);
-    QString message2="supprimer une produit"+c;
-  //  p.historique_produit(message2);
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
    // ui->tableView_hist->setModel(p.afficher_historique_produit());
@@ -876,10 +1008,18 @@ if(test1)
 }
 void MainWindow::on_pushButtonModifier_produit_clicked()
 {
-ui->stackedWidget_produit->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+ui->stackedWidget_produit->setCurrentIndex(3);
 }
 void MainWindow::on_pushButtonModifier2_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
 //modifier les valeur de class
 //c.setdate(ui->dateTimeEdit_modifier->text().to)
 p.setprix_uni(ui->prixu_edit_1_produit->text().toFloat());
@@ -888,14 +1028,11 @@ p.setquantite_produit(ui->nbreEdit_1_produit->text().toInt());
 
 //modifier requete************
 QModelIndex index=on_tableViewproduit_activated();
-int code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toInt();
+QString code_a_barre=ui->tableViewproduit->model()->data(ui->tableViewproduit->model()->index(index.row(),0)).toString();
 bool test2=p.modifier(code_a_barre);
 if(test2)
 {
-    QString c=QString::number(code_a_barre);
-    QString message2="modifier une produit"+c;
-    //p.historique_produit(message2);
-    ui->stackedWidget_produit->setCurrentIndex(0);
+    ui->stackedWidget_produit->setCurrentIndex(2);
     //Refresh affichage
     ui->tableViewproduit->setModel(p.afficher());
    // ui->tableView_hist->setModel(p.afficher_historique_produit());
@@ -933,25 +1070,45 @@ void MainWindow::on_lineEdit_chercher_produit_textChanged()
 
 void MainWindow::on_makeup_bottom_produit_clicked()
 {
-    ui->stackedWidget2_produit->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(5);
 }
 void MainWindow::on_cosmetiques_bottom_produit_clicked()
 {
-    ui->stackedWidget2_produit->setCurrentIndex(2);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    //ui->stackedWidget2_produit->setCurrentIndex(2);
 }
 void MainWindow::on_parfums_bottom_produit_clicked()
 {
-    ui->stackedWidget2_produit->setCurrentIndex(3);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    //ui->stackedWidget2_produit->setCurrentIndex(3);
 }
 
 void MainWindow::on_pushButtonModifier2_2_produit_clicked()
 {
-    ui->stackedWidget_produit->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(2);
 }
 
 void MainWindow::on_categorie_bottom_produit_clicked()
 {
-    ui->stackedWidget2_produit->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(4);
 }
 
 
@@ -959,10 +1116,14 @@ void MainWindow::on_categorie_bottom_produit_clicked()
 
 void MainWindow::on_codeabarre1_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
     dialog.setViewMode(QFileDialog::Detail);
-    QString fileName =QFileDialog::getOpenFileName(this,tr("Open Images"),"C:/Users/HP\Desktop/code a barre (produits)",tr("Image Files (*.png *.jpg *.bmp)"));
+    QString fileName =QFileDialog::getOpenFileName(this,tr("Open Images"),"C:/Users/HP/Desktop/code a barre (produits)",tr("Image Files (*.png *.jpg *.bmp)"));
 //to select and show the picture
     if (!fileName.isEmpty())
     {
@@ -973,10 +1134,14 @@ void MainWindow::on_codeabarre1_produit_clicked()
 
 void MainWindow::on_codeabarre1_2_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
     dialog.setViewMode(QFileDialog::Detail);
-    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP\Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
+    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP/Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
 //to select and show the picture
     if (!fileName.isEmpty())
     {
@@ -988,10 +1153,14 @@ void MainWindow::on_codeabarre1_2_produit_clicked()
 
 void MainWindow::on_codeabarre1_3_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QFileDialog dialog(this);
     dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
     dialog.setViewMode(QFileDialog::Detail);
-    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP\Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
+    QString fileName =QFileDialog::getOpenFileName(this, tr("Open Images"), "C:/Users/HP/Desktop/code a barre (produits)", tr("Image Files (*.png *.jpg *.bmp)"));
 //to select and show the picture
     if (!fileName.isEmpty())
     {
@@ -1008,6 +1177,10 @@ QModelIndex MainWindow::on_tableViewproduit_activated()
 
 void MainWindow::on_pushButton_refrech_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tableViewproduit->setModel(p.afficher());
    // ui->tableView_hist->setModel(p.afficher_historique_produit());
     QSqlQuery query;
@@ -1027,7 +1200,11 @@ void MainWindow::on_pushButton_refrech_produit_clicked()
 
 void MainWindow::on_historiqueButton_produit_clicked()
 {
-    QFile file("C:/Users/HP/Desktop/historique.txt");
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    QFile file("C:/Users/Ihebc/OneDrive/Desktop/integration/historique nourhene.txt");
         if (!file.open(QIODevice::ReadOnly))
             QMessageBox::information(0,"info",file.errorString());
         QTextStream in(&file);
@@ -1040,6 +1217,10 @@ void MainWindow::on_historiqueButton_produit_clicked()
 //ajouter************
 void MainWindow::on_pushButtonAjouter_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //recuperation
     int Id_c=ui->lineEdit_id_client_3->text().toInt();
     QString Prenom_c=ui->lineEdit_Pc_client_3->text();
@@ -1065,12 +1246,20 @@ void MainWindow::on_pushButtonAjouter_client_3_clicked()
 //affichage*********
 void MainWindow::on_pushButtonAfficher_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tableViewAficherClient_client_3->setModel(C.afficher());
 }
 
 //supprimer********************
 void MainWindow::on_pushButtonSupprimer_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QModelIndex index=on_tableViewAficherClient_client_3_activated();
     int Id_c=ui->tableViewAficherClient_client_3->model()->data(ui->tableViewAficherClient_client_3->model()->index(index.row(),0)).toInt();
     bool test1=C.supprimer(Id_c);
@@ -1087,11 +1276,19 @@ void MainWindow::on_pushButtonSupprimer_client_3_clicked()
 
 void MainWindow::on_pushButtonModifier_client_3_clicked()
 {
-    ui->stackedWidget_client_3->setCurrentIndex(3);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_client->setCurrentIndex(5);
 }
 //modifier**************
 void MainWindow::on_pushButtonModifier2_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //modifier les valeur de class
     C.setnom(ui->lineEdit_nom_m_client_3->text());
     C.setpre(ui->lineEdit_prenom_m_client_3->text());
@@ -1103,7 +1300,7 @@ void MainWindow::on_pushButtonModifier2_client_3_clicked()
     QModelIndex index=on_tableViewAficherClient_client_3_activated();
     int Id_c=ui->tableViewAficherClient_client_3->model()->data(ui->tableViewAficherClient_client_3->model()->index(index.row(),0)).toInt();
     bool test2=C.modifier(Id_c);
-    ui->stackedWidget_client_3->setCurrentIndex(0);
+    ui->stackedWidget_client->setCurrentIndex(3);
     if(test2)
     {
         //Refresh affichage
@@ -1120,13 +1317,21 @@ void MainWindow::on_pushButtonModifier2_client_3_clicked()
 
 void MainWindow::on_cb_tri_client_3_activated()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QString val=ui->cb_tri_client_3->currentText();
     ui->tableViewAficherClient_client_3->setModel(C.afficher_choix(val));
 }
 
 void MainWindow::on_pushButton_Contacter_client_3_clicked()
 {
-    ui->stackedWidget_client_3->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_client->setCurrentIndex(3);
 }
 
 void MainWindow::browse()
@@ -1167,6 +1372,10 @@ void MainWindow::mailSent(QString status)
 
 void MainWindow::on_reserver_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     //recuperation
    QString id_c=ui->le_cl_3->text();
    QString code_s=ui->le_s_3->text();
@@ -1189,12 +1398,20 @@ void MainWindow::on_reserver_client_3_clicked()
 
 void MainWindow::on_show_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tab_res_client_3->setModel(R.afficher());
 
 }
 
 void MainWindow::on_pb_supp_res_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QString id_c=ui->le_supp_res_client_3->text();
     bool test1=R.supprimer(id_c);
     if(test1)
@@ -1210,22 +1427,38 @@ void MainWindow::on_pb_supp_res_client_3_clicked()
 
 void MainWindow::on_pushButton_reserver_client_3_clicked()
 {
-    ui->stackedWidget_client_3->setCurrentIndex(2);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_client->setCurrentIndex(4);
 }
 
 void MainWindow::on_quitter_client_3_clicked()
 {
-    ui->stackedWidget_client_3->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_client->setCurrentIndex(0);
 }
 
 void MainWindow::on_exitBtn_client_3_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
 close();
 }
 
 void MainWindow::on_pushButton_client_3_clicked()
 {
-    ui->stackedWidget_client_3->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_client->setCurrentIndex(0);
 
 }
 
@@ -1247,18 +1480,30 @@ QModelIndex MainWindow::on_tableViewAficherClient_client_3_activated()
 
 void MainWindow::on_pushButton_go_to_caisse_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_integration->setCurrentIndex(0);
 }
 
 
 void MainWindow::on_pushButton_go_to_fournisseur_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_integration->setCurrentIndex(1);
 }
 
 
 void MainWindow::on_pushButton_go_to_produit_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_integration->setCurrentIndex(2);
 }
 
@@ -1266,6 +1511,10 @@ void MainWindow::on_pushButton_go_to_produit_clicked()
 
 void MainWindow::on_pushButton_go_to_client_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_integration->setCurrentIndex(3);
 }
 
@@ -1274,6 +1523,10 @@ void MainWindow::on_pushButton_go_to_client_clicked()
 //samar ********************
 void MainWindow::on_pushButton_ajouter_clicked ()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
 
     int code_s = ui->lineEdit_code->text().toInt();
     QString nom_s = ui->lineEdit_nom_s->text();
@@ -1281,7 +1534,8 @@ void MainWindow::on_pushButton_ajouter_clicked ()
     QDate date_offre=ui->dateEditAjouter->date();
     float prix_s=ui->lineEdit_prix_s->text().toFloat();
     float prix_offre=ui->lineEdit_prix_offre->text().toFloat();
-  Service S ( nom_s , offre ,  date_offre , prix_s, prix_offre, code_s ,"oui"); //instancer
+    int ptf_s=ui->lineEdit_ptf_s->text().toInt();
+  Service S ( nom_s , offre ,  date_offre , prix_s, prix_offre, code_s ,"oui",ptf_s); //instancer
  bool  test = S.ajouter ();
 
   if (test)
@@ -1300,6 +1554,10 @@ void MainWindow::on_pushButton_ajouter_clicked ()
 
 void MainWindow::on_pushButton_supprimer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
    QModelIndex index=on_tableViewAfficherService_activated();
    int code_s =ui->tableViewAfficherService->model()->data(ui->tableViewAfficherService->model()->index(index.row(),0)).toInt();
    bool test=S.supprimer(code_s);
@@ -1318,10 +1576,18 @@ void MainWindow::on_pushButton_supprimer_clicked()
 
 void MainWindow::on_pushButtonModifier_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+   ui->stackedWidget_service->setCurrentIndex(3);
 }
 void MainWindow::on_pushButtonModifier2_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
    //modifier les valeur de class
    S.setprix_s(ui->lineEdit_prix->text().toFloat());
    S.setprix_offre(ui->lineEdit_prix_offre_2->text().toFloat());
@@ -1336,6 +1602,7 @@ void MainWindow::on_pushButtonModifier2_clicked()
    {
        //Refresh affichage
        ui->tableViewAfficherService->setModel(S.afficher());
+       ui->stackedWidget_service->setCurrentIndex(2);
        QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectue\n"),QObject::tr("click cancel to exit"));
    }else
    {
@@ -1346,11 +1613,19 @@ void MainWindow::on_pushButtonModifier2_clicked()
 
  void MainWindow::on_pushButtonafficher_clicked()
  {
+     QMediaPlayer *music=new QMediaPlayer();
+     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+     music->setVolume(5);
+     music->play();
       ui->tableViewAfficherService->setModel(S.afficher());
  }
 
  void MainWindow::on_lineEdit_chercher_service_textChanged()
 {
+     QMediaPlayer *music=new QMediaPlayer();
+     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+     music->setVolume(5);
+     music->play();
    QString i=ui->lineEdit_chercher_service->text();
    ui->tableViewAfficherService->setModel(S.rechercheavancee(i));
 
@@ -1365,6 +1640,10 @@ void MainWindow::on_pushButtonModifier2_clicked()
 
  void MainWindow::on_pushButton_pdf_clicked()
  {
+     QMediaPlayer *music=new QMediaPlayer();
+     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+     music->setVolume(5);
+     music->play();
 
      QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                         "/home",
@@ -1428,6 +1707,10 @@ void MainWindow::on_pushButtonModifier2_clicked()
 
 void MainWindow::on_pushButton_folder_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
    QString filename=QFileDialog::getOpenFileName(
                this,tr("Open File"),"c://","All files (*.*);;Text File (*.txt);;Music File(*.mp4)");
 
@@ -1445,17 +1728,29 @@ void MainWindow::on_pushButton_folder_clicked()
 
 QModelIndex MainWindow::on_tableViewAfficherService_activated()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
    return ui->tableViewAfficherService->currentIndex();
 }
 
 void MainWindow::on_pushButton_retour_modifier_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(0);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+   ui->stackedWidget_service->setCurrentIndex(2);
 }
 
 void MainWindow::on_pushButton_location_clicked()
 
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
        QString p=ui->comboBox_location->currentText();
        QDesktopServices::openUrl(QUrl("http://maps.google.com.sg/maps?q="+p+"&oe=utf-8&rls=org.mozilla:en-US:official&client=firefox-a&um=1&ie=UTF-8&hl=en&sa=N&tab=wl"));
 
@@ -1465,9 +1760,7 @@ void MainWindow::myfunction()
 {
     QTime time =QTime::currentTime();
     QString time_text = time.toString("hh:mm:ss");
-    ui->time_label->setText(time_text);
     ui->time_label_2->setText(time_text);
-    ui->time_label_3->setText(time_text);
 }
 bool MainWindow::search(int t)
 {bool test=false;
@@ -1483,6 +1776,10 @@ bool MainWindow::search(int t)
 
 void MainWindow::on_pushButtonAjouter_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     int id=ui->lineEdit_id_employer_employer->text().toInt();
     ui->lineEdit_id_employer_employer->clear();
     QString  nom=ui->lineEdit_nom_employer->text();
@@ -1495,10 +1792,8 @@ void MainWindow::on_pushButtonAjouter_employer_clicked()
     ui->lineEdit_adresse_employer->clear();
     int telephone=ui->lineEdit_telephone_employer->text().toInt();
     ui->lineEdit_telephone_employer->clear();
-    QString  type=ui->lineEdit_type_employer->text();
-    ui->lineEdit_type_employer->clear();
-    QString  specialite=ui->lineEdit_specialite_employer->text();
-    ui->lineEdit_specialite_employer->clear();
+    QString  type=ui->lineEdit_type_employer->currentText();
+    QString  specialite=ui->lineEdit_specialite_employer->currentText();
 
 
     Employers e( id, nom, prenom,date_naissance, adresse,telephone,type,specialite);
@@ -1517,6 +1812,10 @@ void MainWindow::on_pushButtonAjouter_employer_clicked()
 }
 void MainWindow::on_pushButtonSupprimer_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QModelIndex index=on_tableViewAficherEmployers_activated();
     int id=ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),0)).toInt();
     bool t=search(id);
@@ -1540,7 +1839,11 @@ void MainWindow::on_pushButtonSupprimer_employer_clicked()
 }
 void MainWindow::on_pushButtonModifier_employer_clicked()
 {
-    ui->stackedWidget_employer->setCurrentIndex(3);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_employer->setCurrentIndex(5);
     QSqlQuery query;
     QModelIndex index=on_tableViewAficherEmployers_activated();
     QString res=ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),0)).toString();
@@ -1548,17 +1851,7 @@ void MainWindow::on_pushButtonModifier_employer_clicked()
     query.bindValue(":res",res);
     query.exec();
     query.next();
-    ui->lineEdit_adresse_e_modifier->setText(query.value(0).toString());
-    query.prepare("select type from EMPLOYERS where id_e= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    ui->lineEdit_type_modifier->setText(query.value(0).toString());
-    query.prepare("select specialite from EMPLOYERS where id_e= :res");
-    query.bindValue(":res",res);
-    query.exec();
-    query.next();
-    ui->lineEdit_specialite_modifier->setText(query.value(0).toString());
+    ui->lineEdit_adresse_e_modifier->setText(query.value(0).toString());;
     query.prepare("select telephone_e from EMPLOYERS where id_e= :res");
     query.bindValue(":res",res);
     query.exec();
@@ -1568,10 +1861,14 @@ void MainWindow::on_pushButtonModifier_employer_clicked()
 
 void MainWindow::on_pushButtonModifier2_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     e.setadresse(ui->lineEdit_adresse_e_modifier->text());
     e.settelephone(ui->lineEdit_telephone_e_modifier->text().toInt());
-    e.settype(ui->lineEdit_type_modifier->text());
-    e.setspecialite(ui->lineEdit_specialite_modifier->text());
+    e.settype(ui->lineEdit_type_modifier->currentText());
+    e.setspecialite(ui->lineEdit_specialite_modifier->currentText());
     QModelIndex index=on_tableViewAficherEmployers_activated();
     int id_e=ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),0)).toInt();
     bool test2=e.modifier(id_e);
@@ -1579,6 +1876,7 @@ void MainWindow::on_pushButtonModifier2_employer_clicked()
     {
         //Refresh affichage
         ui->tableViewAficherEmployers->setModel(e.afficher());
+        ui->stackedWidget_employer->setCurrentIndex(2);
         QMessageBox::information(nullptr,QObject::tr("ok"),QObject::tr("modifier effectuer\n"),QObject::tr("click cancel to exit"));
     }else
     {
@@ -1589,6 +1887,10 @@ void MainWindow::on_pushButtonModifier2_employer_clicked()
 
 void MainWindow::on_pushButtonafficher_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->tableViewAficherEmployers->setModel(e.afficher());
     ui->tableViewAficherEmployersh->setModel(e.afficherh());
     QSqlQueryModel *model=new QSqlQueryModel();
@@ -1599,6 +1901,10 @@ void MainWindow::on_pushButtonafficher_employer_clicked()
 
 void MainWindow::on_pushButton_40_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_employer->setCurrentIndex(0);
 }
 
@@ -1607,6 +1913,10 @@ void MainWindow::on_pushButton_40_clicked()
 //*********************************
 void MainWindow::on_pushButtonAjouterh_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     int id=ui->comboBox_id_p->currentText().toInt();
     QString  entree=ui->timeEdit_entree->text();
     QString  sortie=ui->timeEdit_sortie->text();
@@ -1630,9 +1940,16 @@ void MainWindow::on_pushButtonAjouterh_clicked()
 //login******************************
 void MainWindow::on_pushButton_Login_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+
+    QSound::play("C:/Users/Ihebc/OneDrive/Desktop/integration/son/y2mate.com-Scars-To-Your-Beautiful-Alessia-Cara-Violin-Cover.wav");
+    music->play();
     QString username = ui->lineEdit_username->text();
            QString password = ui->lineEdit_password->text();
-
+           ui->lineEdit_username->clear();
+           ui->lineEdit_password->clear();
            if ((username == "admin" && password == "admin") || (username=="employer" && password == "employer")) {
                QMessageBox::information(this, "Login", "Username and password are correct");
             ui->stackedWidget_integration->setCurrentIndex(7);
@@ -1646,7 +1963,11 @@ void MainWindow::on_pushButton_Login_clicked()
 
 void MainWindow::on_pushButton_planning_clicked()
 {
-    ui->stackedWidget_employer->setCurrentIndex(1);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_employer->setCurrentIndex(3);
 }
 
 void MainWindow::on_comboBox_id_p_activated()
@@ -1714,11 +2035,19 @@ void MainWindow::on_comboBoxTri_activated()
 
 void MainWindow::on_pushButton_Contacter_employer_clicked()
 {
-    ui->stackedWidget_employer->setCurrentIndex(2);
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_employer->setCurrentIndex(4);
 }
 
 void MainWindow::browse_employer()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     files.clear();
 
     QFileDialog dialog(this);
@@ -1738,6 +2067,10 @@ void MainWindow::browse_employer()
 
 void MainWindow::sendMail_employer()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     Smtp* smtp = new Smtp(ui->uname_6->text(), ui->paswd_6->text(), ui->server_6->text(), ui->port_6->text().toInt());
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
@@ -1755,16 +2088,28 @@ void MainWindow::mailSent_employer(QString status)
 
 void MainWindow::on_pushButton_6_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_employer->setCurrentIndex(0);
 }
 
 QModelIndex MainWindow::on_tableViewAficherEmployers_activated()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     return ui->tableViewAficherEmployers->currentIndex();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     ui->stackedWidget_employer->setCurrentIndex(0);
 }
 
@@ -1772,6 +2117,10 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_PDF_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
             QString strStream;
             strStream = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
                 if (QFileInfo(strStream).suffix().isEmpty()) { strStream.append(".pdf"); }
@@ -1826,6 +2175,10 @@ void MainWindow::on_pushButton_PDF_employer_clicked()
 
 void MainWindow::on_pb_envoyer_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     QTextStream T(mSocket);
     T<<ui->le_nickname_employer->text()<<": "<<ui->le_message_employer->text();
     mSocket->flush();
@@ -1834,6 +2187,10 @@ void MainWindow::on_pb_envoyer_employer_clicked()
 
 void MainWindow::on_pb_connecter_employer_clicked()
 {
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
     dumessengerconnectiondialog D(this);
     if(D.exec()==QDialog::Rejected)
     {
@@ -1845,7 +2202,401 @@ void MainWindow::on_pb_connecter_employer_clicked()
 
 
 
-void MainWindow::on_QrCode_clicked()
+void MainWindow::on_pushButton_go_to_service_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_pushButton_go_to_employer_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_pushButton_gestion_facture_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_ajouter_facture_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButtonRetourAjouter_facture_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButtonRetourAfficher_facture_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_facture->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_quiter_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_pushButton_ajouter_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_gestion_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_categorie_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_pushButton_historique_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_pushButton_quitter_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_rt_button_produit_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_categorie_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_categorie_bottom_hist_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_gestion_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_produit->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_ajouter_fournisseur_2_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_gestion_fournisseur_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_chat_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_pushButton_historique_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_pushButton_quitter_fournisseur_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_histourique_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_chat_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retourA_fournisseur_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_fournisseur->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_quitter_facture_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_historiqueButton_fournisseur_clicked()
+{
+    QMediaPlayer *music=new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
+    music->setVolume(5);
+    music->play();
+    QFile file("C:/Users/Ihebc/OneDrive/Desktop/integration/historique wajdi.txt");
+            if (!file.open(QIODevice::ReadOnly))
+                QMessageBox::information(0,"info",file.errorString());
+            QTextStream in(&file);
+            ui->textBrowser_wajdi->setText(in.readAll());
+}
+
+
+void MainWindow::on_pushButton_retour_aj_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_reserver_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_chat_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_ajouter_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_gestion_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_chat_employer_clicked()
+{
+    ui->stackedWidget_employer->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_pushButton_quiter_employer_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_pushButton_11_client_3_clicked()
+{
+    ui->stackedWidget_client->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_retour_affichage_clicked()
+{
+    ui->stackedWidget_client->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButtonretour_aj_client_clicked()
+{
+    ui->stackedWidget_client->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_ajouter_client_clicked()
+{
+    ui->stackedWidget_client->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_gestion_client_clicked()
+{
+    ui->stackedWidget_client->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_quitter_client_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    ui->stackedWidget_service->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_retour_aj_ser_clicked()
+{
+    ui->stackedWidget_service->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_ajouter_service_clicked()
+{
+    ui->stackedWidget_service->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_gestion_service_clicked()
+{
+    ui->stackedWidget_service->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_quitter_service_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_tableViewAficherEmployers_activated(const QModelIndex &index)
 {
     Employers e;
         if(ui->tableViewAficherEmployers->currentIndex().row()==-1)
@@ -1860,8 +2611,8 @@ void MainWindow::on_QrCode_clicked()
 
                        e.setadresse(ui->lineEdit_adresse_employer ->text());
                        e.settelephone(ui->lineEdit_telephone_employer ->text().toInt());
-                       e.settype(ui->lineEdit_type_employer ->text());
-                       e.setspecialite(ui->lineEdit_specialite_employer ->text());
+                       e.settype(ui->lineEdit_type_employer ->currentText());
+                       e.setspecialite(ui->lineEdit_specialite_employer ->currentText());
 
 
 
@@ -1873,68 +2624,11 @@ void MainWindow::on_QrCode_clicked()
                 myfile.open ("qrcode.svg") ;
                 myfile << qr.toSvgString(1);
                 myfile.close();
-                //QSvgRenderer svgRenderer(QString("qrcode.svg"));
+                QSvgRenderer svgRenderer(QString("qrcode.svg"));
                 QPixmap pix( QSize(90, 90) );
                 QPainter pixPainter( &pix );
-                //svgRenderer.render( &pixPainter );
+                svgRenderer.render( &pixPainter );
                 ui->label_code->setPixmap(pix);
-
-}
-}
-
-
-
-void MainWindow::on_tableViewAficherEmployers_clicked(const QModelIndex &index)
-{
-    ui->lineEdit_id_employer_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),0)).toString());
-         ui->lineEdit_nom_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),1)).toString());
-          ui->lineEdit_prenom_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),2)).toString());
-           ui->lineEdit_type_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),3)).toString());
-            ui->lineEdit_adresse_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),4)).toString());
-              ui->lineEdit_telephone_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),5)).toString());
-               ui->lineEdit_specialite_employer->setText(ui->tableViewAficherEmployers->model()->data(ui->tableViewAficherEmployers->model()->index(index.row(),6)).toString());
-}
-
-
-
-void MainWindow::on_pushButton_go_to_service_clicked()
-{
-    ui->stackedWidget_integration->setCurrentIndex(4);
-}
-
-
-void MainWindow::on_pushButton_go_to_employer_clicked()
-{
-    ui->stackedWidget_integration->setCurrentIndex(5);
-}
-
-
-void MainWindow::on_pushButton_gestion_facture_clicked()
-{
-    ui->stackedWidget_facture->setCurrentIndex(2);
-}
-
-
-void MainWindow::on_pushButton_ajouter_facture_clicked()
-{
-    ui->stackedWidget_facture->setCurrentIndex(1);
-}
-
-
-void MainWindow::on_pushButtonRetourAjouter_facture_clicked()
-{
-    ui->stackedWidget_facture->setCurrentIndex(0);
-}
-
-
-void MainWindow::on_pushButtonRetourAfficher_facture_clicked()
-{
-    ui->stackedWidget_facture->setCurrentIndex(0);
-}
-
-
-void MainWindow::on_pushButton_quiter_clicked()
-{
-    ui->stackedWidget_integration->setCurrentIndex(7);
+        }
 }
 
