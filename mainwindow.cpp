@@ -129,7 +129,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::update_label()
 {
     data=A.read_from_arduino();
@@ -144,6 +143,11 @@ void MainWindow::update_label()
     {
         QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("acces non autorise"),QObject::tr("click cancel to exit"));
     }
+    /*else if (data=="5")
+    {
+        QMessageBox::critical(nullptr,QObject::tr("not ok"),QObject::tr("etranger"),QObject::tr("click cancel to exit"));
+
+    }*/
 }
 
 
