@@ -316,15 +316,67 @@ void MainWindow::on_pushButton_location_clicked()
 ////arduino
 void MainWindow::update_label()
 {
-    data=A.read_from_arduino();
+   data=A.read_from_arduino();
 
-    if(data=="1")
+    if(data=="1") {
 
-        ui->label_3->setText("ON"); // si les données reçues de arduino via la liaison série sont égales à 1
-    // alors afficher ON
+        //ui->label_3->setText("ON"); // si les données reçues de arduino via la liaison série sont égales à 1
+    // alors afficher OaN
 
+       N.Notification_system();
+
+        }
     else if (data=="0")
 
-        ui->label_3->setText("OFF");   // si les données reçues de arduino via la liaison série sont égales à 0
+       // ui->label_3->setText("OFF");   // si les données reçues de arduino via la liaison série sont égales à 0
      //alors afficher ON
+
+     N.Notification_sys();
+
+
+    /*if (ui->comboBox_a->currentText()== "ON")
+    {
+        A.write_to_arduino("1");
+         N.Notification_system();
+
+    } else
+        if (ui->comboBox_a->currentText()== "OFF")
+        {
+        A.write_to_arduino("0");
+        N.Notification_sys();
+
+        }*/
+
 }
+
+
+
+void MainWindow::on_pushButton_alarme_clicked()   // implémentation du slot bouton on
+{
+     A.write_to_arduino("1"); //envoyer 1 à arduino
+}
+
+
+void MainWindow::on_pushButton_alarme2_clicked()   // implémentation du slot bouton on
+{
+     A.write_to_arduino("0"); //envoyer 1 à arduino
+}
+
+
+
+
+void MainWindow::on_comboBox_a_activated(const QString &arg1)
+{
+    if (ui->comboBox_a->currentText()== "ON")
+    {
+        A.write_to_arduino("1");
+
+    } else
+        if (ui->comboBox_a->currentText()== "OFF")
+        {
+        A.write_to_arduino("0");
+        }
+
+
+}
+

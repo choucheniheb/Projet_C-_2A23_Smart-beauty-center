@@ -246,7 +246,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QPushButton" name="pushButton_11">
@@ -650,18 +650,51 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="label_6">
+     <widget class="QPushButton" name="pushButton_alarme">
       <property name="geometry">
        <rect>
-        <x>155</x>
-        <y>190</y>
-        <width>181</width>
-        <height>81</height>
+        <x>70</x>
+        <y>120</y>
+        <width>131</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>detectee</string>
+       <string>Activer l'alarme </string>
       </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_alarme2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>120</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>desactiver alarme</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_a">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>230</y>
+        <width>91</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>ON</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+      </item>
      </widget>
     </widget>
    </widget>
@@ -690,7 +723,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="recources.qrc">
+    <iconset>
      <normaloff>:/images/video/folder.jpg</normaloff>:/images/video/folder.jpg</iconset>
    </property>
    <property name="text">
@@ -709,8 +742,6 @@
    <header location="global">QtQuickWidgets/QQuickWidget</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="recources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

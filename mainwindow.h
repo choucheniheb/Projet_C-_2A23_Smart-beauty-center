@@ -13,7 +13,7 @@
 #include <QQuickItem>
 #include <QVariant>
 #include "arduino.h"
-
+#include "notification.h"
 namespace Ui {
 class MainWindow;
 }
@@ -75,9 +75,20 @@ private slots :
 
   void on_lineEdit_textChanged(const QString &arg1);
 
+  void on_pushButton_alarme_clicked();
+
+  void on_pushButton_alarme2_clicked();
 
   void update_label();   // slot permettant la mise à jour du label état de la lampe 1,
   // ce slot est lancé à chaque réception d'un message de Arduino
+
+
+  void on_comboBox_a_activated(const QString &arg1);
+
+
+  
+
+
 
 private:
     Ui::MainWindow *ui;
@@ -92,6 +103,7 @@ private:
     QByteArray data; // variable contenant les données reçues
 
     Arduino A; // objet temporaire
+    Notification N;
 
 signals:
 void setCenter(QVariant, QVariant);

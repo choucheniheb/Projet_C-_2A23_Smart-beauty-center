@@ -67,7 +67,7 @@ int Arduino::close_arduino()
  }
 
 
-/*int Arduino::write_to_arduino( QByteArray d)
+int Arduino::write_to_arduino( QByteArray d)
 
 {
 
@@ -79,4 +79,4 @@ int Arduino::close_arduino()
 
 
 }
-*/
+

@@ -34,12 +34,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
        connection.cpp \
+    notification.cpp \
     service.cpp
 
 HEADERS += \
     arduino.h \
         mainwindow.h \
     connection.h \
+    notification.h \
     service.h
 
 FORMS += \
@@ -50,6 +52,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    qml.qrc \
-    recources.qrc
+RESOURCES +=
