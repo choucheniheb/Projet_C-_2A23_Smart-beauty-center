@@ -180,7 +180,7 @@ private slots:
    void on_pushButton_planning_clicked();
    void on_comboBox_id_p_activated();
    void on_lineEdit_idEmployerachercher_cursorPositionChanged();
-   void on_comboBoxTri_activated();
+   void on_comboBoxTri_employer_activated();
    void on_pushButton_PDF_employer_clicked();
    void on_pushButton_Contacter_employer_clicked();
    void browse_employer();
@@ -295,11 +295,19 @@ private slots:
    void on_pushButton_quitter_service_clicked();
 
    void on_tableViewAficherEmployers_activated(const QModelIndex &index);
-   void on_pushButton_alarme_clicked();
-
-     void on_pushButton_alarme2_clicked();
 
      void on_comboBox_a_activated(const QString &arg1);
+
+     void on_pushButton_go_to_caisse_2_clicked();
+
+     void on_pushButton_go_to_client_2_clicked();
+
+     void on_pushButton_go_to_service_2_clicked();
+
+     void on_pushButton_go_to_produit_2_clicked();
+
+     void on_pushButton_4_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -329,6 +337,7 @@ private:
     Arduino A; // objet temporaire
     QByteArray data1; // variable contenant les données reçues
     QString ch="";
+    QString user="";
 };
 
 #endif // MAINWINDOW_H

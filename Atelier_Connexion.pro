@@ -84,6 +84,6 @@ DISTFILES += \
     historique
 
 RESOURCES += \
+    Traduction.qrc \
     img.qrc \
-    sound.qrc \
-    traduction.qrc
+    sound.qrc

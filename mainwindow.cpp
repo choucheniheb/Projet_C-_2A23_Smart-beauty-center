@@ -111,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
      //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_wajdi_nourhene())); // permet de lancer
      //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_iheb_arij())); // permet de lancer
-     //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_aziz_samar())); // permet de lancer
+     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_aziz_samar())); // permet de lancer
      //le slot update_label suite à la reception du signal readyRead (reception des données).
     //***************************************************
     mSocket=new QTcpSocket(this);
@@ -237,6 +237,7 @@ void MainWindow::update_label_wajdi_nourhene()
 {
     data=A.read_from_arduino();
     ch+=data;
+    ui->code_edit_produit->setText(ch);
     A.write_to_arduino("1");
     QSqlQuery query;
     query.prepare("select prix_uni from produit where code_a_barre= :code_a_barre");
@@ -273,27 +274,17 @@ void MainWindow::update_label_iheb_arij()
 void MainWindow::update_label_aziz_samar()
 {
     data=A.read_from_arduino();
-    Notification_SAMAR n;
+    Notification_SAMAR m;
         if(data=="7") {
 
 
-           n.Notification_system();
+           m.Notification_system();
 
             }
         else if (data=="8")
-            n.Notification_sys();
+            m.Notification_sys();
 }
 
-void MainWindow::on_pushButton_alarme_clicked()   // implémentation du slot bouton on
-{
-     A.write_to_arduino("7"); //envoyer 1 à arduino
-}
-
-
-void MainWindow::on_pushButton_alarme2_clicked()   // implémentation du slot bouton on
-{
-     A.write_to_arduino("8"); //envoyer 1 à arduino
-}
 
 
 
@@ -457,7 +448,7 @@ void MainWindow::on_pushButtonafficher_fournisseur_clicked()
     QString date=query.value(0).toString();
     qDebug()<<date;
     QString a=QDate::currentDate().toString();
-    if(date==a)
+    if(res==a)
     {
         notification n;
         n.notification_livrer();
@@ -1300,7 +1291,7 @@ void MainWindow::on_pushButtonModifier2_client_3_clicked()
     QModelIndex index=on_tableViewAficherClient_client_3_activated();
     int Id_c=ui->tableViewAficherClient_client_3->model()->data(ui->tableViewAficherClient_client_3->model()->index(index.row(),0)).toInt();
     bool test2=C.modifier(Id_c);
-    ui->stackedWidget_client->setCurrentIndex(3);
+    ui->stackedWidget_client->setCurrentIndex(2);
     if(test2)
     {
         //Refresh affichage
@@ -1377,9 +1368,9 @@ void MainWindow::on_reserver_client_3_clicked()
     music->setVolume(5);
     music->play();
     //recuperation
-   QString id_c=ui->le_cl_3->text();
-   QString code_s=ui->le_s_3->text();
-   QString em_c=ui->le_em_3->text();
+   QString id_c=ui->le_cl_3->currentText();
+   QString code_s=ui->le_s_3->currentText();
+   QString em_c=ui->le_em_3->currentText();
    QDateTime date_r=ui->le_dtime_3->dateTime();
     Reservation R ( id_c,code_s,em_c,date_r);//instancer
     bool test=R.ajouter();
@@ -1751,7 +1742,7 @@ void MainWindow::on_pushButton_location_clicked()
     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
     music->setVolume(5);
     music->play();
-       QString p=ui->comboBox_location->currentText();
+       QString p="esprit";
        QDesktopServices::openUrl(QUrl("http://maps.google.com.sg/maps?q="+p+"&oe=utf-8&rls=org.mozilla:en-US:official&client=firefox-a&um=1&ie=UTF-8&hl=en&sa=N&tab=wl"));
 
 }
@@ -1946,14 +1937,18 @@ void MainWindow::on_pushButton_Login_clicked()
 
     QSound::play("C:/Users/Ihebc/OneDrive/Desktop/integration/son/y2mate.com-Scars-To-Your-Beautiful-Alessia-Cara-Violin-Cover.wav");
     music->play();
-    QString username = ui->lineEdit_username->text();
+            user = ui->lineEdit_username->text();
            QString password = ui->lineEdit_password->text();
            ui->lineEdit_username->clear();
            ui->lineEdit_password->clear();
-           if ((username == "admin" && password == "admin") || (username=="employer" && password == "employer")) {
+           if (user == "admin" && password == "admin") {
                QMessageBox::information(this, "Login", "Username and password are correct");
             ui->stackedWidget_integration->setCurrentIndex(7);
 
+           }else if(user=="employer" && password == "employer")
+           {
+               QMessageBox::information(this, "Login", "Username and password are correct");
+               ui->stackedWidget_integration->setCurrentIndex(8);
            }
            else {
                QMessageBox::warning(this, "Login", "Username and password are not correct");
@@ -2010,7 +2005,7 @@ void MainWindow::on_lineEdit_idEmployerachercher_cursorPositionChanged()
 
 
 
-void MainWindow::on_comboBoxTri_activated()
+void MainWindow::on_comboBoxTri_employer_activated()
 {
     if(ui->comboBoxTri_employer->currentText()=="Tri par id")
         {
@@ -2318,7 +2313,10 @@ void MainWindow::on_pushButton_quitter_produit_clicked()
     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
     music->setVolume(5);
     music->play();
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2408,7 +2406,10 @@ void MainWindow::on_pushButton_quitter_fournisseur_clicked()
     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
     music->setVolume(5);
     music->play();
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2458,7 +2459,10 @@ void MainWindow::on_pushButton_quitter_facture_clicked()
     music->setMedia(QUrl("qrc:/sound/son/mixkit-fast-double-click-on-mouse-275.wav"));
     music->setVolume(5);
     music->play();
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2520,7 +2524,11 @@ void MainWindow::on_pushButton_chat_employer_clicked()
 
 void MainWindow::on_pushButton_quiter_employer_clicked()
 {
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+    {
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    }else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2562,7 +2570,10 @@ void MainWindow::on_pushButton_gestion_client_clicked()
 
 void MainWindow::on_pushButton_quitter_client_clicked()
 {
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2592,7 +2603,10 @@ void MainWindow::on_pushButton_gestion_service_clicked()
 
 void MainWindow::on_pushButton_quitter_service_clicked()
 {
-    ui->stackedWidget_integration->setCurrentIndex(7);
+    if(user=="admin")
+        ui->stackedWidget_integration->setCurrentIndex(7);
+    else
+        ui->stackedWidget_integration->setCurrentIndex(8);
 }
 
 
@@ -2625,10 +2639,41 @@ void MainWindow::on_tableViewAficherEmployers_activated(const QModelIndex &index
                 myfile << qr.toSvgString(1);
                 myfile.close();
                 QSvgRenderer svgRenderer(QString("qrcode.svg"));
-                QPixmap pix( QSize(90, 90) );
+                QPixmap pix( QSize(140, 140) );
                 QPainter pixPainter( &pix );
                 svgRenderer.render( &pixPainter );
                 ui->label_code->setPixmap(pix);
         }
 }
+
+void MainWindow::on_pushButton_go_to_caisse_2_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_go_to_client_2_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(3);
+}
+
+
+void MainWindow::on_pushButton_go_to_service_2_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_pushButton_go_to_produit_2_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->stackedWidget_integration->setCurrentIndex(6);
+}
+
+
 
